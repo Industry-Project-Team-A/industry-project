@@ -1,0 +1,82 @@
+test.json {
+    "sku": "12OZWT",
+    "name": "12oz Wine Tumbler",
+    "price": 25.00,
+    "isShippingRequired": false,
+    "categoryIds": [],
+    "weight": 0,
+    "enabled": true,
+    "description": "<p>These practical 12 oz wine tumblers are amazing for summer outdoor parties, or for a good read on the couch on a cozy winter day. They feature a double-wall, vacuum insulation that keeps your wine perfectly cool for hours. They are made of 18/8 gauge stainless steel (also known as Type 304 Food Grade) and are completely BPA and lead-free.</p><div><p><em>*Product will ship between 5-8 business days. </em></p><div><em><br></em></div></div>",
+    "created": "2020-09-02",
+    "fixedShippingRateOnly": false,
+    "fixedShippingRate": 5,
+    "options": [{
+            "type": "SELECT",
+            "name": "Color",
+            "choices": [{
+                    "text": "Stainless",
+                    "priceModifier": 0,
+                    "priceModifierType": "ABSOLUTE"
+                },
+                {
+                    "text": "Black",
+                    "priceModifier": 0,
+                    "priceModifierType": "ABSOLUTE"
+                },
+                {
+                    "text": "White",
+                    "priceModifier": 0,
+                    "priceModifierType": "ABSOLUTE"
+                },
+
+                {
+                    "text": "Mint",
+                    "priceModifier": 0,
+                    "priceModifierType": "ABSOLUTE"
+                }
+            ],
+            "defaultChoice": 0,
+            "required": false
+        },
+        {
+            "type": "Radio",
+            "name": "Logo",
+            "choices": [{
+                    "text": "https://tcimages.imfast.io/PRE/PRE.Logo.Logo.A1.png",
+                    "priceModifier": 0,
+                    "priceModifierType": "ABSOLUTE"
+                },
+                {
+                    "text": "https://tcimages.imfast.io/PRE/PRE.Logo.Logo.B1.png",
+                    "priceModifier": 0,
+                    "priceModifierType": "ABSOLUTE"
+                },
+                {
+                    "text": "https://tcimages.imfast.io/PRE/PRE.Logo.Logo.C1.png",
+                    "priceModifier": 0,
+                    "priceModifierType": "ABSOLUTE"
+                },
+
+                {
+                    "text": "https://tcimages.imfast.io/PRE/PRE.Logo.Logo.D1.png",
+                    "priceModifier": 0,
+                    "priceModifierType": "ABSOLUTE"
+                }
+            ],
+            "defaultChoice": 0,
+            "required": false
+        },
+    ],
+    "shipping": {
+        "type": "FLAT_RATE",
+        "methodMarkup": 0,
+        "flatRate": 5,
+        "enabledMethods": []
+    },
+    "attributes": [{
+        "name": "Brand",
+        "value": "Viking",
+        "type": "BRAND",
+        "show": "DESCR"
+    }]
+}
