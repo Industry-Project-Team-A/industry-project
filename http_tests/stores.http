@@ -1,0 +1,15 @@
+### Test GET
+GET http://localhost:5000/api/stores
+
+
+### Test POST
+POST http://localhost:5000/api/stores
+Content-Type: application/json
+
+{
+}
+
+### Test delete
+DELETE http://localhost:5000/api/stores/5f4ff752de36f999f062471f
+
+

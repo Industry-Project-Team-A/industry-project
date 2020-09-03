@@ -1,0 +1,16 @@
+### Test GET
+GET http://localhost:5000/api/variations
+
+
+### Test POST
+POST http://localhost:5000/api/variations
+Content-Type: application/json
+
+{
+
+}
+
+### Test delete
+DELETE http://localhost:5000/api/variations/5f4ff752de36f999f062471f
+
+

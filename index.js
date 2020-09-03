@@ -17,6 +17,10 @@ app.use(morgan('combined'))
 
 //API calls
 app.use('/api/products', require('./routes/productsRoutes'))
+app.use('/api/categories', require('./routes/categoriesRoutes'))
+app.use('/api/customproducts', require('./routes/customProductsRoutes'))
+app.use('/api/stores', require('./routes/storesRoutes'))
+app.use('/api/variations', require('./routes/variationsRoutes'))
 
 // Serve the static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
