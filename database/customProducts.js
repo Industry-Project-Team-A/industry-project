@@ -9,13 +9,13 @@ const {
 // a "collection" in mongo is a lot like a list which is a lot like an Array
 const collectionName = 'customProducts';
 
-async function createProduct(user) {
-    const database = await getDatabase();
-    // for `insertOne` info, see https://docs.mongodb.com/manual/reference/method/js-collection/
-    const {
-        insertedId
-    } = await database.collection(collectionName).insertOne(user);
-    return insertedId;
+async function createCustomProduct(user) {
+  const database = await getDatabase();
+  // for `insertOne` info, see https://docs.mongodb.com/manual/reference/method/js-collection/
+  const { insertedId } = await database
+    .collection(collectionName)
+    .insertOne(user);
+  return insertedId;
 }
 
 async function getCustomProducts() {
@@ -24,16 +24,16 @@ async function getCustomProducts() {
     return await database.collection(collectionName).find({}).toArray();
 }
 
-async function deleteProduct(id) {
-    const database = await getDatabase();
-    // https://docs.mongodb.com/manual/reference/method/ObjectId/
-    // for `deleteOne` info see  https://docs.mongodb.com/manual/reference/method/js-collection/
-    await database.collection(collectionName).deleteOne({
-        _id: new ObjectID(id),
-    });
+async function deleteCustomProduct(id) {
+  const database = await getDatabase();
+  // https://docs.mongodb.com/manual/reference/method/ObjectId/
+  // for `deleteOne` info see  https://docs.mongodb.com/manual/reference/method/js-collection/
+  await database.collection(collectionName).deleteOne({
+    _id: new ObjectID(id),
+  });
 }
 
-async function updateProduct(id, user) {
+async function updateCustomProduct(id, user) {
     const database = await getDatabase();
 
     // `delete` is new to you. https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/delete
