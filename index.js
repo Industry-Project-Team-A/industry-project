@@ -17,14 +17,18 @@ app.use(morgan('combined'))
 
 //API calls
 app.use('/api/products', require('./routes/productsRoutes'))
+app.use('/api/products', require('./routes/categoriesRoutes'))
+app.use('/api/products', require('./routes/customProductsRoutes'))
+app.use('/api/products', require('./routes/storesRoutes'))
+app.use('/api/products', require('./routes/variationsRoutes'))
 
 // Serve the static files from the React app
-app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, 'client/public')));
 
 
 // Serve our react homepage if no route is detected
 app.get('*', (req,res) =>{
-	res.sendFile(path.join(__dirname+'/client/build/index.html'));
+	res.sendFile(path.join(__dirname+'/client/public/index.html'));
 });
 
 startDatabase().then(async () => {
