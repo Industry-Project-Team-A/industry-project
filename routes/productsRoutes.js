@@ -3,11 +3,16 @@ const {
     deleteProduct,
     updateProduct,
     createProduct,
-    getProducts
+    getProducts,
+    getProduct
 } = require('../database/products');
 
 router.get('/', async (req, res) => {
     res.send(await getProducts());
+});
+
+router.get('/products/:sku', async (req, res) => {
+    res.send(await getProduct());
 });
 
 router.post('/', async (apiRequest, apiResponse) => {
