@@ -24,7 +24,7 @@ class Products extends React.Component {
   //wait for the fetch to run
   //when result comes back , going into response
   callApi = async () => {
-    const response = await fetch("http://localhost:3000/products");
+    const response = await fetch("/api/products");
     const body = await response.json();
     if (response.status !== 200) throw Error(body.message);
 
