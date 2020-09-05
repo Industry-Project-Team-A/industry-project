@@ -24,10 +24,11 @@ async function getProducts() {
     return await database.collection(collectionName).find({}).toArray();
 }
 
-async function getProducts() {
-    const database = await getDatabase();
-    // `find` https://docs.mongodb.com/manual/reference/method/db.collection.find/#db.collection.find
-    return await database.collection(collectionName).find({}).toArray();
+async function getProduct(sku) {
+  const database = await getDatabase();
+  return await database.collection(collectionName).findOne({
+    sku: sku,
+  });
 }
 
 async function deleteProduct(id) {
