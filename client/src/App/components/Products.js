@@ -1,5 +1,7 @@
 import React from "react";
 import { Table, Container } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
+
 //import{Component}
 //class ...extends Component
 //follow the template put super() in it
@@ -24,7 +26,7 @@ class Products extends React.Component {
   //wait for the fetch to run
   //when result comes back , going into response
   callApi = async () => {
-    const response = await fetch("/api/products");
+    const response = await fetch("http://localhost:5000/api/products");
     const body = await response.json();
     if (response.status !== 200) throw Error(body.message);
 
@@ -48,13 +50,15 @@ class Products extends React.Component {
           <tbody>
             {this.state.response.map((product) => (
               <tr>
-                <td key={product.key}> {product.sku} </td>
-                <LinkContainer 
-                key = {product.key} > {product.name}
-                </LinkContainer> 
-                <td key={product.key}> {product.price} </td>
-                <td key={product.key}> {product.isShippingRequired} </td>
-                <td key={product.key}> {product.categoryIds} </td>
+                <td key={product._id}> {product.sku} </td>
+                <td key={product._id}>
+                  <LinkContainer to={`/products/${product.sku}`} >
+                    <a>{product.name}</a>
+                  </LinkContainer>
+                </td>
+                <td key={product._id}> {product.price} </td>
+                <td key={product._id}> {product.isShippingRequired} </td>
+                <td key={product._id}> {product.categoryIds} </td>
               </tr>
             ))}
           </tbody>
