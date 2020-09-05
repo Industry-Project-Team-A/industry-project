@@ -24,6 +24,13 @@ async function getProducts() {
     return await database.collection(collectionName).find({}).toArray();
 }
 
+async function getProduct(sku) {
+  const database = await getDatabase();
+  return await database.collection(collectionName).findOne({
+    sku: sku,
+  });
+}
+
 async function deleteProduct(id) {
     const database = await getDatabase();
     // https://docs.mongodb.com/manual/reference/method/ObjectId/
@@ -53,6 +60,7 @@ async function updateProduct(id, user) {
 module.exports = {
     createProduct,
     getProducts,
+    getProduct,
     deleteProduct,
     updateProduct,
 };

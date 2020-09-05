@@ -9,6 +9,7 @@ import CustomProducts from "./components/CustomProducts";
 import Stores from "./components/Stores";
 import Categories from "./components/Categories";
 import Variations from "./components/Variations";
+import ProductSingle from "./components/ProductSingle";
 
 const App = () => {
   return (
@@ -41,6 +42,7 @@ const App = () => {
           <Route exact path="/">
             <Home />
           </Route>
+          <Route path="/products/:sku" component={ProductSingle} />
           <Route path="/products">
             <Products />
           </Route>
