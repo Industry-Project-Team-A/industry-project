@@ -1,5 +1,6 @@
-import { createBootstrapComponent } from "react-bootstrap/esm/ThemeProvider";
-import { LinkContainer } from "react-router-createBootstrapComponent";
+import React from 'react'
+import { LinkContainer } from "react-router-bootstrap";
+
 class ProductSingle extends React.Component{
     constructor(){
         super();
@@ -17,11 +18,19 @@ class ProductSingle extends React.Component{
     }
 
     callApi = async () => {
-        const response = 
+    const response = await fetch(`/api/products/${this.props.match.params.sku}`);
+    const body = await response.json();
+    if (response.status !== 200) throw Error(body.message);
+
+    return body;
     }
 
     render(){
-    
+        return(
+            <div>
+                {this.state.response.name}
+            </div>
+        )
     }
 }
 
