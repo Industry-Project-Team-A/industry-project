@@ -49,7 +49,9 @@ class Products extends React.Component {
             {this.state.response.map((product) => (
               <tr>
                 <td key={product.key}> {product.sku} </td>
-                <td key={product.key}> {product.name} </td>
+                <LinkContainer 
+                key = {product.key} > {product.name}
+                </LinkContainer> 
                 <td key={product.key}> {product.price} </td>
                 <td key={product.key}> {product.isShippingRequired} </td>
                 <td key={product.key}> {product.categoryIds} </td>
