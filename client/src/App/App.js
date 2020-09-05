@@ -56,6 +56,9 @@ const App = () => {
           <Route path="/categories">
             <Categories />
           </Route>
+          <Route path="/products/:sku" component = {Child}>
+            <ProductSingle sku={sku} />
+          </Route>
         </Switch>
       </div>
     </Router>
