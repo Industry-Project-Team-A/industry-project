@@ -1,41 +1,46 @@
-const router = require('express').Router();
+const router = require("express").Router();
 const {
-    deleteVariation,
-    updateVariation,
-    createVariation,
-    getVariations
-} = require('../database/variations');
+  deleteVariation,
+  updateVariation,
+  createVariation,
+  getVariations,
+  getVariation,
+} = require("../database/variations");
 
-router.get('/', async (req, res) => {
-    res.send(await getVariations());
+router.get("/", async (req, res) => {
+  res.send(await getVariations());
 });
 
-router.post('/', async (apiRequest, apiResponse) => {
-    const newVariation = apiRequest.body;
-    await createVariation(newVariation);
-    apiResponse.send({
-        message: 'New variation created.',
-        allVariations: await getVariations(),
-        thanks: true
-    });
+router.get("/:id", async (req, res) => {
+  res.send(await getVariation(req.params.id));
 });
 
-router.delete('/:id', async (apiRequest, apiResponse) => {
-    await deleteVariation(apiRequest.params.id);
-    apiResponse.send({
-        message: 'Variation deleted.'
-    });
+router.post("/", async (apiRequest, apiResponse) => {
+  const newVariation = apiRequest.body;
+  await createVariation(newVariation);
+  apiResponse.send({
+    message: "New variation created.",
+    allVariations: await getVariations(),
+    thanks: true,
+  });
 });
 
-router.put('/:id', async (apiRequest, apiResponse) => {
-    const updatedVariation = apiRequest.body;
-    console.log({
-        updatedVariation
-    })
-    await updateVariation(apiRequest.params.id, updatedVariation);
-    apiResponse.send({
-        message: 'Variation updated.'
-    });
+router.delete("/:id", async (apiRequest, apiResponse) => {
+  await deleteVariation(apiRequest.params.id);
+  apiResponse.send({
+    message: "Variation deleted.",
+  });
+});
+
+router.put("/:id", async (apiRequest, apiResponse) => {
+  const updatedVariation = apiRequest.body;
+  console.log({
+    updatedVariation,
+  });
+  await updateVariation(apiRequest.params.id, updatedVariation);
+  apiResponse.send({
+    message: "Variation updated.",
+  });
 });
 
 module.exports = router;

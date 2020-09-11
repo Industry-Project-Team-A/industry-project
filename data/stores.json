@@ -1,0 +1,52 @@
+[
+  {
+    "name": "Acoaxet Club",
+    "tag": "ACX",
+    "id": 1,
+    "apiId": "8fdljadf9flkadf98@",
+    "token": "Bearer 89fsfjadfadflkjadfjljslfjdlfjlasdjflajdflakdjfadsfijadfoiajsdflkj23ljlk23jfa@",
+    "baseUrl": "https://www.acoaxet.com/",
+    "shippingIncluded": "No",
+    "logos": ["A1", "B1", "C1", "D1"]
+  },
+  {
+    "name": "Sedgefield Country Club",
+    "tag": "MCNL.SED",
+    "id": 2,
+    "apiId": "f98audf9uafkjfafadsf@",
+    "token": "Bearer 3ajdfijdf98aduf89adfjkslfdjdlkfjalkdfjakljdflj2kl2l3l3kj434j89sjfaijfklajdf@",
+    "baseUrl": "https://mcconnell.teecommerceshop.com/sedgefield",
+    "shippingIncluded": "No",
+    "logos": ["A1", "B1", "C1", "D1"]
+  },
+  {
+    "name": "Country Club of Asheville",
+    "tag": "MCNL.ASH",
+    "id": 3,
+    "apiId": "adfa89sdf89ad89f89ad@",
+    "token": "Bearer fasdf8ad9ufasduf9udfs8adf8jdflkjadflkajdf*(dfijalsdikfja98dfua98dfujaiodfjalk",
+    "baseUrl": "https://mcconnell.teecommerceshop.com/asheville",
+    "shippingIncluded": "No",
+    "logos": ["A1", "B1", "C1", "D1"]
+  },
+  {
+    "name": "Providence Country Club",
+    "tag": "MCNL.PRO",
+    "id": 4,
+    "apiId": "dfasdfadfaf23323afddfa@",
+    "token": "Bearer dfadflkajdfladjf98adfjakl;jfl;kj2lk;3klklkldklfadf98dufa8dfja8fd8ad8f8adf8dfk@",
+    "baseUrl": "https://mcconnell.teecommerceshop.com/providence",
+    "shippingIncluded": "No",
+    "logos": ["A1", "B1", "C1", "D1"]
+  },
+  {
+    "name": "The Reserve Golf Club",
+    "tag": "MCNL.RES",
+    "id": 5,
+    "apiId": "dfasdfsdfads9f90df90a09df09adf@",
+    "token": "Bearer df88df8afdjkadklfakjldf89",
+    "baseUrl": "https://mcconnell.teecommerceshop.com/reserve",
+    "shippingIncluded": "No",
+    "logos": ["A1", "B1", "C1", "D1"]
+  }
+]

@@ -1,0 +1,156 @@
+[
+  {
+    "id": 1,
+    "name": "Featured Brands",
+    "parentId": 0,
+    "orderBy": 1,
+    "enabled": "yes"
+  },
+  {
+    "id": 2,
+    "name": "Straight Down",
+    "parentId": 1,
+    "orderBy": 1,
+    "enabled": "yes"
+  },
+  {
+    "id": 3,
+    "name": "Belyn Key",
+    "parentId": 1,
+    "orderBy": 2,
+    "enabled": "yes"
+  },
+  {
+    "id": 4,
+    "name": "Men",
+    "parentId": 0,
+    "orderBy": 2,
+    "enabled": "yes"
+  },
+  {
+    "id": 5,
+    "name": "Men's Golfwear",
+    "parentId": 4,
+    "orderBy": 1,
+    "enabled": "yes"
+  },
+  {
+    "id": 6,
+    "name": "Men's Lifestyle Wear",
+    "parentId": 4,
+    "orderBy": 2,
+    "enabled": "yes"
+  },
+  {
+    "id": 7,
+    "name": "Women",
+    "parentId": 0,
+    "orderBy": 3,
+    "enabled": "yes"
+  },
+  {
+    "id": 8,
+    "name": "Women's Golfwear",
+    "parentId": 7,
+    "orderBy": 1,
+    "enabled": "yes"
+  },
+  {
+    "id": 9,
+    "name": "Women's Lifestyle Wear",
+    "parentId": 7,
+    "orderBy": 2,
+    "enabled": "yes"
+  },
+  {
+    "id": 10,
+    "name": "Boys",
+    "parentId": 0,
+    "orderBy": 4,
+    "enabled": "yes"
+  },
+  {
+    "id": 11,
+    "name": "Girls",
+    "parentId": 0,
+    "orderBy": 5,
+    "enabled": "yes"
+  },
+  {
+    "id": 12,
+    "name": "Headwear",
+    "parentId": 0,
+    "orderBy": 6,
+    "enabled": "yes"
+  },
+  {
+    "id": 13,
+    "name": "Golf Accessories",
+    "parentId": 0,
+    "orderBy": 7,
+    "enabled": "yes"
+  },
+  {
+    "id": 14,
+    "name": "Homegoods",
+    "parentId": 0,
+    "orderBy": 8,
+    "enabled": "yes"
+  },
+  {
+    "id": 15,
+    "name": "Camp Store",
+    "parentId": 0,
+    "orderBy": 9,
+    "enabled": "yes"
+  },
+  {
+    "id": 16,
+    "name": "Drinkware",
+    "parentId": 0,
+    "orderBy": 10,
+    "enabled": "yes"
+  },
+  {
+    "id": 17,
+    "name": "Accessories",
+    "parentId": 0,
+    "orderBy": 11,
+    "enabled": "yes"
+  },
+  {
+    "id": 18,
+    "name": "Youth Accessories",
+    "parentId": 17,
+    "orderBy": 1,
+    "enabled": "yes"
+  },
+  {
+    "id": 19,
+    "name": "Youth",
+    "parentId": 0,
+    "orderBy": 12,
+    "enabled": "yes"
+  },
+  {
+    "id": 20,
+    "name": "Youth Golfwear",
+    "parentId": 19,
+    "orderBy": 1,
+    "enabled": "yes"
+  },
+  {
+    "id": 21,
+    "name": "Youth Lifestyle Wear",
+    "parentId": 19,
+    "orderBy": 2,
+    "enabled": "yes"
+  },
+  {
+    "id": 22,
+    "name": "Unisex",
+    "parentId": 0,
+    "orderBy": 13,
+    "enabled": "yes"
+  }
+]

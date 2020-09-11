@@ -1,5 +1,7 @@
 ### Test GET
-GET http://localhost:5000/api/categories
+GET http://localhost:5000/api/categories/5
+
+
 
 
 ### Test POST
