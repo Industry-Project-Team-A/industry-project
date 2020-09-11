@@ -1,13 +1,12 @@
 import React from "react";
 import { Table, Container } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-
 //import{Component}
 //class ...extends Component
 //follow the template put super() in it
 //read react component in open source
 
-class Products extends React.Component {
+class Categories extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -26,7 +25,7 @@ class Products extends React.Component {
   //wait for the fetch to run
   //when result comes back , going into response
   callApi = async () => {
-    const response = await fetch("http://localhost:5000/api/products");
+    const response = await fetch("/api/categories");
     const body = await response.json();
     if (response.status !== 200) throw Error(body.message);
 
@@ -35,37 +34,35 @@ class Products extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1 className="text-center">Product</h1>
-        <Table bordered>
+      <Container>
+        <h1 className="text-center">Categories</h1>
+        <Table striped bordered hover>
           <thead>
             <tr>
-              <th>Sku</th>
+              <th>Id</th>
               <th>Name</th>
-              <th>Price</th>
-              <th>Is shipping required</th>
-              <th>categoryIds</th>
+              <th>Parent Category</th>
+              <th>Enabled</th>
             </tr>
           </thead>
           <tbody>
-            {this.state.response.map((product) => (
+            {this.state.response.map((category) => (
               <tr>
-                <td key={product._id}> {product.sku} </td>
-                <td key={product._id}>
-                  <LinkContainer to={`/products/${product.sku}`} >
-                    <a>{product.name}</a>
-                  </LinkContainer>
+                <td key={category.key}>
+                  <LinkContainer to={`/categories/${category.id}`}>
+                    <a>{category.id}</a>
+                  </LinkContainer>{" "}
                 </td>
-                <td key={product._id}> {product.price} </td>
-                <td key={product._id}> {product.isShippingRequired} </td>
-                <td key={product._id}> {product.categoryIds} </td>
+                <td key={category.key}> {category.name} </td>
+                <td key={category.key}> {category.parentId} </td>
+                <td key={category.key}> {category.enabled} </td>
               </tr>
             ))}
           </tbody>
         </Table>
-      </div>
+      </Container>
     );
   }
 }
 
-export default Products;
+export default Categories;
