@@ -1,41 +1,46 @@
-const router = require('express').Router();
+const router = require("express").Router();
 const {
-    deleteStore,
-    updateStore,
-    createStore,
-    getStores
-} = require('../database/stores');
+  deleteStore,
+  updateStore,
+  createStore,
+  getStores,
+  getStore,
+} = require("../database/stores");
 
-router.get('/', async (req, res) => {
-    res.send(await getStores());
+router.get("/", async (req, res) => {
+  res.send(await getStores());
 });
 
-router.post('/', async (apiRequest, apiResponse) => {
-    const newStore = apiRequest.body;
-    await createStore(newStore);
-    apiResponse.send({
-        message: 'New store created.',
-        allStores: await getStores(),
-        thanks: true
-    });
+router.get("/:tag", async (req, res) => {
+  res.send(await getStore(req.params.tag));
 });
 
-router.delete('/:id', async (apiRequest, apiResponse) => {
-    await deleteStore(apiRequest.params.id);
-    apiResponse.send({
-        message: 'Store deleted.'
-    });
+router.post("/", async (apiRequest, apiResponse) => {
+  const newStore = apiRequest.body;
+  await createStore(newStore);
+  apiResponse.send({
+    message: "New store created.",
+    allStores: await getStores(),
+    thanks: true,
+  });
 });
 
-router.put('/:id', async (apiRequest, apiResponse) => {
-    const updatedStore = apiRequest.body;
-    console.log({
-        updatedStore
-    })
-    await updateStore(apiRequest.params.id, updatedStore);
-    apiResponse.send({
-        message: 'Store updated.'
-    });
+router.delete("/:tag", async (apiRequest, apiResponse) => {
+  await deleteStore(apiRequest.params.tag);
+  apiResponse.send({
+    message: "Store deleted.",
+  });
+});
+
+router.put("/:tag", async (apiRequest, apiResponse) => {
+  const updatedStore = apiRequest.body;
+  console.log({
+    updatedStore,
+  });
+  await updateStore(apiRequest.params.tag, updatedStore);
+  apiResponse.send({
+    message: "Store updated.",
+  });
 });
 
 module.exports = router;
