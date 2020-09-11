@@ -1,15 +1,18 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import { Navbar, Nav } from "react-bootstrap";
+import { Navbar, Nav, Container } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
-import Products from "./components/Products";
-import CustomProducts from "./components/CustomProducts";
-import Stores from "./components/Stores";
-import Categories from "./components/Categories";
-import Variations from "./components/Variations";
-import ProductSingle from "./components/ProductSingle";
+import Products from "./components/Products.jsx";
+import CustomProducts from "./components/CustomProducts.jsx";
+import Stores from "./components/Stores.jsx";
+import Categories from "./components/Categories.jsx";
+import Variations from "./components/Variations.jsx";
+import ProductSingle from "./components/ProductSingle.jsx";
+import StoreSingle from "./components/StoreSingle.jsx";
+import CategorySingle from "./components/CategorySingle.jsx";
+import VariationSingle from "./components/VariationSingle.jsx";
 
 const App = () => {
   return (
@@ -37,32 +40,24 @@ const App = () => {
             </LinkContainer>
           </Nav>
         </Navbar>
-
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="/products/:sku" component={ProductSingle} />
-          <Route path="/products">
-            <Products />
-          </Route>
-          <Route path="/stores">
-            <Stores />
-          </Route>
-          <Route path="/variations">
-            <Variations />
-          </Route>
-          <Route path="/customProducts">
-            <CustomProducts />
-          </Route>
-          <Route path="/categories">
-            <Categories />
-          </Route>
-        </Switch>
+        <Container>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/products/:sku" component={ProductSingle} />
+            <Route path="/products" component={Products} />
+            <Route path="/stores/:tag" component={StoreSingle} />
+            <Route path="/stores" component={Stores} />
+            <Route path="/variations/:id" component={VariationSingle} />
+            <Route path="/variations" component={Variations} />
+            <Route path="/customProducts" component={CustomProducts} />
+            <Route path="/categories/:id" component={CategorySingle} />
+            <Route path="/categories" component={Categories} />
+          </Switch>
+        </Container>
       </div>
     </Router>
   );
-}
+};
 
 function Home() {
   return (
