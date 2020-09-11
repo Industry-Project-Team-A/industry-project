@@ -1,58 +1,65 @@
-const {
-    getDatabase
-} = require('./mongo-common');
+const { getDatabase } = require("./mongo-common");
 // https://docs.mongodb.com/manual/reference/method/ObjectId/
-const {
-    ObjectID
-} = require('mongodb');
+const { ObjectID } = require("mongodb");
 
 // a "collection" in mongo is a lot like a list which is a lot like an Array
-const collectionName = 'stores';
+const collectionName = "stores";
 
 async function createStore(user) {
-    const database = await getDatabase();
-    // for `insertOne` info, see https://docs.mongodb.com/manual/reference/method/js-collection/
-    const {
-        insertedId
-    } = await database.collection(collectionName).insertOne(user);
-    return insertedId;
+  const database = await getDatabase();
+  // for `insertOne` info, see https://docs.mongodb.com/manual/reference/method/js-collection/
+  const { insertedId } = await database
+    .collection(collectionName)
+    .insertOne(user);
+  return insertedId;
 }
 
 async function getStores() {
-    const database = await getDatabase();
-    // `find` https://docs.mongodb.com/manual/reference/method/db.collection.find/#db.collection.find
-    return await database.collection(collectionName).find({}).toArray();
+  const database = await getDatabase();
+  // `find` https://docs.mongodb.com/manual/reference/method/db.collection.find/#db.collection.find
+  return await database.collection(collectionName).find({}).toArray();
+}
+
+async function getStore(tag) {
+  const database = await getDatabase();
+  return await database.collection(collectionName).findOne({
+    tag: tag,
+  });
 }
 
 async function deleteStore(id) {
-    const database = await getDatabase();
-    // https://docs.mongodb.com/manual/reference/method/ObjectId/
-    // for `deleteOne` info see  https://docs.mongodb.com/manual/reference/method/js-collection/
-    await database.collection(collectionName).deleteOne({
-        _id: new ObjectID(id),
-    });
+  const database = await getDatabase();
+  // https://docs.mongodb.com/manual/reference/method/ObjectId/
+  // for `deleteOne` info see  https://docs.mongodb.com/manual/reference/method/js-collection/
+  await database.collection(collectionName).deleteOne({
+    _id: new ObjectID(id),
+  });
 }
 
 async function updateStore(id, user) {
-    const database = await getDatabase();
+  const database = await getDatabase();
 
-    // `delete` is new to you. https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/delete
-    delete user._id;
+  // `delete` is new to you. https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/delete
+  delete user._id;
 
-    // https://docs.mongodb.com/manual/reference/method/db.collection.update/
-    await database.collection(collectionName).update({
-        _id: new ObjectID(id),
-    }, {
-        $set: {
-            ...user
-        },
-    }, );
+  // https://docs.mongodb.com/manual/reference/method/db.collection.update/
+  await database.collection(collectionName).update(
+    {
+      _id: new ObjectID(id),
+    },
+    {
+      $set: {
+        ...user,
+      },
+    }
+  );
 }
 
 // export the functions that can be used by the main app code
 module.exports = {
-    createStore,
-    getStores,
-    deleteStore,
-    updateStore,
+  createStore,
+  getStores,
+  deleteStore,
+  updateStore,
+  getStore,
 };
