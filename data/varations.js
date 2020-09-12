@@ -10,13 +10,21 @@ let countArray = [];
 
 let i = 1;
 
+products.forEach(prod => {
+  prod.sku = prod.sku.toString()
+})
+
+skus.forEach(sku => {
+  sku["Product SKU"] = sku["Product SKU"].toString();
+})
+
 isArrayNull = (arr) => {
   return typeof arr == "undefined";
 };
 
 products.forEach(prod => {
     countArray.push({
-        sku: prod.sku,
+        sku: prod.sku.toString(),
         count: 0,
         logo: 0
     })

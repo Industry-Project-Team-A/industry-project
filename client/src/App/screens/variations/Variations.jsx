@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, Container } from "react-bootstrap";
+import { Table, Container, Spinner } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
 //import{Component}
@@ -12,13 +12,15 @@ class Variations extends React.Component {
     super();
     this.state = {
       response: [],
+      loading: true
     };
   }
 
   componentDidMount() {
     this.callApi()
       .then((response) => {
-        this.setState({ response });
+        this.setState({ response })
+        this.setState({ loading: false});
       })
       .catch((err) => console.log(err));
   }
@@ -34,6 +36,11 @@ class Variations extends React.Component {
   };
 
   render() {
+    if (this.state.loading) return (
+      <Spinner animation="border" role="status">
+        <span className="sr-only">Loading...</span>
+      </Spinner>
+    );
     return (
       <Container>
         <h1 className="text-center">Variations</h1>

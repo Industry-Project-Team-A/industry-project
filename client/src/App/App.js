@@ -4,15 +4,16 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
-import Products from "./components/Products.jsx";
-import CustomProducts from "./components/CustomProducts.jsx";
-import Stores from "./components/Stores.jsx";
-import Categories from "./components/Categories.jsx";
-import Variations from "./components/Variations.jsx";
-import ProductSingle from "./components/ProductSingle.jsx";
-import StoreSingle from "./components/StoreSingle.jsx";
-import CategorySingle from "./components/CategorySingle.jsx";
-import VariationSingle from "./components/VariationSingle.jsx";
+import Products from "./screens/products/Products.jsx";
+import CustomProducts from "./screens/customProducts/CustomProducts.jsx";
+import Stores from "./screens/stores/Stores.jsx";
+import Categories from "./screens/categories/Categories.jsx";
+import Variations from "./screens/variations/Variations.jsx";
+
+import ProductSingle from "./screens/products/ProductSingle.jsx";
+import StoreSingle from "./screens/stores/StoreSingle.jsx";
+import CategorySingle from "./screens/categories/CategorySingle.jsx";
+import VariationSingle from "./screens/variations/VariationSingle.jsx";
 
 const App = () => {
   return (
@@ -40,7 +41,6 @@ const App = () => {
             </LinkContainer>
           </Nav>
         </Navbar>
-        <Container>
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/products/:sku" component={ProductSingle} />
@@ -53,7 +53,6 @@ const App = () => {
             <Route path="/categories/:id" component={CategorySingle} />
             <Route path="/categories" component={Categories} />
           </Switch>
-        </Container>
       </div>
     </Router>
   );

@@ -32,12 +32,9 @@ router.delete("/:id", async (apiRequest, apiResponse) => {
   });
 });
 
-router.put("/:id", async (apiRequest, apiResponse) => {
+router.put("/:sku", async (apiRequest, apiResponse) => {
   const updatedProduct = apiRequest.body;
-  console.log({
-    updatedProduct,
-  });
-  await updateProduct(apiRequest.params.id, updatedProduct);
+  await updateProduct(apiRequest.params.sku, updatedProduct);
   apiResponse.send({
     message: "Product updated.",
   });

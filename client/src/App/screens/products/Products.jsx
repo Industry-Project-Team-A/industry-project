@@ -40,6 +40,7 @@ class Products extends React.Component {
         <Table striped bordered hover>
           <thead>
             <tr>
+              <th>ID</th>
               <th>Sku</th>
               <th>Name</th>
               <th>Price</th>
@@ -50,6 +51,7 @@ class Products extends React.Component {
           <tbody>
             {this.state.response.map((product) => (
               <tr>
+                <td key={product._id}>{product.id}</td>
                 <td key={product._id}> {product.sku} </td>
                 <td key={product._id}>
                   <LinkContainer to={`/products/${product.sku}`}>
