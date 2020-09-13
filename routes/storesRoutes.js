@@ -5,14 +5,19 @@ const {
   createStore,
   getStores,
   getStore,
+  getNewId
 } = require("../database/stores");
 
 router.get("/", async (req, res) => {
   res.send(await getStores());
 });
 
-router.get("/:tag", async (req, res) => {
-  res.send(await getStore(req.params.tag));
+router.get("/newid", async (req, res) => {
+  res.send(await getNewId());
+});
+
+router.get("/:id", async (req, res) => {
+  res.send(await getStore(parseInt(req.params.id)))
 });
 
 router.post("/", async (apiRequest, apiResponse) => {
@@ -25,19 +30,16 @@ router.post("/", async (apiRequest, apiResponse) => {
   });
 });
 
-router.delete("/:tag", async (apiRequest, apiResponse) => {
-  await deleteStore(apiRequest.params.tag);
+router.delete("/:id", async (apiRequest, apiResponse) => {
+  await deleteStore(parseInt(apiRequest.params.id));
   apiResponse.send({
     message: "Store deleted.",
   });
 });
 
-router.put("/:tag", async (apiRequest, apiResponse) => {
+router.put("/:id", async (apiRequest, apiResponse) => {
   const updatedStore = apiRequest.body;
-  console.log({
-    updatedStore,
-  });
-  await updateStore(apiRequest.params.tag, updatedStore);
+  await updateStore(parseInt(apiRequest.params.id), updatedStore);
   apiResponse.send({
     message: "Store updated.",
   });

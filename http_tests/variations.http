@@ -1,16 +1,55 @@
 ### Test GET
-GET http://localhost:5000/api/variations
+GET http://localhost:5000/api/variations HTTP/1.1
+
+### test single GET
+GET http://localhost:5000/api/variations/3 HTTP/1.1
+
+### Test put
+PUT http://localhost:5000/api/variations/3 HTTP/1.1
+content-type: application/json
+
+{
+  "_id": "5f5c3ccef05ba394f8ddc057",
+  "options": [
+    {
+      "name": "Color",
+      "value": "White"
+    },
+    {
+      "name": "Logo",
+      "value": "https://tcimages.imfast.io/ACX/ACX.Logo.Logo.A1.png"
+    }
+  ],
+  "sku": "ZZZ.12OZWT.White.A1",
+  "unlimited": true,
+  "productId": 1,
+  "id": "3"
+}
 
 
 ### Test POST
-POST http://localhost:5000/api/variations
-Content-Type: application/json
+POST http://localhost:5000/api/variations HTTP/1.1
+content-type: application/json
 
 {
-
+  "_id": "5f5c3ccef05ba394f8ddc057",
+  "options": [
+    {
+      "name": "Color",
+      "value": "White"
+    },
+    {
+      "name": "Logo",
+      "value": "https://tcimages.imfast.io/ACX/ACX.Logo.Logo.A1.png"
+    }
+  ],
+  "sku": "ZZZ.12OZWT.White.A1",
+  "unlimited": true,
+  "productId": 1,
+  "id": "3"
 }
 
 ### Test delete
-DELETE http://localhost:5000/api/variations/5f4ff752de36f999f062471f
+DELETE http://localhost:5000/api/variations/3 HTTP/1.1
 
 
