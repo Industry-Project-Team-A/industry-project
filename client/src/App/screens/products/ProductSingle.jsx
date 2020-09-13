@@ -64,7 +64,7 @@ class ProductSingle extends React.Component {
 
   callApi = async () => {
     const response = await fetch(
-      `/api/products/${this.props.match.params.sku}`
+      `/api/products/${this.props.match.params.id}`
     );
     const body = await response.json();
     if (response.status !== 200) throw Error(body.message);

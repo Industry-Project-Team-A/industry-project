@@ -1,17 +1,42 @@
 ### Test GET
-GET http://localhost:5000/api/categories/5
+GET http://localhost:5000/api/categories HTTP/1.1
 
+### test single GET
+GET http://localhost:5000/api/categories/22 HTTP/1.1
 
+### Test get a new ID for product creation page
+GET http://localhost:5000/api/categories/newid HTTP/1.1
 
 
 ### Test POST
-POST http://localhost:5000/api/categories
-Content-Type: application/json
+PUT http://localhost:5000/api/categories/22 HTTP/1.1
+content-type: application/json
 
 {
+  "_id": "5f5b72858589977db4d6f23a",
+  "id": 22,
+  "name": "Unisex",
+  "parentId": 0,
+  "orderBy": 13,
+  "enabled": "yes",
+  "productIds": []
+}
+
+### Test Post
+POST http://localhost:5000/api/categories HTTP/1.1
+content-type: application/json
+
+{
+  "_id": "5f5b72858589977db4d6f23a",
+  "id": 22,
+  "name": "Unisex",
+  "parentId": 0,
+  "orderBy": 13,
+  "enabled": "yes",
+  "productIds": []
 }
 
 ### Test delete
-DELETE http://localhost:5000/api/categories/5f4ff752de36f999f062471f
+DELETE http://localhost:5000/api/categories/22 HTTP/1.1
 
 

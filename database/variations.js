@@ -1,22 +1,18 @@
 const { getDatabase } = require("./mongo-common");
-// https://docs.mongodb.com/manual/reference/method/ObjectId/
 const { ObjectID } = require("mongodb");
 
-// a "collection" in mongo is a lot like a list which is a lot like an Array
 const collectionName = "variations";
 
-async function createVariation(user) {
+async function createVariation(variation) {
   const database = await getDatabase();
-  // for `insertOne` info, see https://docs.mongodb.com/manual/reference/method/js-collection/
   const { insertedId } = await database
     .collection(collectionName)
-    .insertOne(user);
+    .insertOne(variation);
   return insertedId;
 }
 
 async function getVariations() {
   const database = await getDatabase();
-  // `find` https://docs.mongodb.com/manual/reference/method/db.collection.find/#db.collection.find
   return await database.collection(collectionName).find({}).toArray();
 }
 
@@ -29,37 +25,45 @@ async function getVariation(id) {
 
 async function deleteVariation(id) {
   const database = await getDatabase();
-  // https://docs.mongodb.com/manual/reference/method/ObjectId/
-  // for `deleteOne` info see  https://docs.mongodb.com/manual/reference/method/js-collection/
   await database.collection(collectionName).deleteOne({
-    _id: new ObjectID(id),
+    id: id,
   });
 }
 
-async function updateVariation(id, user) {
+async function updateVariation(id, variation) {
   const database = await getDatabase();
 
-  // `delete` is new to you. https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/delete
-  delete user._id;
+  delete variation._id;
 
-  // https://docs.mongodb.com/manual/reference/method/db.collection.update/
   await database.collection(collectionName).update(
     {
-      _id: new ObjectID(id),
+      id: id,
     },
     {
       $set: {
-        ...user,
+        ...variation,
       },
     }
   );
 }
 
-// export the functions that can be used by the main app code
+async function getNewId() {
+  const database = await getDatabase();
+  const id = await database
+    .collection(collectionName)
+    .find({})
+    .sort({ id: -1 })
+    .limit(1)
+    .toArray();
+
+  return (newId = [id[0].id + 1]);
+}
+
 module.exports = {
   createVariation,
   getVariations,
   deleteVariation,
   updateVariation,
   getVariation,
+  getNewId,
 };
