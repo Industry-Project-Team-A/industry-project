@@ -1,6 +1,8 @@
 ### Test GET
 GET http://localhost:5000/api/customProducts
 
+### test single GET
+GET http://localhost:5000/api/customProducts/A130
 
 ### Test POST
 POST http://localhost:5000/api/customProducts

@@ -1,12 +1,11 @@
 ### Test GET
 GET http://localhost:5000/api/categories HTTP/1.1
 
-### test single GET
-GET http://localhost:5000/api/categories/22 HTTP/1.1
-
 ### Test get a new ID for product creation page
 GET http://localhost:5000/api/categories/newid HTTP/1.1
 
+### test single GET
+GET http://localhost:5000/api/categories/1
 
 ### Test POST
 PUT http://localhost:5000/api/categories/22 HTTP/1.1
