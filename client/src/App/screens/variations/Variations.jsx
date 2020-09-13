@@ -36,10 +36,22 @@ class Variations extends React.Component {
   };
 
   render() {
+    const style = {
+      position: "fixed",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+    };
     if (this.state.loading) return (
-      <Spinner animation="border" role="status">
-        <span className="sr-only">Loading...</span>
-      </Spinner>
+      <div
+        style={{ width: "100vw", height: "100vh", backgroundColor: "#303030" }}
+      >
+        <div style={style}>
+          <Spinner animation="border" variant="info">
+            <span className="sr-only">Loading...</span>
+          </Spinner>
+        </div>
+      </div>
     );
     return (
       <Container>
