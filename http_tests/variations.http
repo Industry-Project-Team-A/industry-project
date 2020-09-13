@@ -1,6 +1,8 @@
 ### Test GET
 GET http://localhost:5000/api/variations
 
+### test single GET
+GET http://localhost:5000/api/variations/1
 
 ### Test POST
 POST http://localhost:5000/api/variations
