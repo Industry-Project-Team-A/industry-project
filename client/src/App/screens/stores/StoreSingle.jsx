@@ -18,7 +18,7 @@ class StoreSingle extends React.Component {
   }
 
   callApi = async () => {
-    const response = await fetch(`/api/stores/${this.props.match.params.tag}`);
+    const response = await fetch(`/api/stores/${this.props.match.params.id}`);
     const body = await response.json();
     if (response.status !== 200) throw Error(body.message);
 
