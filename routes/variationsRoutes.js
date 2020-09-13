@@ -5,10 +5,15 @@ const {
   createVariation,
   getVariations,
   getVariation,
+  getNewId,
 } = require("../database/variations");
 
 router.get("/", async (req, res) => {
   res.send(await getVariations());
+});
+
+router.get("/newid", async (req, res) => {
+  res.send(await getNewId());
 });
 
 router.get("/:id", async (req, res) => {

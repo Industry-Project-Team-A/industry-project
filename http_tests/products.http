@@ -1,21 +1,93 @@
 ### Test GET
-GET http://localhost:5000/api/products
-
+GET http://localhost:5000/api/products HTTP/1.1
 
 ### test single GET
-GET http://localhost:5000/api/products/A130
+GET http://localhost:5000/api/products/3 HTTP/1.1
+
+### Test get a new ID for product creation page
+GET http://localhost:5000/api/products/newid HTTP/1.1
+
 
 ### Test POST
-PUT 'http://localhost:3000/api/products/A130'
-Content-Type: application/json
+PUT http://localhost:5000/api/products/3 HTTP/1.1
+content-type: application/json
 
 {
-  "_id": "5f5b6dff8589977db4d6f157",
+  "_id": "5f5c3cb8f05ba394f8ddbf87",
   "id": 3,
   "name": "Adidas Climalite Polo",
   "sku": "A130",
   "description": "<p>A classic polo available in a wide range of colors. This polo will keep you cool even on the hottest days. The moisture-wicking technology sweeps sweat away from your body, moving it to the surface of the fabric, where it's quickly evaporated. </p><ul><li>4.3 oz, 100% polyester piquÃ©</li><li>UPF 25+ protection</li></ul><p><strong>Sizing Guide:</strong></p><p><strong></strong></p><table class=\"ecwid-description-table\"><colgroup><col><col><col><col><col><col><col></colgroup><tbody><tr><td></td><td>S</td><td>M</td><td>L</td><td>XL</td><td>2XL</td><td>3XL</td></tr><tr><td>Body Length Back</td><td>30 3/4</td><td>31 3/4</td><td>32 3/4</td><td>33 3/4</td><td>34 3/4</td><td>35 3/4</td></tr><tr><td>Body Length Front</td><td>28 1/2</td><td>29 1/2</td><td>30 1/2</td><td>31 1/2</td><td>32 1/2</td><td>33 1/2</td></tr><tr><td>Body Width</td><td>43</td><td>46</td><td>49</td><td>52</td><td>55</td><td>58</td></tr><tr><td>Sleeve Length</td><td>9 5/8</td><td>10</td><td>10 3/8</td><td>10 3/4</td><td>11 1/8</td><td>11 1/2</td></tr></tbody></table><p><em>*Product will ship in approximately 5-8 business days. </em></p><div><div><em><br></em></div></div>",
-  "price": 55,
+  "price": 54,
+  "enabled": "yes",
+  "fixedShippingRateOnly": "no",
+  "fixedShippingRate": 5,
+  "brand": "Adidas",
+  "categoryIds": [
+    4,
+    5
+  ],
+  "options": [
+    {
+      "type": "SELECT",
+      "name": "Color",
+      "choices": [
+        "Royal",
+        "Coast Blue",
+        "Black",
+        "Navy",
+        "White",
+        "Burgundy",
+        "Amazon",
+        "Lead",
+        "Purple",
+        "Power Red",
+        "Shock Blue",
+        "Lime",
+        "Solar Yellow",
+        "Vivid Yellow",
+        "Zone Grey"
+      ]
+    },
+    {
+      "type": "RADIO",
+      "name": "Logo",
+      "choices": [
+        "https://tcimages.imfast.io/ACX/ACX.Logo.Logo.A1.png",
+        "https://tcimages.imfast.io/ACX/ACX.Logo.Logo.B1.png",
+        "https://tcimages.imfast.io/ACX/ACX.Logo.Logo.C1.png",
+        "https://tcimages.imfast.io/ACX/ACX.Logo.Logo.D1.png"
+      ]
+    },
+    {
+      "type": "SELECT",
+      "name": "Size",
+      "choices": [
+        "Small",
+        "Medium",
+        "Large",
+        "XL",
+        "2XL"
+      ]
+    }
+  ],
+  "images": [
+    "https://tcimages.imfast.io/ZZZ/ZZZ.A130.Royal.A1.jpg",
+    "http://teecommerce.co/Images/gallery/A130.Back.jpg"
+  ]
+}
+
+### Test Post
+POST http://localhost:5000/api/products HTTP/1.1
+content-type: application/json
+
+{
+  "_id": "5f5c3cb8f05ba394f8ddbf87",
+  "id": 3,
+  "name": "Adidas Climalite Polo",
+  "sku": "A130",
+  "description": "<p>A classic polo available in a wide range of colors. This polo will keep you cool even on the hottest days. The moisture-wicking technology sweeps sweat away from your body, moving it to the surface of the fabric, where it's quickly evaporated. </p><ul><li>4.3 oz, 100% polyester piquÃ©</li><li>UPF 25+ protection</li></ul><p><strong>Sizing Guide:</strong></p><p><strong></strong></p><table class=\"ecwid-description-table\"><colgroup><col><col><col><col><col><col><col></colgroup><tbody><tr><td></td><td>S</td><td>M</td><td>L</td><td>XL</td><td>2XL</td><td>3XL</td></tr><tr><td>Body Length Back</td><td>30 3/4</td><td>31 3/4</td><td>32 3/4</td><td>33 3/4</td><td>34 3/4</td><td>35 3/4</td></tr><tr><td>Body Length Front</td><td>28 1/2</td><td>29 1/2</td><td>30 1/2</td><td>31 1/2</td><td>32 1/2</td><td>33 1/2</td></tr><tr><td>Body Width</td><td>43</td><td>46</td><td>49</td><td>52</td><td>55</td><td>58</td></tr><tr><td>Sleeve Length</td><td>9 5/8</td><td>10</td><td>10 3/8</td><td>10 3/4</td><td>11 1/8</td><td>11 1/2</td></tr></tbody></table><p><em>*Product will ship in approximately 5-8 business days. </em></p><div><div><em><br></em></div></div>",
+  "price": 54,
   "enabled": "yes",
   "fixedShippingRateOnly": "no",
   "fixedShippingRate": 5,
@@ -75,6 +147,6 @@ Content-Type: application/json
 }
 
 ### Test delete
-DELETE http://localhost:5000/api/products/5f4ff752de36f999f062471f
+DELETE http://localhost:5000/api/products/3 HTTP/1.1
 
 

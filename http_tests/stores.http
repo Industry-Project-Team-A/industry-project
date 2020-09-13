@@ -1,17 +1,53 @@
 ### Test GET
-GET http://localhost:5000/api/stores
+GET http://localhost:5000/api/stores HTTP/1.1
 
-### test single GET
-GET http://localhost:5000/api/stores/ACX
+### Test single GET
+GET http://localhost:5000/api/stores/2 HTTP/1.1
+
+### Test get new ID
+GET http://localhost:5000/api/stores/newid HTTP/1.1
+
+### Test PUT
+PUT http://localhost:5000/api/stores/2
+content-type: application/json
+
+  {
+    "name": "Sedgefield Country Club",
+    "tag": "MCNL.SED",
+    "id": 2,
+    "apiId": "f98audf9uafkjfafadsf@",
+    "token": "Bearer 3ajdfijdf98aduf89adfjkslfdjdlkfjalkdfjakljdflj2kl2l3l3kj434j89sjfaijfklajdf@",
+    "baseUrl": "https://mcconnell.teecommerceshop.com/sedgefield",
+    "shippingIncluded": "No",
+    "logos": [
+      "A1",
+      "B1",
+      "C1",
+      "D1"
+    ]
+  }
 
 ### Test POST
-POST http://localhost:5000/api/stores
-Content-Type: application/json
+POST http://localhost:5000/api/stores HTTP/1.1
+content-type: application/json
 
-{
-}
+  {
+    "name": "Sedgefield Country Club",
+    "tag": "MCNL.SED",
+    "id": 2,
+    "apiId": "f98audf9uafkjfafadsf@",
+    "token": "Bearer 3ajdfijdf98aduf89adfjkslfdjdlkfjalkdfjakljdflj2kl2l3l3kj434j89sjfaijfklajdf@",
+    "baseUrl": "https://mcconnell.teecommerceshop.com/sedgefield",
+    "shippingIncluded": "No",
+    "logos": [
+      "A1",
+      "B1",
+      "C1",
+      "D1"
+    ]
+  }
 
 ### Test delete
-DELETE http://localhost:5000/api/stores/5f4ff752de36f999f062471f
+DELETE http://localhost:5000/api/stores/2 HTTP/1.1
 
 
