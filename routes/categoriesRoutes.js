@@ -5,7 +5,12 @@ const {
   createCategory,
   getCategories,
   getCategory,
+  getNewId
 } = require("../database/categories");
+
+router.get("/newid", async (req,res) => {
+  res.send(await getNewId());
+})
 
 router.get("/:id", async (req, res) => {
   res.send(await getCategory(req.params.id));
