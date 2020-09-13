@@ -5,14 +5,19 @@ const {
   createProduct,
   getProducts,
   getProduct,
+  getNewId
 } = require("../database/products");
 
 router.get("/", async (req, res) => {
   res.send(await getProducts());
 });
 
-router.get("/:sku", async (req, res) => {
-  res.send(await getProduct(req.params.sku));
+router.get("/newid", async (req, res) => {
+  res.send(await getNewId());
+});
+
+router.get("/:id", async (req, res) => {
+  res.send(await getProduct(req.params.id));
 });
 
 router.post("/", async (apiRequest, apiResponse) => {
@@ -32,9 +37,9 @@ router.delete("/:id", async (apiRequest, apiResponse) => {
   });
 });
 
-router.put("/:sku", async (apiRequest, apiResponse) => {
+router.put("/:id", async (apiRequest, apiResponse) => {
   const updatedProduct = apiRequest.body;
-  await updateProduct(apiRequest.params.sku, updatedProduct);
+  await updateProduct(apiRequest.params.id, updatedProduct);
   apiResponse.send({
     message: "Product updated.",
   });

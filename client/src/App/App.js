@@ -43,7 +43,7 @@ const App = () => {
         </Navbar>
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route path="/products/:sku" component={ProductSingle} />
+            <Route path="/products/:id" component={ProductSingle} />
             <Route path="/products" component={Products} />
             <Route path="/stores/:tag" component={StoreSingle} />
             <Route path="/stores" component={Stores} />
