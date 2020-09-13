@@ -36,20 +36,16 @@ async function deleteProduct(id) {
   });
 }
 
-async function updateProduct(id, user) {
+async function updateProduct(sku, product) {
   const database = await getDatabase();
-
-  // `delete` is new to you. https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/delete
-  delete user._id;
+    delete product._id;
 
   // https://docs.mongodb.com/manual/reference/method/db.collection.update/
-  await database.collection(collectionName).update(
-    {
-      _id: new ObjectID(id),
-    },
+  await database.collection(collectionName).updateOne(
+    { sku: sku },
     {
       $set: {
-        ...user,
+        ...product,
       },
     }
   );
