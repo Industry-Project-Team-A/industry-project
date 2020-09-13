@@ -45,7 +45,7 @@ const App = () => {
             <Route exact path="/" component={Home} />
             <Route path="/products/:id" component={ProductSingle} />
             <Route path="/products" component={Products} />
-            <Route path="/stores/:tag" component={StoreSingle} />
+            <Route path="/stores/:id" component={StoreSingle} />
             <Route path="/stores" component={Stores} />
             <Route path="/variations/:id" component={VariationSingle} />
             <Route path="/variations" component={Variations} />
