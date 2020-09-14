@@ -1,11 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import { Navbar, Nav, Container } from "react-bootstrap";
+import { Navbar, Nav } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
 import Products from "./screens/products/Products.jsx";
-import CustomProducts from "./screens/customProducts/CustomProducts.jsx";
 import Stores from "./screens/stores/Stores.jsx";
 import Categories from "./screens/categories/Categories.jsx";
 import Variations from "./screens/variations/Variations.jsx";
@@ -36,9 +35,6 @@ const App = () => {
             <LinkContainer to="/variations">
               <Nav.Link>Variations</Nav.Link>
             </LinkContainer>
-            <LinkContainer to="/customProducts">
-              <Nav.Link>CustomProducts</Nav.Link>
-            </LinkContainer>
           </Nav>
         </Navbar>
           <Switch>
@@ -49,7 +45,6 @@ const App = () => {
             <Route path="/stores" component={Stores} />
             <Route path="/variations/:id" component={VariationSingle} />
             <Route path="/variations" component={Variations} />
-            <Route path="/customProducts" component={CustomProducts} />
             <Route path="/categories/:id" component={CategorySingle} />
             <Route path="/categories" component={Categories} />
           </Switch>
