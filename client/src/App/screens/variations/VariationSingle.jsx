@@ -1,21 +1,11 @@
 import React from "react";
-<<<<<<< frontend
-import { LinkContainer } from "react-router-bootstrap";
-=======
 import { Form, Container, Button } from "react-bootstrap";
 import axios from "axios";
->>>>>>> local
 
 class VariationSingle extends React.Component {
   constructor() {
     super();
     this.state = {
-<<<<<<< frontend
-      response: [],
-    };
-  }
-
-=======
       response: {
         options: [{name: "", value: ""}, {name: "", value: ""}],
       },
@@ -50,7 +40,6 @@ class VariationSingle extends React.Component {
     this.setState({ formValues });
   };
 
->>>>>>> local
   componentDidMount() {
     this.callApi()
       .then((response) => {
@@ -58,24 +47,6 @@ class VariationSingle extends React.Component {
       })
       .catch((err) => console.log(err));
   }
-<<<<<<< frontend
-
-  callApi = async () => {
-    const response = await fetch(
-      `/api/variations/${this.props.match.params.id}`
-    );
-    const body = await response.json();
-    if (response.status !== 200) throw Error(body.message);
-
-    return body;
-  };
-
-  render() {
-    return <div>{this.state.response.sku}</div>;
-  }
-}
-
-=======
   callApi = async () => {
     const response = await fetch(`/api/variations/${this.props.match.params.id}`);
     const body = await response.json();
@@ -177,5 +148,4 @@ class VariationSingle extends React.Component {
     );
   }
 }
->>>>>>> local
 export default VariationSingle;

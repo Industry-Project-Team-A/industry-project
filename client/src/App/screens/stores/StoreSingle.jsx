@@ -1,21 +1,11 @@
 import React from "react";
-<<<<<<< frontend
-import { LinkContainer } from "react-router-bootstrap";
-=======
 import { Form, Container, Button } from "react-bootstrap";
 import axios from "axios";
->>>>>>> local
 
 class StoreSingle extends React.Component {
   constructor() {
     super();
     this.state = {
-<<<<<<< frontend
-      response: [],
-    };
-  }
-
-=======
       response: {
         logos: []
       }
@@ -50,7 +40,6 @@ class StoreSingle extends React.Component {
     this.setState({ formValues })
   }
 
->>>>>>> local
   componentDidMount() {
     this.callApi()
       .then((response) => {
@@ -66,11 +55,6 @@ class StoreSingle extends React.Component {
 
     return body;
   };
-<<<<<<< frontend
-
-  render() {
-    return <div>{this.state.response.name}</div>;
-=======
   render() {
     const store = this.state.response
     return (
@@ -162,7 +146,6 @@ class StoreSingle extends React.Component {
         </Form>
       </Container>
     );
->>>>>>> local
   }
 }
 
