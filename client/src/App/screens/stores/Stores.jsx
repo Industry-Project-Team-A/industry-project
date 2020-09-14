@@ -40,6 +40,7 @@ class Stores extends React.Component {
         <Table striped bordered hover>
           <thead>
             <tr>
+              <th>ID</th>
               <th>Tag</th>
               <th>Name</th>
               <th>URL</th>
@@ -50,10 +51,11 @@ class Stores extends React.Component {
             {this.state.response.map((store) => (
               <tr>
                 <td key={store._id}>
-                  <LinkContainer to={`/stores/${store.tag}`}>
-                    <a>{store.tag}</a>
+                  <LinkContainer to={`/stores/${store.id}`}>
+                    <a>{store.id}</a>
                   </LinkContainer>
                 </td>
+                <td key={store._id}> {store.tag} </td>
                 <td key={store._id}> {store.name} </td>
 
                 <td key={store._id}>
