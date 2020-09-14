@@ -1,13 +1,14 @@
 import React from "react";
-import { Form, Container, Button } from "react-router-bootstrap";
+import { Form, Container, Button } from "react-bootstrap";
 import axios from "axios";
-import { LinkContainer } from "react-router-bootstrap";
 
 class StoreSingle extends React.Component {
   constructor() {
     super();
     this.state = {
-      response: { productIds: [] }
+      response: {
+        logos: []
+      }
     };
   }
 
@@ -27,7 +28,7 @@ class StoreSingle extends React.Component {
     //special situation for nested arrays
     if (e.target.attributes["arrayName"]) {
       let arrayName = e.target.getAttribute("arrayName")
-      let nestedValue = parseInt(e.target.getAttribute("nest"));
+      let nestedValue = parseInt(e.target.getAttribute("nest"), 10);
 
       formValues[arrayName][nestedValue][name] = value
 
@@ -46,10 +47,12 @@ class StoreSingle extends React.Component {
       })
       .catch((err) => console.log(err));
   }
+
   callApi = async () => {
     const response = await fetch(`/api/stores/${this.props.match.params.id}`);
     const body = await response.json();
     if (response.status !== 200) throw Error(body.message);
+
     return body;
   };
   render() {
@@ -58,7 +61,7 @@ class StoreSingle extends React.Component {
       <Container>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group controlId="formGroupId">
-            <Form.Label>Store Id:</Form.Label>
+            <Form.Label>Store Id:</Form.Label>
             <Form.Control
               name="id"
               value={store.id}
@@ -78,14 +81,14 @@ class StoreSingle extends React.Component {
           <Form.Group controlId="formGroupTag">
             <Form.Label>Tag:</Form.Label>
             <Form.Control
-              name="name"
+              name="tag"
               value={store.tag}
               onChange={this.handleChange}
             />
           </Form.Group>
 
           <Form.Group controlId="formGroupApiId">
-            <Form.Label>API Id: </Form.Label>
+            <Form.Label>API Username: </Form.Label>
             <Form.Control
               name="apiId"
               value={store.apiId}
@@ -94,7 +97,7 @@ class StoreSingle extends React.Component {
           </Form.Group>
 
           <Form.Group controlId="formGroupToken">
-            <Form.Label>Token:</Form.Label>
+            <Form.Label>API Token:</Form.Label>
             <Form.Control
               name="token"
               value={store.token}
@@ -112,7 +115,7 @@ class StoreSingle extends React.Component {
           </Form.Group>
 
           <Form.Group controlId="ShippingIncluded">
-            <Form.Label>Shipping Included:</Form.Label>
+            <Form.Label>Shipping Included:</Form.Label>
             <Form.Control
               as="select"
               name="shippingIncluded"
@@ -125,32 +128,6 @@ class StoreSingle extends React.Component {
             </Form.Control>
           </Form.Group>
 
-          <Form.Group controlId="formGroupEnabled">
-            <Form.Label>Enabled:</Form.Label>
-            <Form.Control
-              as="select"
-              name="enabled"
-              value={store.enabled}
-              onChange={this.handleChange}
-              single
-            >
-              <option>yes</option>
-              <option>no</option>
-            </Form.Control>
-          </Form.Group>
-
-          <Form.Group controlId="formGroupCatIDs">
-            <Form.Label>Product IDs:</Form.Label>
-            <Form.Control as="select" multiple disabled>
-              {this.state.response.productIds.map((id) => (
-                <option>{id}</option>
-              ))}
-            </Form.Control>
-            <Button variant="secondary" type="add">
-              Edit
-            </Button>
-          </Form.Group>
-
           <Form.Group controlId="formGroupLogos">
             <Form.Label>Logos:</Form.Label>
             <Form.Control as="select" multiple disabled>
@@ -160,16 +137,16 @@ class StoreSingle extends React.Component {
             </Form.Control>
             <Button variant="secondary" type="add">
               Edit
-            </Button>
+            </Button>
           </Form.Group>
 
           <Button variant="primary" type="submit">
             Save
-            </Button>
-
+          </Button>
         </Form>
       </Container>
     );
   }
 }
+
 export default StoreSingle;
