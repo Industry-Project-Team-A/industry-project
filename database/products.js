@@ -13,22 +13,24 @@ async function createProduct(user) {
 
 async function getProducts() {
   const database = await getDatabase();
-  return await database.collection(collectionName).find({}).toArray();
+  return await database
+    .collection(collectionName)
+    .find({})
+    .sort({ id: 1 })
+    .toArray();
 }
 
 async function getProduct(id) {
-  numId = parseInt(id);
   const database = await getDatabase();
   return await database.collection(collectionName).findOne({
-    id: numId,
+    id: id,
   });
 }
 
 async function deleteProduct(id) {
-  numId = parseInt(id);
   const database = await getDatabase();
   await database.collection(collectionName).deleteOne({
-    id: numId,
+    id: id,
   });
 }
 
@@ -36,10 +38,8 @@ async function updateProduct(id, product) {
   const database = await getDatabase();
   delete product._id;
 
-  numId = parseInt(id);
-
   await database.collection(collectionName).updateOne(
-    { id: numId },
+    { id: id },
     {
       $set: {
         ...product,

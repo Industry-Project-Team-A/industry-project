@@ -17,7 +17,7 @@ router.get("/newid", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
-  res.send(await getStore(parseInt(req.params.id)))
+  res.send(await getStore(req.params.id))
 });
 
 router.post("/", async (apiRequest, apiResponse) => {
@@ -31,7 +31,7 @@ router.post("/", async (apiRequest, apiResponse) => {
 });
 
 router.delete("/:id", async (apiRequest, apiResponse) => {
-  await deleteStore(parseInt(apiRequest.params.id));
+  await deleteStore(apiRequest.params.id);
   apiResponse.send({
     message: "Store deleted.",
   });
@@ -39,7 +39,7 @@ router.delete("/:id", async (apiRequest, apiResponse) => {
 
 router.put("/:id", async (apiRequest, apiResponse) => {
   const updatedStore = apiRequest.body;
-  await updateStore(parseInt(apiRequest.params.id), updatedStore);
+  await updateStore(apiRequest.params.id, updatedStore);
   apiResponse.send({
     message: "Store updated.",
   });

@@ -63,7 +63,16 @@ Sheet1.forEach((obj) => {
   FixedSheet.push(copyObj)
 });
 
+let stringArray = []
 
-let data = JSON.stringify(FixedSheet)
+FixedSheet.forEach(product => {
+  string = product.id.toString()
+  product["id"] = string
+
+  stringArray.push(product)
+})
+
+
+let data = JSON.stringify(stringArray)
 
 fs.writeFileSync('products-fixed.json', data)
