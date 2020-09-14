@@ -71,6 +71,7 @@ class CategorySingle extends React.Component {
               onChange={this.handleChange}
             />
           </Form.Group>
+
           <Form.Group controlId="formGroupName">
             <Form.Label>Name:</Form.Label>
             <Form.Control
@@ -79,6 +80,7 @@ class CategorySingle extends React.Component {
               onChange={this.handleChange}
             />
           </Form.Group>
+
           <Form.Group controlId="formGroupSku">
             <Form.Label>Parent Id: </Form.Label>
             <Form.Control
@@ -87,6 +89,7 @@ class CategorySingle extends React.Component {
               onChange={this.handleChange}
             />
           </Form.Group>
+
           <Form.Group controlId="formGroupDescription">
             <Form.Label>Order By:</Form.Label>
             <Form.Control
@@ -95,6 +98,7 @@ class CategorySingle extends React.Component {
               onChange={this.handleChange}
             />
           </Form.Group>
+          
           <Form.Group controlId="formGroupEnabled">
             <Form.Label>Enabled:</Form.Label>
             <Form.Control
