@@ -1,6 +1,7 @@
 import React from "react";
 import { Table, Col } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
+import axios from "axios";
 import Loader from "../../components/Loader.jsx";
 
 class Stores extends React.Component {
@@ -8,26 +9,16 @@ class Stores extends React.Component {
     super();
     this.state = {
       response: [],
-      loading: true
+      loading: true,
     };
   }
 
   componentDidMount() {
-    this.callApi()
-      .then((response) => {
-        this.setState({ response })
-        this.setState({loading: false});
-      })
-      .catch((err) => console.log(err));
+    axios.get("api/stores").then((res) => {
+      const response = res.data;
+      this.setState({ response, loading: false });
+    });
   }
-
-  callApi = async () => {
-    const response = await fetch("/api/stores");
-    const body = await response.json();
-    if (response.status !== 200) throw Error(body.message);
-
-    return body;
-  };
 
   render() {
     if (this.state.loading) return <Loader />;
@@ -56,7 +47,7 @@ class Stores extends React.Component {
                 <td key={store._id}> {store.tag} </td>
                 <td key={store._id}> {store.name} </td>
                 <td key={store._id}>
-                  <a href="{store.baseUrl}">{store.baseUrl}</a>
+                  <a href={store.baseUrl}>{store.baseUrl}</a>
                 </td>
                 <td key={store._id}> {store.shippingIncluded} </td>
               </tr>
