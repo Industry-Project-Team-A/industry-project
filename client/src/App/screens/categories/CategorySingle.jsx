@@ -1,7 +1,6 @@
 import React from "react";
 import {Form, Container, Button } from "react-bootstrap";
 import axios from "axios";
-import { LinkContainer } from "react-router-bootstrap";
 
 class CategorySingle extends React.Component {
   constructor() {
@@ -28,7 +27,7 @@ class CategorySingle extends React.Component {
     //special situation for nested arrays
     if (e.target.attributes["arrayName"]) {
       let arrayName = e.target.getAttribute("arrayName")
-      let nestedValue = parseInt(e.target.getAttribute("nest"));
+      let nestedValue = parseInt(e.target.getAttribute("nest"), 10);
   
       formValues[arrayName][nestedValue][name] = value
 
