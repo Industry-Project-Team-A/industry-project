@@ -21,9 +21,9 @@ class ProductSingle extends React.Component {
   handleSubmit = e => {
     e.preventDefault()
     const data = this.state.response
-    const sku = this.state.response.sku
+    const id = this.state.response.id
 
-    axios.put(`/api/products/${sku}`, data)
+    axios.put(`/api/products/${id}`, data)
   }
 
   handleChange = e => {
@@ -86,6 +86,7 @@ class ProductSingle extends React.Component {
               onChange={this.handleChange}
             />
           </Form.Group>
+
           <Form.Group controlId="formGroupName">
             <Form.Label>Name:</Form.Label>
             <Form.Control
@@ -94,6 +95,7 @@ class ProductSingle extends React.Component {
               onChange={this.handleChange}
             />
           </Form.Group>
+
           <Form.Group controlId="formGroupSku">
             <Form.Label>Base SKU:</Form.Label>
             <Form.Control
@@ -102,6 +104,7 @@ class ProductSingle extends React.Component {
               onChange={this.handleChange}
             />
           </Form.Group>
+
           <Form.Group controlId="formGroupDescription">
             <Form.Label>Description:</Form.Label>
             <Form.Control
@@ -146,6 +149,7 @@ class ProductSingle extends React.Component {
               <option>no</option>
             </Form.Control>
           </Form.Group>
+          
           <Form.Group controlId="formGroupShipRate">
             <Form.Label>Fixed Shipping Rate:</Form.Label>
             <Form.Control
@@ -173,6 +177,7 @@ class ProductSingle extends React.Component {
               Edit
             </Button>
           </Form.Group>
+
           <Form.Group controlId="formGroupOpt1">
             <h3>Option 1</h3>
             <Form.Label>Name:</Form.Label>
@@ -226,6 +231,7 @@ class ProductSingle extends React.Component {
               <option>RADIO</option>
             </Form.Control>
             <Form.Label>Choices:</Form.Label>
+
             <Form.Control as="select" multiple disabled>
               {this.state.response.options[1].choices.map((choice) => (
                 <option>{choice}</option>
@@ -305,6 +311,7 @@ class ProductSingle extends React.Component {
               Edit
             </Button>
           </Form.Group>
+
           <Form.Group controlId="formGroupImages">
             <Form.Label>Images:</Form.Label>
             <Form.Control as="select" multiple disabled>
