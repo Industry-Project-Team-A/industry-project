@@ -1,5 +1,4 @@
 const { getDatabase } = require("./mongo-common");
-const { ObjectID } = require("mongodb");
 
 const collectionName = "variations";
 

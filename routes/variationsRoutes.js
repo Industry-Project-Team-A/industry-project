@@ -39,9 +39,6 @@ router.delete("/:id", async (apiRequest, apiResponse) => {
 
 router.put("/:id", async (apiRequest, apiResponse) => {
   const updatedVariation = apiRequest.body;
-  console.log({
-    updatedVariation,
-  });
   await updateVariation(apiRequest.params.id, updatedVariation);
   apiResponse.send({
     message: "Variation updated.",
