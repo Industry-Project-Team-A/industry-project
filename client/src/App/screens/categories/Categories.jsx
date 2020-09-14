@@ -1,6 +1,7 @@
 import React from "react";
 import { Table, Col } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
+import axios from "axios";
 import Loader from "../../components/Loader.jsx";
 
 class Categories extends React.Component {
@@ -8,26 +9,16 @@ class Categories extends React.Component {
     super();
     this.state = {
       response: [],
-      loading: true
+      loading: true,
     };
   }
 
   componentDidMount() {
-    this.callApi()
-      .then((response) => {
-        this.setState({ response })
-        this.setState({ loading: false });
-      })
-      .catch((err) => console.log(err));
+    axios.get("api/categories").then((res) => {
+      const response = res.data;
+      this.setState({ response, loading: false });
+    });
   }
-
-  callApi = async () => {
-    const response = await fetch("/api/categories");
-    const body = await response.json();
-    if (response.status !== 200) throw Error(body.message);
-
-    return body;
-  };
 
   render() {
     if (this.state.loading) return <Loader />;

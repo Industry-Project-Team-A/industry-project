@@ -50,27 +50,17 @@ class ProductSingle extends React.Component {
   };
 
   componentDidMount() {
-    this.callApi()
-      .then((response) => {
-        for (let index = 0; index < 4; index++) {
-          const element = response.options[index];
-          if (typeof element === "undefined") {
-            response.options.push({ name: "", type: "", choices: [] });
-          }
+    axios.get(`/api/products/${this.props.match.params.id}`).then((res) => {
+      const response = res.data;
+      for (let index = 0; index < 4; index++) {
+        const element = response.options[index];
+        if (typeof element === "undefined") {
+          response.options.push({ name: "", type: "", choices: [] });
         }
-        this.setState({ response });
-        this.setState({ loading: false });
-      })
-      .catch((err) => console.log(err));
+      }
+      this.setState({ response, loading: false });
+    });
   }
-
-  callApi = async () => {
-    const response = await fetch(`/api/products/${this.props.match.params.id}`);
-    const body = await response.json();
-    if (response.status !== 200) throw Error(body.message);
-
-    return body;
-  };
 
   render() {
     if (this.state.loading) return <Loader />;

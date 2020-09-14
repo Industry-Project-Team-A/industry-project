@@ -8,7 +8,10 @@ class VariationSingle extends React.Component {
     super();
     this.state = {
       response: {
-        options: [{name: "", value: ""}, {name: "", value: ""}],
+        options: [
+          { name: "", value: "" },
+          { name: "", value: "" },
+        ],
       },
       loading: true,
     };
@@ -43,24 +46,17 @@ class VariationSingle extends React.Component {
   };
 
   componentDidMount() {
-    this.callApi()
-      .then((response) => {
-        this.setState({ response })
-        this.setState({loading: false});
-      })
-      .catch((err) => console.log(err));
+    axios.get(`/api/variations/${this.props.match.params.id}`).then((res) => {
+      const response = res.data;
+      this.setState({ response, loading: false });
+    });
   }
-  callApi = async () => {
-    const response = await fetch(`/api/variations/${this.props.match.params.id}`);
-    const body = await response.json();
-    if (response.status !== 200) throw Error(body.message);
-    return body;
-  };
+
   render() {
-        if (this.state.loading) return <Loader />;
+    if (this.state.loading) return <Loader />;
     const variation = this.state.response;
     return (
-      <Col style={{padding: "70px"}}>
+      <Col style={{ padding: "70px" }}>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group controlId="formGroupId">
             <Form.Label>Variation Id:</Form.Label>

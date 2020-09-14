@@ -42,23 +42,11 @@ class CategorySingle extends React.Component {
   };
 
   componentDidMount() {
-    this.callApi()
-      .then((response) => {
-        this.setState({ response });
-        this.setState({ loading: false });
-      })
-      .catch((err) => console.log(err));
+    axios.get(`/api/categories/${this.props.match.params.id}`).then((res) => {
+      const response = res.data;
+      this.setState({ response, loading: false });
+    });
   }
-
-  callApi = async () => {
-    const response = await fetch(
-      `/api/categories/${this.props.match.params.id}`
-    );
-    const body = await response.json();
-    if (response.status !== 200) throw Error(body.message);
-
-    return body;
-  };
 
   render() {
     if (this.state.loading) return <Loader />;
