@@ -1,7 +1,10 @@
 import React from "react";
-import { Form, Col, Button } from "react-bootstrap";
-import Loader from "../../components/Loader.jsx";
 import axios from "axios";
+import { Form, Col, Button } from "react-bootstrap";
+import { withRouter } from "react-router-dom";
+
+import Loader from "../../components/Loader.jsx";
+import SuccessSubmit from "../../components/SuccessSubmit.jsx";
 
 class VariationSingle extends React.Component {
   constructor() {
@@ -14,6 +17,7 @@ class VariationSingle extends React.Component {
         ],
       },
       loading: true,
+      submitted: false,
     };
   }
 
@@ -22,7 +26,12 @@ class VariationSingle extends React.Component {
     const data = this.state.response;
     const id = this.state.response.id;
 
-    axios.put(`/api/variations/${id}`, data);
+    axios.put(`/api/variations/${id}`, data).then(
+      this.setState({ submitted: true }),
+      setTimeout(() => {
+        this.props.history.push("/variations");
+      }, 3000)
+    );
   };
 
   handleChange = (e) => {
@@ -54,6 +63,15 @@ class VariationSingle extends React.Component {
 
   render() {
     if (this.state.loading) return <Loader />;
+    if (this.state.submitted)
+      return (
+        <SuccessSubmit
+          type="Variation"
+          id={this.state.response.id}
+          operation="updated"
+        />
+      );
+
     const variation = this.state.response;
     return (
       <Col style={{ padding: "70px" }}>
@@ -148,4 +166,4 @@ class VariationSingle extends React.Component {
     );
   }
 }
-export default VariationSingle;
+export default withRouter(VariationSingle);

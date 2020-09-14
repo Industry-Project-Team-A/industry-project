@@ -14,6 +14,8 @@ import StoreSingle from "./screens/stores/StoreSingle.jsx";
 import CategorySingle from "./screens/categories/CategorySingle.jsx";
 import VariationSingle from "./screens/variations/VariationSingle.jsx";
 
+import SuccessSubmit from "./components/SuccessSubmit.jsx"
+
 const App = () => {
   return (
     <Router>
@@ -52,6 +54,7 @@ const App = () => {
             <Route path="/variations" component={Variations} />
             <Route path="/categories/:id" component={CategorySingle} />
             <Route path="/categories" component={Categories} />
+            <Route path="/success" component={SuccessSubmit} />
           </Switch>
         </Row>
       </Container>
