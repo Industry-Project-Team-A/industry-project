@@ -13,20 +13,23 @@ async function createCategory(user) {
 async function getCategory(id) {
   const database = await getDatabase();
   return await database.collection(collectionName).findOne({
-    id: parseInt(id),
+    id: id,
   });
 }
 
 async function getCategories() {
   const database = await getDatabase();
-  return await database.collection(collectionName).find({}).toArray();
+  return await database
+    .collection(collectionName)
+    .find({})
+    .sort({ id: 1 })
+    .toArray();
 }
 
 async function deleteCategory(id) {
-  numId = parseInt(id);
   const database = await getDatabase();
   await database.collection(collectionName).deleteOne({
-    id: numId,
+    id: id,
   });
 }
 
@@ -35,7 +38,7 @@ async function updateCategory(id, category) {
   delete category._id;
   await database.collection(collectionName).update(
     {
-      id: parseInt(id),
+      id: id,
     },
     {
       $set: {

@@ -111,8 +111,16 @@ skuArray.forEach(fullSKU => {
 
 })
 
+let stringArray = [];
 
-let data = JSON.stringify(variationsArray);
+variationsArray.forEach((variation) => {
+  string = variation.id.toString();
+  variation["id"] = string;
+
+  stringArray.push(variation);
+});
+
+let data = JSON.stringify(stringArray);
 
 fs.writeFileSync("variations-fixed.json", data);
 

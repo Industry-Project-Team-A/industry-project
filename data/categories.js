@@ -17,6 +17,14 @@ for (let index = 0; index < products.length; index++) {
 
 }
 
+let stringArray = []
+
+categories.forEach(category => {
+  string = category.id.toString()
+  category["id"] = string
+
+  stringArray.push(category)
+})
 //send the array back as a JSON and save to disk
 let data = JSON.stringify(categories);
 
