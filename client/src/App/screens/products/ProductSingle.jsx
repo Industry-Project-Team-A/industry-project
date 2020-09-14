@@ -1,12 +1,15 @@
 import React from "react";
-import {Form, Container, Button } from "react-bootstrap";
+import { Form, Col, Button } from "react-bootstrap";
 import axios from "axios";
+import Loader from "../../components/Loader.jsx";
 
 class ProductSingle extends React.Component {
   constructor() {
     super();
     this.state = {
-      response: { images: [], categoryIds: [],
+      response: {
+        images: [],
+        categoryIds: [],
         options: [
           { name: "", type: "", choices: [] },
           { name: "", type: "", choices: [] },
@@ -17,54 +20,52 @@ class ProductSingle extends React.Component {
     };
   }
 
-  handleSubmit = e => {
-    e.preventDefault()
-    const data = this.state.response
-    const id = this.state.response.id
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const data = this.state.response;
+    const id = this.state.response.id;
 
-    axios.put(`/api/products/${id}`, data)
-  }
+    axios.put(`/api/products/${id}`, data);
+  };
 
-  handleChange = e => {
-    e.preventDefault()
+  handleChange = (e) => {
+    e.preventDefault();
     let name = e.target.name;
     let value = e.target.value;
-    let formValues = this.state.response
+    let formValues = this.state.response;
 
     //special situation for nested arrays
     if (e.target.attributes["arrayName"]) {
-      let arrayName = e.target.getAttribute("arrayName")
+      let arrayName = e.target.getAttribute("arrayName");
       let nestedValue = parseInt(e.target.getAttribute("nest"), 10);
-  
-      formValues[arrayName][nestedValue][name] = value
+
+      formValues[arrayName][nestedValue][name] = value;
 
       this.setState({ formValues });
       return;
     }
 
     formValues[name] = value;
-    this.setState({formValues})
-
-  }
+    this.setState({ formValues });
+  };
 
   componentDidMount() {
     this.callApi()
       .then((response) => {
-            for (let index = 0; index < 4; index++) {
-              const element = response.options[index];
-              if (typeof element === "undefined") {
-                response.options.push({ name: "", type: "", choices: [] });
-              }
-            }
+        for (let index = 0; index < 4; index++) {
+          const element = response.options[index];
+          if (typeof element === "undefined") {
+            response.options.push({ name: "", type: "", choices: [] });
+          }
+        }
         this.setState({ response });
+        this.setState({ loading: false });
       })
       .catch((err) => console.log(err));
   }
 
   callApi = async () => {
-    const response = await fetch(
-      `/api/products/${this.props.match.params.id}`
-    );
+    const response = await fetch(`/api/products/${this.props.match.params.id}`);
     const body = await response.json();
     if (response.status !== 200) throw Error(body.message);
 
@@ -72,10 +73,11 @@ class ProductSingle extends React.Component {
   };
 
   render() {
-  const product = this.state.response
+    if (this.state.loading) return <Loader />;
+    const product = this.state.response;
 
     return (
-      <Container>
+      <Col style={{ padding: "70px" }}>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group controlId="formGroupId">
             <Form.Label>Product Id:</Form.Label>
@@ -148,7 +150,7 @@ class ProductSingle extends React.Component {
               <option>no</option>
             </Form.Control>
           </Form.Group>
-          
+
           <Form.Group controlId="formGroupShipRate">
             <Form.Label>Fixed Shipping Rate:</Form.Label>
             <Form.Control
@@ -327,7 +329,7 @@ class ProductSingle extends React.Component {
             Save
           </Button>
         </Form>
-      </Container>
+      </Col>
     );
   }
 }

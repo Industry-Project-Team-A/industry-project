@@ -1,11 +1,7 @@
 import React from "react";
-import { Table, Container, Spinner } from "react-bootstrap";
+import { Table, Col } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-
-//import{Component}
-//class ...extends Component
-//follow the template put super() in it
-//read react component in open source
+import Loader from "../../components/Loader.jsx"
 
 class Variations extends React.Component {
   constructor() {
@@ -24,9 +20,7 @@ class Variations extends React.Component {
       })
       .catch((err) => console.log(err));
   }
-  //async we are waiting
-  //wait for the fetch to run
-  //when result comes back , going into response
+
   callApi = async () => {
     const response = await fetch("/api/variations");
     const body = await response.json();
@@ -36,25 +30,11 @@ class Variations extends React.Component {
   };
 
   render() {
-    const style = {
-      position: "fixed",
-      top: "50%",
-      left: "50%",
-      transform: "translate(-50%, -50%)",
-    };
     if (this.state.loading) return (
-      <div
-        style={{ width: "100vw", height: "100vh", backgroundColor: "#303030" }}
-      >
-        <div style={style}>
-          <Spinner animation="border" variant="info">
-            <span className="sr-only">Loading...</span>
-          </Spinner>
-        </div>
-      </div>
+      <Loader />
     );
     return (
-      <Container>
+      <Col style={{ padding: "70px" }}>
         <h1 className="text-center">Variations</h1>
         <Table striped bordered hover>
           <thead>
@@ -73,13 +53,12 @@ class Variations extends React.Component {
                   </LinkContainer>
                 </td>
                 <td key={variation._id}> {variation.sku} </td>
-
                 <td key={variation._id}>{variation.productId}</td>
               </tr>
             ))}
           </tbody>
         </Table>
-      </Container>
+      </Col>
     );
   }
 }

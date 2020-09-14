@@ -1,6 +1,7 @@
 import React from "react";
-import { Form, Container, Button } from "react-bootstrap";
+import { Form, Col, Button } from "react-bootstrap";
 import axios from "axios";
+import Loader from "../../components/Loader.jsx";
 
 class StoreSingle extends React.Component {
   constructor() {
@@ -8,7 +9,8 @@ class StoreSingle extends React.Component {
     this.state = {
       response: {
         logos: []
-      }
+      },
+      loading: true
     };
   }
 
@@ -43,7 +45,8 @@ class StoreSingle extends React.Component {
   componentDidMount() {
     this.callApi()
       .then((response) => {
-        this.setState({ response });
+        this.setState({ response })
+        this.setState({loading: false});
       })
       .catch((err) => console.log(err));
   }
@@ -56,9 +59,11 @@ class StoreSingle extends React.Component {
     return body;
   };
   render() {
+    if (this.state.loading) return <Loader />;
+
     const store = this.state.response
     return (
-      <Container>
+      <Col style={{ padding: "70px" }}>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group controlId="formGroupId">
             <Form.Label>Store Id:</Form.Label>
@@ -132,7 +137,7 @@ class StoreSingle extends React.Component {
             <Form.Label>Logos:</Form.Label>
             <Form.Control as="select" multiple disabled>
               {this.state.response.logos.map((logo) => (
-                <option>{logo}</option>
+                <option key={logo}>{logo}</option>
               ))}
             </Form.Control>
             <Button variant="secondary" type="add">
@@ -144,7 +149,7 @@ class StoreSingle extends React.Component {
             Save
           </Button>
         </Form>
-      </Container>
+      </Col>
     );
   }
 }

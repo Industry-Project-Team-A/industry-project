@@ -1,29 +1,26 @@
 import React from "react";
-import { Table, Container } from "react-bootstrap";
+import { Table, Col } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-//import{Component}
-//class ...extends Component
-//follow the template put super() in it
-//read react component in open source
+import Loader from "../../components/Loader.jsx";
 
 class Categories extends React.Component {
   constructor() {
     super();
     this.state = {
       response: [],
+      loading: true
     };
   }
 
   componentDidMount() {
     this.callApi()
       .then((response) => {
-        this.setState({ response });
+        this.setState({ response })
+        this.setState({ loading: false });
       })
       .catch((err) => console.log(err));
   }
-  //async we are waiting
-  //wait for the fetch to run
-  //when result comes back , going into response
+
   callApi = async () => {
     const response = await fetch("/api/categories");
     const body = await response.json();
@@ -33,8 +30,10 @@ class Categories extends React.Component {
   };
 
   render() {
+    if (this.state.loading) return <Loader />;
+
     return (
-      <Container>
+      <Col style={{ padding: "70px" }}>
         <h1 className="text-center">Categories</h1>
         <Table striped bordered hover>
           <thead>
@@ -60,7 +59,7 @@ class Categories extends React.Component {
             ))}
           </tbody>
         </Table>
-      </Container>
+      </Col>
     );
   }
 }

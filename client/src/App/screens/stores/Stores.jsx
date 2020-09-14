@@ -1,19 +1,22 @@
 import React from "react";
-import { Table, Container } from "react-bootstrap";
+import { Table, Col } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
+import Loader from "../../components/Loader.jsx";
 
 class Stores extends React.Component {
   constructor() {
     super();
     this.state = {
       response: [],
+      loading: true
     };
   }
 
   componentDidMount() {
     this.callApi()
       .then((response) => {
-        this.setState({ response });
+        this.setState({ response })
+        this.setState({loading: false});
       })
       .catch((err) => console.log(err));
   }
@@ -27,8 +30,10 @@ class Stores extends React.Component {
   };
 
   render() {
+    if (this.state.loading) return <Loader />;
+
     return (
-      <Container>
+      <Col style={{ padding: "70px" }}>
         <h1 className="text-center">Stores</h1>
         <Table striped bordered hover>
           <thead>
@@ -58,7 +63,7 @@ class Stores extends React.Component {
             ))}
           </tbody>
         </Table>
-      </Container>
+      </Col>
     );
   }
 }

@@ -22,7 +22,7 @@ async function getCategories() {
   return await database
     .collection(collectionName)
     .find({})
-    .sort({ id: 1 })
+    .collation({ locale: "en_US", numericOrdering: true })
     .toArray();
 }
 
