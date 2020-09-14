@@ -1,12 +1,14 @@
 import React from "react";
-import { Table, Container } from "react-bootstrap";
+import { Table, Col } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
+import Loader from "../../components/Loader.jsx";
 
 class Products extends React.Component {
   constructor() {
     super();
     this.state = {
       response: [],
+      loading: true,
     };
   }
 
@@ -14,6 +16,7 @@ class Products extends React.Component {
     this.callApi()
       .then((response) => {
         this.setState({ response });
+        this.setState({ loading: false });
       })
       .catch((err) => console.log(err));
   }
@@ -27,8 +30,10 @@ class Products extends React.Component {
   };
 
   render() {
+    if (this.state.loading) return <Loader />;
+
     return (
-      <Container>
+      <Col style={{ padding: "70px" }}>
         <h1 className="text-center">Product</h1>
         <Table striped bordered hover>
           <thead>
@@ -43,22 +48,22 @@ class Products extends React.Component {
           </thead>
           <tbody>
             {this.state.response.map((product) => (
-              <tr>
-                <td key={product._id}>
+              <tr key={product.id.concat(product._id)}>
+                <td key={product.id}>
                   <LinkContainer to={`/products/${product.id}`}>
                     <a>{product.id}</a>
                   </LinkContainer>
                 </td>
-                <td key={product._id}> {product.sku} </td>
-                <td key={product._id}> {product.name} </td>
-                <td key={product._id}> {product.price} </td>
-                <td key={product._id}> {product.enabled} </td>
+                <td key={product.sku}> {product.sku} </td>
+                <td key={product.name}> {product.name} </td>
+                <td key={product.price.toString().concat(product._id)}> {product.price} </td>
+                <td key={product.enabled.toString().concat(product._id)}> {product.enabled} </td>
                 <td key={product._id}> {product.brand} </td>
               </tr>
             ))}
           </tbody>
         </Table>
-      </Container>
+      </Col>
     );
   }
 }
