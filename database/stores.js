@@ -13,20 +13,24 @@ async function createStore(store) {
 
 async function getStores() {
   const database = await getDatabase();
-  return await database.collection(collectionName).find({}).toArray();
+  return await database
+    .collection(collectionName)
+    .find({})
+    .collation({ locale: "en_US", numericOrdering: true })
+    .toArray();
 }
 
 async function getStore(id) {
   const database = await getDatabase();
   return await database.collection(collectionName).findOne({
-    id: parseInt(id),
+    id: id,
   });
 }
 
 async function deleteStore(id) {
   const database = await getDatabase();
   await database.collection(collectionName).deleteOne({
-    id: parseInt(id),
+    id: id,
   });
 }
 
@@ -36,7 +40,7 @@ async function updateStore(id, store) {
 
   await database.collection(collectionName).update(
     {
-      id: parseInt(id)
+      id: id
     },
     {
       $set: {

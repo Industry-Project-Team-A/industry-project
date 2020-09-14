@@ -1,5 +1,6 @@
 import React from "react";
-import { Form, Container, Button } from "react-bootstrap";
+import { Form, Col, Button } from "react-bootstrap";
+import Loader from "../../components/Loader.jsx";
 import axios from "axios";
 
 class VariationSingle extends React.Component {
@@ -9,6 +10,7 @@ class VariationSingle extends React.Component {
       response: {
         options: [{name: "", value: ""}, {name: "", value: ""}],
       },
+      loading: true,
     };
   }
 
@@ -43,7 +45,8 @@ class VariationSingle extends React.Component {
   componentDidMount() {
     this.callApi()
       .then((response) => {
-        this.setState({ response });
+        this.setState({ response })
+        this.setState({loading: false});
       })
       .catch((err) => console.log(err));
   }
@@ -54,9 +57,10 @@ class VariationSingle extends React.Component {
     return body;
   };
   render() {
+        if (this.state.loading) return <Loader />;
     const variation = this.state.response;
     return (
-      <Container>
+      <Col style={{padding: "70px"}}>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group controlId="formGroupId">
             <Form.Label>Variation Id:</Form.Label>
@@ -144,7 +148,7 @@ class VariationSingle extends React.Component {
             Save
           </Button>
         </Form>
-      </Container>
+      </Col>
     );
   }
 }

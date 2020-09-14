@@ -1,49 +1,51 @@
 import React from "react";
-import {Form, Container, Button } from "react-bootstrap";
+import { Form, Col, Button } from "react-bootstrap";
+import Loader from "../../components/Loader.jsx";
 import axios from "axios";
 
 class CategorySingle extends React.Component {
   constructor() {
     super();
     this.state = {
-      response: {productIds: []}
+      response: { productIds: [] },
+      loading: true,
     };
   }
 
-  handleSubmit = e => {
-    e.preventDefault()
-    const data = this.state.response
-    const id = this.state.response.id
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const data = this.state.response;
+    const id = this.state.response.id;
 
-    axios.put(`/api/categories/${id}`, data)
-  }
+    axios.put(`/api/categories/${id}`, data);
+  };
 
-  handleChange = e => {
-    e.preventDefault()
+  handleChange = (e) => {
+    e.preventDefault();
     let name = e.target.name;
     let value = e.target.value;
-    let formValues = this.state.response
+    let formValues = this.state.response;
 
     //special situation for nested arrays
     if (e.target.attributes["arrayName"]) {
-      let arrayName = e.target.getAttribute("arrayName")
+      let arrayName = e.target.getAttribute("arrayName");
       let nestedValue = parseInt(e.target.getAttribute("nest"), 10);
-  
-      formValues[arrayName][nestedValue][name] = value
+
+      formValues[arrayName][nestedValue][name] = value;
 
       this.setState({ formValues });
       return;
     }
 
     formValues[name] = value;
-    this.setState({formValues})
-
-  }
+    this.setState({ formValues });
+  };
 
   componentDidMount() {
     this.callApi()
       .then((response) => {
         this.setState({ response });
+        this.setState({ loading: false });
       })
       .catch((err) => console.log(err));
   }
@@ -59,9 +61,10 @@ class CategorySingle extends React.Component {
   };
 
   render() {
-    const category = this.state.response
-      return (
-      <Container>
+    if (this.state.loading) return <Loader />;
+    const category = this.state.response;
+    return (
+      <Col style={{ padding: "70px" }}>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group controlId="formGroupId">
             <Form.Label>Category Id:</Form.Label>
@@ -98,7 +101,7 @@ class CategorySingle extends React.Component {
               onChange={this.handleChange}
             />
           </Form.Group>
-          
+
           <Form.Group controlId="formGroupEnabled">
             <Form.Label>Enabled:</Form.Label>
             <Form.Control
@@ -113,24 +116,22 @@ class CategorySingle extends React.Component {
             </Form.Control>
 
             <Form.Group controlId="formGroupCatIDs">
-            <Form.Label>Product IDs:</Form.Label>
-            <Form.Control as="select" multiple disabled>
-              {this.state.response.productIds.map((id) => (
-                <option>{id}</option>
-              ))}
-            </Form.Control>
-            <Button variant="secondary" type="add">
-              Edit
-            </Button>
-          </Form.Group>
-
+              <Form.Label>Product IDs:</Form.Label>
+              <Form.Control as="select" multiple disabled>
+                {this.state.response.productIds.map((id) => (
+                  <option>{id}</option>
+                ))}
+              </Form.Control>
+              <Button variant="secondary" type="add">
+                Edit
+              </Button>
             </Form.Group>
-            <Button variant="primary" type="submit">
+          </Form.Group>
+          <Button variant="primary" type="submit">
             Save
-            </Button>
-          
+          </Button>
         </Form>
-      </Container>
+      </Col>
     );
   }
 }

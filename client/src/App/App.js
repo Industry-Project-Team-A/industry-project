@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import { Navbar, Nav } from "react-bootstrap";
+import { Navbar, Nav, Container, Row, Col } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
 import Products from "./screens/products/Products.jsx";
@@ -17,26 +17,31 @@ import VariationSingle from "./screens/variations/VariationSingle.jsx";
 const App = () => {
   return (
     <Router>
-      <div>
-        <Navbar bg="info" variant="dark">
-          <LinkContainer to="/">
-            <Navbar.Brand>Tee Commerce Database</Navbar.Brand>
-          </LinkContainer>
-          <Nav className="mr-auto">
-            <LinkContainer to="/products">
-              <Nav.Link>Products</Nav.Link>
-            </LinkContainer>
-            <LinkContainer to="/stores">
-              <Nav.Link>Stores</Nav.Link>
-            </LinkContainer>
-            <LinkContainer to="/categories">
-              <Nav.Link>Categories</Nav.Link>
-            </LinkContainer>
-            <LinkContainer to="/variations">
-              <Nav.Link>Variations</Nav.Link>
-            </LinkContainer>
-          </Nav>
-        </Navbar>
+      <Container fluid>
+        <Row>
+          <Col>
+            <Navbar bg="info" variant="dark" fixed="top">
+              <LinkContainer to="/">
+                <Navbar.Brand>Tee Commerce Database</Navbar.Brand>
+              </LinkContainer>
+              <Nav className="mr-auto">
+                <LinkContainer to="/products">
+                  <Nav.Link>Products</Nav.Link>
+                </LinkContainer>
+                <LinkContainer to="/stores">
+                  <Nav.Link>Stores</Nav.Link>
+                </LinkContainer>
+                <LinkContainer to="/categories">
+                  <Nav.Link>Categories</Nav.Link>
+                </LinkContainer>
+                <LinkContainer to="/variations">
+                  <Nav.Link>Variations</Nav.Link>
+                </LinkContainer>
+              </Nav>
+            </Navbar>
+          </Col>
+        </Row>
+        <Row>
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/products/:id" component={ProductSingle} />
@@ -48,7 +53,8 @@ const App = () => {
             <Route path="/categories/:id" component={CategorySingle} />
             <Route path="/categories" component={Categories} />
           </Switch>
-      </div>
+        </Row>
+      </Container>
     </Router>
   );
 };

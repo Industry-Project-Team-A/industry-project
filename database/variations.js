@@ -13,7 +13,7 @@ async function createVariation(variation) {
 
 async function getVariations() {
   const database = await getDatabase();
-  return await database.collection(collectionName).find({}).toArray();
+  return await database.collection(collectionName).find({}).collation({locale:"en_US", numericOrdering:true}).toArray();
 }
 
 async function getVariation(id) {
