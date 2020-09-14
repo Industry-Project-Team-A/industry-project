@@ -1,46 +1,54 @@
 import React from "react";
 import { Form, Col, Button } from "react-bootstrap";
 import axios from "axios";
+
 import Loader from "../../components/Loader.jsx";
+import SuccessSubmit from "../../components/SuccessSubmit.jsx";
 
 class StoreSingle extends React.Component {
   constructor() {
     super();
     this.state = {
       response: {
-        logos: []
+        logos: [],
       },
-      loading: true
+      loading: true,
+      submitted: false,
     };
   }
 
-  handleSubmit = e => {
-    e.preventDefault()
-    const data = this.state.response
-    const id = this.state.response.id
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const data = this.state.response;
+    const id = this.state.response.id;
 
-    axios.put(`/api/stores/${id}`, data)
-  }
+    axios.put(`/api/stores/${id}`, data).then(
+      this.setState({ submitted: true }),
+      setTimeout(() => {
+        this.props.history.push("/stores");
+      }, 3000)
+    );
+  };
 
-  handleChange = e => {
-    e.preventDefault()
+  handleChange = (e) => {
+    e.preventDefault();
     let name = e.target.name;
     let value = e.target.value;
-    let formValues = this.state.response
+    let formValues = this.state.response;
     //special situation for nested arrays
     if (e.target.attributes["arrayName"]) {
-      let arrayName = e.target.getAttribute("arrayName")
+      let arrayName = e.target.getAttribute("arrayName");
       let nestedValue = parseInt(e.target.getAttribute("nest"), 10);
 
-      formValues[arrayName][nestedValue][name] = value
+      formValues[arrayName][nestedValue][name] = value;
 
       this.setState({ formValues });
       return;
     }
 
     formValues[name] = value;
-    this.setState({ formValues })
-  }
+    this.setState({ formValues });
+  };
 
   componentDidMount() {
     axios.get(`/api/stores/${this.props.match.params.id}`).then((res) => {
@@ -51,8 +59,16 @@ class StoreSingle extends React.Component {
 
   render() {
     if (this.state.loading) return <Loader />;
+    if (this.state.submitted)
+      return (
+        <SuccessSubmit
+          type="Store"
+          id={this.state.response.id}
+          operation="updated"
+        />
+      );
 
-    const store = this.state.response
+    const store = this.state.response;
     return (
       <Col style={{ padding: "70px" }}>
         <Form onSubmit={this.handleSubmit}>

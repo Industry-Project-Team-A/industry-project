@@ -1,7 +1,9 @@
 import React from "react";
 import { Form, Col, Button } from "react-bootstrap";
 import axios from "axios";
+
 import Loader from "../../components/Loader.jsx";
+import SuccessSubmit from "../../components/SuccessSubmit.jsx";
 
 class ProductSingle extends React.Component {
   constructor() {
@@ -25,7 +27,12 @@ class ProductSingle extends React.Component {
     const data = this.state.response;
     const id = this.state.response.id;
 
-    axios.put(`/api/products/${id}`, data);
+    axios.put(`/api/products/${id}`, data).then(
+      this.setState({ submitted: true }),
+      setTimeout(() => {
+        this.props.history.push("/products");
+      }, 3000)
+    );
   };
 
   handleChange = (e) => {
@@ -64,6 +71,15 @@ class ProductSingle extends React.Component {
 
   render() {
     if (this.state.loading) return <Loader />;
+    if (this.state.submitted)
+      return (
+        <SuccessSubmit
+          type="Product"
+          id={this.state.response.id}
+          operation="updated"
+        />
+      );
+
     const product = this.state.response;
 
     return (

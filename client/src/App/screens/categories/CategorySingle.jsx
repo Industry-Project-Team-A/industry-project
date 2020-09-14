@@ -1,7 +1,9 @@
 import React from "react";
 import { Form, Col, Button } from "react-bootstrap";
-import Loader from "../../components/Loader.jsx";
 import axios from "axios";
+
+import Loader from "../../components/Loader.jsx";
+import SuccessSubmit from "../../components/SuccessSubmit.jsx";
 
 class CategorySingle extends React.Component {
   constructor() {
@@ -9,6 +11,7 @@ class CategorySingle extends React.Component {
     this.state = {
       response: { productIds: [] },
       loading: true,
+      submitted: false,
     };
   }
 
@@ -17,7 +20,12 @@ class CategorySingle extends React.Component {
     const data = this.state.response;
     const id = this.state.response.id;
 
-    axios.put(`/api/categories/${id}`, data);
+    axios.put(`/api/variations/${id}`, data).then(
+      this.setState({ submitted: true }),
+      setTimeout(() => {
+        this.props.history.push("/variations");
+      }, 3000)
+    );
   };
 
   handleChange = (e) => {
@@ -50,6 +58,15 @@ class CategorySingle extends React.Component {
 
   render() {
     if (this.state.loading) return <Loader />;
+    if (this.state.submitted)
+      return (
+        <SuccessSubmit
+          type="Category"
+          id={this.state.response.id}
+          operation="updated"
+        />
+      );
+
     const category = this.state.response;
     return (
       <Col style={{ padding: "70px" }}>
