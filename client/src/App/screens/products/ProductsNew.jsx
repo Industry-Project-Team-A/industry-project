@@ -5,29 +5,21 @@ import axios from "axios";
 import Loader from "../../components/Loader.jsx";
 import SuccessSubmit from "../../components/SuccessSubmit.jsx";
 
-class NewProduct extends React.Component {
+class ProductsNew extends React.Component {
   constructor() {
     super();
     this.state = {
-      response: {
-        images: [],
-        categoryIds: [],
-        options: [
-          { name: "", type: "", choices: [] },
-          { name: "", type: "", choices: [] },
-          { name: "", type: "", choices: [] },
-          { name: "", type: "", choices: [] },
-        ],
-      },
+      response: {},
+      loading: true,
+      submitted: false
     };
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
     const data = this.state.response;
-    const id = this.state.response.newid;
 
-    axios.put(`/api/products/${id}`, data).then(
+    axios.post(`/api/products/`, data).then(
       this.setState({ submitted: true }),
       setTimeout(() => {
         this.props.history.push("/products");
@@ -57,15 +49,22 @@ class NewProduct extends React.Component {
   };
 
   componentDidMount() {
-    axios.get(`/api/products/${this.props.match.params.newid}`).then((res) => {
-      const response = res.data;
-      for (let index = 0; index < 4; index++) {
-        const element = response.options[index];
-        if (typeof element === "undefined") {
-          response.options.push({ name: "", type: "", choices: [] });
-        }
-      }
-      this.setState({ response, loading: false });
+    axios.get(`/api/products/newid`).then((res) => {
+      const newId = res.data[0];
+      this.setState({
+        response: {
+          id: newId,
+          images: [],
+          categoryIds: [],
+          options: [
+            { name: "", type: "", choices: [] },
+            { name: "", type: "", choices: [] },
+            { name: "", type: "", choices: [] },
+            { name: "", type: "", choices: [] },
+          ]
+        },
+        loading: false,
+      });
     });
   }
 
@@ -75,7 +74,7 @@ class NewProduct extends React.Component {
       return (
         <SuccessSubmit
           type="Product"
-          id={this.state.response.newid}
+          id={this.state.response.id}
           operation="updated"
         />
       );
@@ -340,4 +339,4 @@ class NewProduct extends React.Component {
   }
 }
 
-export default NewProduct;
+export default ProductsNew;

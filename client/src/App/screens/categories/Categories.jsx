@@ -27,8 +27,10 @@ class Categories extends React.Component {
       <Col style={{ padding: "70px" }}>
         <h1 className="text-center">Categories</h1>
 
-        <LinkContainer to={`/categories/newid`}>
-        <Button variant="primary" type="newid">New Category</Button>
+        <LinkContainer to={`/categories/new`}>
+          <Button variant="primary" type="newCategory">
+            New Category
+          </Button>
         </LinkContainer>
 
         <Table striped bordered hover>

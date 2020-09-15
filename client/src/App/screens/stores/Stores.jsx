@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, Col } from "react-bootstrap";
+import { Table, Col, Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import axios from "axios";
 import Loader from "../../components/Loader.jsx";
@@ -26,6 +26,13 @@ class Stores extends React.Component {
     return (
       <Col style={{ padding: "70px" }}>
         <h1 className="text-center">Stores</h1>
+
+        <LinkContainer to={`/stores/new`}>
+          <Button variant="primary" type="newStore">
+            New Store
+          </Button>
+        </LinkContainer>
+
         <Table striped bordered hover>
           <thead>
             <tr>
