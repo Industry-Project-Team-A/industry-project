@@ -5,25 +5,20 @@ import axios from "axios";
 import Loader from "../../components/Loader.jsx";
 import SuccessSubmit from "../../components/SuccessSubmit.jsx";
 
-class NewCategory extends React.Component {
+class StoresNew extends React.Component {
   constructor() {
     super();
-    this.state = {
-      response: { productIds: [] },
-      loading: true,
-      submitted: false,
-    };
+    this.state = { loading: true, submitted: false };
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
     const data = this.state.response;
-    const id = newId;
 
-    axios.put(`/api/categories/${id}`, data).then(
+    axios.post(`/api/stores`, data).then(
       this.setState({ submitted: true }),
       setTimeout(() => {
-        this.props.history.push("/categories");
+        this.props.history.push("/stores");
       }, 3000)
     );
   };
@@ -33,8 +28,7 @@ class NewCategory extends React.Component {
     let name = e.target.name;
     let value = e.target.value;
     let formValues = this.state.response;
-
-    //special situation for nested arrays
+    //special situation for nested arrays
     if (e.target.attributes["arrayName"]) {
       let arrayName = e.target.getAttribute("arrayName");
       let nestedValue = parseInt(e.target.getAttribute("nest"), 10);
@@ -50,10 +44,12 @@ class NewCategory extends React.Component {
   };
 
   componentDidMount() {
-    axios.get(`/api/categories/newid`).then((res) => {
-      const response = res.data;
-      this.setState({response:{ id: res[0] , loading: false}});
-      console.log(response)
+    axios.get("/api/stores/newid").then((res) => {
+      const newId = res.data[0];
+      this.setState({
+        response: { id: newId, logos: [] },
+        loading: false,
+      });
     });
   }
 
@@ -62,22 +58,22 @@ class NewCategory extends React.Component {
     if (this.state.submitted)
       return (
         <SuccessSubmit
-          type="Category"
+          type="Store"
           id={this.state.response.id}
           operation="updated"
         />
       );
 
-    const category = this.state.response;
+    const store = this.state.response;
     return (
       <Col style={{ padding: "70px" }}>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group controlId="formGroupId">
-            <Form.Label>Category Id:</Form.Label>
+            <Form.Label>Store Id:</Form.Label>
             <Form.Control
-              name="newid"
-              value={newId}
-              placeholder ="Readonly input here..."
+              name="id"
+              value={store.id}
+              onChange={this.handleChange}
             />
           </Form.Group>
 
@@ -85,52 +81,73 @@ class NewCategory extends React.Component {
             <Form.Label>Name:</Form.Label>
             <Form.Control
               name="name"
-              value={category.name}
+              value={store.name}
               onChange={this.handleChange}
             />
           </Form.Group>
 
-          <Form.Group controlId="formGroupSku">
-            <Form.Label>Parent Id: </Form.Label>
+          <Form.Group controlId="formGroupTag">
+            <Form.Label>Tag:</Form.Label>
             <Form.Control
-              name="parentId"
-              value={category.parentId}
+              name="tag"
+              value={store.tag}
               onChange={this.handleChange}
             />
           </Form.Group>
 
-          <Form.Group controlId="formGroupDescription">
-            <Form.Label>Order By:</Form.Label>
+          <Form.Group controlId="formGroupApiId">
+            <Form.Label>API Username: </Form.Label>
             <Form.Control
-              name="orderBy"
-              value={category.orderBy}
+              name="apiId"
+              value={store.apiId}
               onChange={this.handleChange}
             />
           </Form.Group>
 
-          <Form.Group controlId="formGroupEnabled">
-            <Form.Label>Enabled:</Form.Label>
+          <Form.Group controlId="formGroupToken">
+            <Form.Label>API Token:</Form.Label>
+            <Form.Control
+              name="token"
+              value={store.token}
+              onChange={this.handleChange}
+            />
+          </Form.Group>
+
+          <Form.Group controlId="formGroupBaseUrl">
+            <Form.Label>Base Url:</Form.Label>
+            <Form.Control
+              name="baseUrl"
+              value={store.baseUrl}
+              onChange={this.handleChange}
+            />
+          </Form.Group>
+
+          <Form.Group controlId="ShippingIncluded">
+            <Form.Label>Shipping Included:</Form.Label>
             <Form.Control
               as="select"
-              name="enabled"
-              value={category.enabled}
+              name="shippingIncluded"
+              value={store.shippingIncluded}
               onChange={this.handleChange}
               single
             >
               <option>yes</option>
               <option>no</option>
             </Form.Control>
-
-            <Form.Group controlId="formGroupCatIDs">
-              <Form.Label>Product IDs:</Form.Label>
-              <Form.Control as="select" multiple disabled>
-                {this.state.response.id}
-              </Form.Control>
-              <Button variant="secondary" type="add">
-                Edit
-              </Button>
-            </Form.Group>
           </Form.Group>
+
+          <Form.Group controlId="formGroupLogos">
+            <Form.Label>Logos:</Form.Label>
+            <Form.Control as="select" multiple disabled>
+              {this.state.response.logos.map((logo) => {
+                <option>{logo}</option>;
+              })}
+            </Form.Control>
+            <Button variant="secondary" type="add">
+              Edit
+            </Button>
+          </Form.Group>
+
           <Button variant="primary" type="submit">
             Save
           </Button>
@@ -140,4 +157,4 @@ class NewCategory extends React.Component {
   }
 }
 
-export default NewCategory;
+export default StoresNew;

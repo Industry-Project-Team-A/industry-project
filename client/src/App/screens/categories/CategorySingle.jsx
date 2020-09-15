@@ -20,10 +20,10 @@ class CategorySingle extends React.Component {
     const data = this.state.response;
     const id = this.state.response.id;
 
-    axios.put(`/api/categories/${id}`, data).then(
+    axios.put(`/api/variations/${id}`, data).then(
       this.setState({ submitted: true }),
       setTimeout(() => {
-        this.props.history.push("/categories");
+        this.props.history.push("/variations");
       }, 3000)
     );
   };
