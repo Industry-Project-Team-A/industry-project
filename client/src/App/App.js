@@ -14,7 +14,7 @@ import StoreSingle from "./screens/stores/StoreSingle.jsx";
 import CategorySingle from "./screens/categories/CategorySingle.jsx";
 import VariationSingle from "./screens/variations/VariationSingle.jsx";
 
-import SuccessSubmit from "./components/SuccessSubmit.jsx"
+import StoresNew from "./screens/stores/StoresNew.jsx"
 
 const App = () => {
   return (
@@ -54,7 +54,7 @@ const App = () => {
             <Route path="/variations" component={Variations} />
             <Route path="/categories/:id" component={CategorySingle} />
             <Route path="/categories" component={Categories} />
-            <Route path="/success" component={SuccessSubmit} />
+            <Route path="/success" component={StoresNew} />
           </Switch>
         </Row>
       </Container>
