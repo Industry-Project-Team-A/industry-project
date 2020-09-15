@@ -9,14 +9,7 @@ class CategoriesNew extends React.Component {
   constructor() {
     super();
     this.state = {
-      response: {
-        id: "",
-        name: "",
-        parentId: "",
-        orderBy: null,
-        enabled: "",
-        productIds: ["1"],
-      },
+      response: {loading: true},
       loading: true,
       submitted: false,
     };
@@ -58,7 +51,10 @@ class CategoriesNew extends React.Component {
   componentDidMount() {
     axios.get(`/api/categories/newid`).then((res) => {
       const newId = res.data[0];
-      this.setState({ response: {id: newId} , loading: false });
+      this.setState({
+        response: { id: newId, productIds: [] },
+        loading: false,
+      });
     });
   }
 
@@ -129,7 +125,9 @@ class CategoriesNew extends React.Component {
             <Form.Group controlId="formGroupCatIDs">
               <Form.Label>Product IDs:</Form.Label>
               <Form.Control as="select" multiple disabled>
-               
+                {this.state.response.productIds.map((category) => {
+                  <option>{category}</option>;
+                })}
               </Form.Control>
               <Button variant="secondary" type="add">
                 Edit
