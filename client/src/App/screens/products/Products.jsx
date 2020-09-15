@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, Col } from "react-bootstrap";
+import { Table, Col, Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import axios from "axios";
 import Loader from "../../components/Loader.jsx";
@@ -24,8 +24,14 @@ class Products extends React.Component {
     if (this.state.loading) return <Loader />;
 
     return (
+      <div>
       <Col style={{ padding: "70px" }}>
         <h1 className="text-center">Product</h1>
+        
+        <LinkContainer to={`/products/newid`}>
+        <Button variant="primary" type="newid">New Product</Button>
+        </LinkContainer>
+        
         <Table striped bordered hover>
           <thead>
             <tr>
@@ -61,6 +67,7 @@ class Products extends React.Component {
           </tbody>
         </Table>
       </Col>
+      </div>
     );
   }
 }
