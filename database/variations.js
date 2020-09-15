@@ -12,7 +12,11 @@ async function createVariation(variation) {
 
 async function getVariations() {
   const database = await getDatabase();
-  return await database.collection(collectionName).find({}).collation({locale:"en_US", numericOrdering:true}).toArray();
+  return await database
+    .collection(collectionName)
+    .find({})
+    .collation({ locale: "en_US", numericOrdering: true })
+    .toArray();
 }
 
 async function getVariation(id) {
@@ -48,14 +52,17 @@ async function updateVariation(id, variation) {
 
 async function getNewId() {
   const database = await getDatabase();
-  const id = await database
+  const maxId = await database
     .collection(collectionName)
     .find({})
     .sort({ id: -1 })
     .limit(1)
+    .collation({ locale: "en_US", numericOrdering: true })
     .toArray();
 
-  return (newId = [id[0].id + 1]);
+  const id = (parseInt(maxId[0].id) + 1).toString();
+
+  return (newId = [id]);
 }
 
 module.exports = {

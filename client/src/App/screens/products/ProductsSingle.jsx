@@ -5,7 +5,7 @@ import axios from "axios";
 import Loader from "../../components/Loader.jsx";
 import SuccessSubmit from "../../components/SuccessSubmit.jsx";
 
-class NewProduct extends React.Component {
+class ProductsSingle extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -22,13 +22,27 @@ class NewProduct extends React.Component {
     };
   }
 
+  handleDelete = (e) => {
+    e.preventDefault();
+
+    const data = this.state.response;
+    const id = data.id;
+
+        axios.delete(`/api/products/${id}`, data).then(
+          this.setState({ submitted: true, operation: "deleted" }),
+          setTimeout(() => {
+            this.props.history.push("/products");
+          }, 3000)
+        );
+  }
+
   handleSubmit = (e) => {
     e.preventDefault();
     const data = this.state.response;
-    const id = this.state.response.newid;
+    const id = this.state.response.id;
 
     axios.put(`/api/products/${id}`, data).then(
-      this.setState({ submitted: true }),
+      this.setState({ submitted: true, operation: "updated" }),
       setTimeout(() => {
         this.props.history.push("/products");
       }, 3000)
@@ -57,7 +71,7 @@ class NewProduct extends React.Component {
   };
 
   componentDidMount() {
-    axios.get(`/api/products/${this.props.match.params.newid}`).then((res) => {
+    axios.get(`/api/products/${this.props.match.params.id}`).then((res) => {
       const response = res.data;
       for (let index = 0; index < 4; index++) {
         const element = response.options[index];
@@ -75,8 +89,8 @@ class NewProduct extends React.Component {
       return (
         <SuccessSubmit
           type="Product"
-          id={this.state.response.newid}
-          operation="updated"
+          id={this.state.response.id}
+          operation={this.state.operation}
         />
       );
 
@@ -84,6 +98,10 @@ class NewProduct extends React.Component {
 
     return (
       <Col style={{ padding: "70px" }}>
+        <Button variant="danger" type="delete" onClick={this.handleDelete}>
+          Delete Product
+        </Button>
+
         <Form onSubmit={this.handleSubmit}>
           <Form.Group controlId="formGroupId">
             <Form.Label>Product Id:</Form.Label>
@@ -231,7 +249,15 @@ class NewProduct extends React.Component {
               onChange={this.handleChange}
             />
             <Form.Label>Type:</Form.Label>
-            <Form.Control as="select" value={product.options[1].type} single>
+            <Form.Control
+              as="select"
+              name="type"
+              arrayName="options"
+              nest="1"
+              value={product.options[1].type}
+              onChange={this.handleChange}
+              single
+            >
               <option></option>
               <option>SELECT</option>
               <option>CHECKBOX</option>
@@ -340,4 +366,4 @@ class NewProduct extends React.Component {
   }
 }
 
-export default NewProduct;
+export default ProductsSingle;

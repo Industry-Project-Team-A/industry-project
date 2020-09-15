@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, Col } from "react-bootstrap";
+import { Table, Col, Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import axios from "axios";
 import Loader from "../../components/Loader.jsx"
@@ -29,6 +29,13 @@ class Variations extends React.Component {
     return (
       <Col style={{ padding: "70px" }}>
         <h1 className="text-center">Variations</h1>
+
+        <LinkContainer to={`/variations/new`}>
+          <Button variant="primary" type="newVariation">
+            New Variation
+          </Button>
+        </LinkContainer>
+
         <Table striped bordered hover>
           <thead>
             <tr>

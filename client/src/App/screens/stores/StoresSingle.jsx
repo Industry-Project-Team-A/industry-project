@@ -5,17 +5,24 @@ import axios from "axios";
 import Loader from "../../components/Loader.jsx";
 import SuccessSubmit from "../../components/SuccessSubmit.jsx";
 
-class StoresNew extends React.Component {
+class StoresSingle extends React.Component {
   constructor() {
     super();
-    this.state = { loading: true, submitted: false };
+    this.state = {
+      response: {
+        logos: [],
+      },
+      loading: true,
+      submitted: false,
+    };
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
     const data = this.state.response;
+    const id = this.state.response.id;
 
-    axios.post(`/api/stores`, data).then(
+    axios.put(`/api/stores/${id}`, data).then(
       this.setState({ submitted: true }),
       setTimeout(() => {
         this.props.history.push("/stores");
@@ -44,12 +51,9 @@ class StoresNew extends React.Component {
   };
 
   componentDidMount() {
-    axios.get("/api/stores/newid").then((res) => {
-      const newId = res.data[0];
-      this.setState({
-        response: { id: newId, logos: [] },
-        loading: false,
-      });
+    axios.get(`/api/stores/${this.props.match.params.id}`).then((res) => {
+      const response = res.data;
+      this.setState({ response, loading: false });
     });
   }
 
@@ -139,9 +143,9 @@ class StoresNew extends React.Component {
           <Form.Group controlId="formGroupLogos">
             <Form.Label>Logos:</Form.Label>
             <Form.Control as="select" multiple disabled>
-              {this.state.response.logos.map((logo) => {
-                return <option>{logo}</option>;
-              })}
+              {this.state.response.logos.map((logo) => (
+                <option key={logo}>{logo}</option>
+              ))}
             </Form.Control>
             <Button variant="secondary" type="add">
               Edit
@@ -157,4 +161,4 @@ class StoresNew extends React.Component {
   }
 }
 
-export default StoresNew;
+export default StoresSingle;

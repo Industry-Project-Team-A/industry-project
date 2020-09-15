@@ -4,63 +4,75 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Navbar, Nav, Container, Row, Col } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
+import ScrollIntoView from "./helpers/ScrollIntoView.jsx";
+
 import Products from "./screens/products/Products.jsx";
 import Stores from "./screens/stores/Stores.jsx";
 import Categories from "./screens/categories/Categories.jsx";
 import Variations from "./screens/variations/Variations.jsx";
 
-import ProductSingle from "./screens/products/ProductSingle.jsx";
-import StoreSingle from "./screens/stores/StoreSingle.jsx";
-import CategorySingle from "./screens/categories/CategorySingle.jsx";
-import VariationSingle from "./screens/variations/VariationSingle.jsx";
+import ProductsSingle from "./screens/products/ProductsSingle.jsx";
+import StoresSingle from "./screens/stores/StoresSingle.jsx";
+import CategoriesSingle from "./screens/categories/CategoriesSingle.jsx";
+import VariationsSingle from "./screens/variations/VariationsSingle.jsx";
 
-import StoresNew from "./screens/stores/StoresNew.jsx"
+import ProductsNew from "./screens/products/ProductsNew.jsx";
+import StoresNew from "./screens/stores/StoresNew.jsx";
+import CategoriesNew from "./screens/categories/CategoriesNew.jsx";
+import VariationsNew from "./screens/variations/VariationsNew.jsx";
 
-const App = () => {
-  return (
-    <Router>
-      <Container fluid>
-        <Row>
-          <Col>
-            <Navbar bg="info" variant="dark" fixed="top">
-              <LinkContainer to="/">
-                <Navbar.Brand>Tee Commerce Database</Navbar.Brand>
-              </LinkContainer>
-              <Nav className="mr-auto">
-                <LinkContainer to="/products">
-                  <Nav.Link>Products</Nav.Link>
-                </LinkContainer>
-                <LinkContainer to="/stores">
-                  <Nav.Link>Stores</Nav.Link>
-                </LinkContainer>
-                <LinkContainer to="/categories">
-                  <Nav.Link>Categories</Nav.Link>
-                </LinkContainer>
-                <LinkContainer to="/variations">
-                  <Nav.Link>Variations</Nav.Link>
-                </LinkContainer>
-              </Nav>
-            </Navbar>
-          </Col>
-        </Row>
-        <Row>
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/products/:id" component={ProductSingle} />
-            <Route path="/products" component={Products} />
-            <Route path="/stores/:id" component={StoreSingle} />
-            <Route path="/stores" component={Stores} />
-            <Route path="/variations/:id" component={VariationSingle} />
-            <Route path="/variations" component={Variations} />
-            <Route path="/categories/:id" component={CategorySingle} />
-            <Route path="/categories" component={Categories} />
-            <Route path="/success" component={StoresNew} />
-          </Switch>
-        </Row>
-      </Container>
-    </Router>
-  );
-};
+class App extends React.Component {
+  render() {
+    return (
+      <Router>
+        <ScrollIntoView>
+          <Container fluid>
+            <Row>
+              <Col>
+                <Navbar bg="info" variant="dark" fixed="top">
+                  <LinkContainer to="/">
+                    <Navbar.Brand>Tee Commerce Database</Navbar.Brand>
+                  </LinkContainer>
+                  <Nav className="mr-auto">
+                    <LinkContainer to="/products">
+                      <Nav.Link>Products</Nav.Link>
+                    </LinkContainer>
+                    <LinkContainer to="/stores">
+                      <Nav.Link>Stores</Nav.Link>
+                    </LinkContainer>
+                    <LinkContainer to="/categories">
+                      <Nav.Link>Categories</Nav.Link>
+                    </LinkContainer>
+                    <LinkContainer to="/variations">
+                      <Nav.Link>Variations</Nav.Link>
+                    </LinkContainer>
+                  </Nav>
+                </Navbar>
+              </Col>
+            </Row>
+            <Row>
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <Route path="/products/new" component={ProductsNew} />
+                <Route path="/products/:id" component={ProductsSingle} />
+                <Route path="/products" component={Products} />
+                <Route path="/stores/new" component={StoresNew} />
+                <Route path="/stores/:id" component={StoresSingle} />
+                <Route path="/stores" component={Stores} />
+                <Route path="/variations/new" component={VariationsNew} />
+                <Route path="/variations/:id" component={VariationsSingle} />
+                <Route path="/variations" component={Variations} />
+                <Route path="/categories/new" component={CategoriesNew} />
+                <Route path="/categories/:id" component={CategoriesSingle} />
+                <Route path="/categories" component={Categories} />
+              </Switch>
+            </Row>
+          </Container>
+        </ScrollIntoView>
+      </Router>
+    );
+  }
+}
 
 function Home() {
   return (

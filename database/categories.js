@@ -50,14 +50,17 @@ async function updateCategory(id, category) {
 
 async function getNewId() {
   const database = await getDatabase();
-  const id = await database
+  const maxId = await database
     .collection(collectionName)
     .find({})
     .sort({ id: -1 })
     .limit(1)
+    .collation({ locale: "en_US", numericOrdering: true })
     .toArray();
 
-  return (newId = [id[0].id + 1]);
+  const id = (parseInt(maxId[0].id) + 1).toString();
+
+  return (newId = [id]);
 }
 
 module.exports = {
