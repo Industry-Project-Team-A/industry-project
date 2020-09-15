@@ -230,7 +230,15 @@ class ProductsNew extends React.Component {
               onChange={this.handleChange}
             />
             <Form.Label>Type:</Form.Label>
-            <Form.Control as="select" value={product.options[1].type} single>
+            <Form.Control
+              as="select"
+              name="type"
+              arrayName="options"
+              nest="1"
+              value={product.options[1].type}
+              onChange={this.handleChange}
+              single
+            >
               <option></option>
               <option>SELECT</option>
               <option>CHECKBOX</option>
