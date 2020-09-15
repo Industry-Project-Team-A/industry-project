@@ -9,7 +9,7 @@ class CategoriesNew extends React.Component {
   constructor() {
     super();
     this.state = {
-      response: {loading: true},
+      response: {},
       loading: true,
       submitted: false,
     };
@@ -126,7 +126,7 @@ class CategoriesNew extends React.Component {
               <Form.Label>Product IDs:</Form.Label>
               <Form.Control as="select" multiple disabled>
                 {this.state.response.productIds.map((category) => {
-                  <option>{category}</option>;
+                  return <option>{category}</option>;
                 })}
               </Form.Control>
               <Button variant="secondary" type="add">

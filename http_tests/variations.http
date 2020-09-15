@@ -4,6 +4,9 @@ GET http://localhost:5000/api/variations HTTP/1.1
 ### test single GET
 GET http://localhost:5000/api/variations/3 HTTP/1.1
 
+### test getnext Id
+GET http://localhost:5000/api/variations/newid HTTP/1.1
+
 ### Test put
 PUT http://localhost:5000/api/variations/3 HTTP/1.1
 content-type: application/json

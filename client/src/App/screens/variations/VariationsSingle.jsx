@@ -6,7 +6,7 @@ import { withRouter } from "react-router-dom";
 import Loader from "../../components/Loader.jsx";
 import SuccessSubmit from "../../components/SuccessSubmit.jsx";
 
-class VariationSingle extends React.Component {
+class VariationsSingle extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -166,4 +166,4 @@ class VariationSingle extends React.Component {
     );
   }
 }
-export default withRouter(VariationSingle);
+export default withRouter(VariationsSingle);

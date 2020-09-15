@@ -25,48 +25,50 @@ class Products extends React.Component {
 
     return (
       <div>
-      <Col style={{ padding: "70px" }}>
-        <h1 className="text-center">Product</h1>
-        
-        <LinkContainer to={`/products/newid`}>
-        <Button variant="primary" type="newid">New Product</Button>
-        </LinkContainer>
-        
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Sku</th>
-              <th>Name</th>
-              <th>Price</th>
-              <th>Enabled</th>
-              <th>Brand</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.response.map((product) => (
-              <tr key={product.id.concat(product._id)}>
-                <td key={product.id}>
-                  <LinkContainer to={`/products/${product.id}`}>
-                    <a>{product.id}</a>
-                  </LinkContainer>
-                </td>
-                <td key={product.sku}> {product.sku} </td>
-                <td key={product.name}> {product.name} </td>
-                <td key={product.price.toString().concat(product._id)}>
-                  {" "}
-                  {product.price}{" "}
-                </td>
-                <td key={product.enabled.toString().concat(product._id)}>
-                  {" "}
-                  {product.enabled}{" "}
-                </td>
-                <td key={product._id}> {product.brand} </td>
+        <Col style={{ padding: "70px" }}>
+          <h1 className="text-center">Product</h1>
+
+          <LinkContainer to={`/products/new`}>
+            <Button variant="primary" type="newProduct">
+              New Product
+            </Button>
+          </LinkContainer>
+
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Sku</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Enabled</th>
+                <th>Brand</th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
-      </Col>
+            </thead>
+            <tbody>
+              {this.state.response.map((product) => (
+                <tr key={product.id.concat(product._id)}>
+                  <td key={product.id}>
+                    <LinkContainer to={`/products/${product.id}`}>
+                      <a>{product.id}</a>
+                    </LinkContainer>
+                  </td>
+                  <td key={product.sku}> {product.sku} </td>
+                  <td key={product.name}> {product.name} </td>
+                  <td key={product.price.toString().concat(product._id)}>
+                    {" "}
+                    {product.price}{" "}
+                  </td>
+                  <td key={product.enabled.toString().concat(product._id)}>
+                    {" "}
+                    {product.enabled}{" "}
+                  </td>
+                  <td key={product._id}> {product.brand} </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </Col>
       </div>
     );
   }
