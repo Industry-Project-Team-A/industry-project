@@ -8,13 +8,13 @@ import Products from "./screens/products/Products.jsx";
 import Stores from "./screens/stores/Stores.jsx";
 import Categories from "./screens/categories/Categories.jsx";
 import Variations from "./screens/variations/Variations.jsx";
-import NewCategory from "./screens/categories/NewCategory.jsx";
+
 import ProductSingle from "./screens/products/ProductSingle.jsx";
 import StoreSingle from "./screens/stores/StoreSingle.jsx";
 import CategorySingle from "./screens/categories/CategorySingle.jsx";
 import VariationSingle from "./screens/variations/VariationSingle.jsx";
-import SuccessSubmit from "./components/SuccessSubmit.jsx"
-import NewProduct from "./screens/products/NewProduct.jsx";
+
+import CategoriesNew from "./screens/categories/CategoriesNew.jsx"
 
 const App = () => {
   return (
@@ -47,16 +47,14 @@ const App = () => {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/products/:id" component={ProductSingle} />
-            <Route path="/products/newid" component={NewProduct} />
             <Route path="/products" component={Products} />
             <Route path="/stores/:id" component={StoreSingle} />
             <Route path="/stores" component={Stores} />
             <Route path="/variations/:id" component={VariationSingle} />
             <Route path="/variations" component={Variations} />
             <Route path="/categories/:id" component={CategorySingle} />
-            <Route path="/categories/newid" component={NewCategory} />
             <Route path="/categories" component={Categories} />
-            <Route path="/success" component={SuccessSubmit} />
+            <Route path="/success" component={CategoriesNew} />
           </Switch>
         </Row>
       </Container>
