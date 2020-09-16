@@ -16,6 +16,19 @@ class StoresSingle extends React.Component {
       submitted: false,
     };
   }
+  handleDelete = (e) => {
+    e.preventDefault();
+
+    const data = this.state.response;
+    const id = data.id;
+
+        axios.delete(`/api/stores/${id}`, data).then(
+          this.setState({ submitted: true, operation: "deleted" }),
+          setTimeout(() => {
+            this.props.history.push("/stores");
+          }, 3000)
+        );
+  }
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -71,6 +84,9 @@ class StoresSingle extends React.Component {
     const store = this.state.response;
     return (
       <Col style={{ padding: "70px" }}>
+         <Button variant="danger" type="delete" onClick={this.handleDelete}>
+          Delete Store
+        </Button>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group controlId="formGroupId">
             <Form.Label>Store Id:</Form.Label>
