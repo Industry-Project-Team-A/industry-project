@@ -2,11 +2,11 @@ const { getDatabase } = require("./mongo-common");
 const { ObjectID } = require("mongodb");
 const collectionName = "categories";
 
-async function createCategory(user) {
+async function createCategory(category) {
   const database = await getDatabase();
   const { insertedId } = await database
     .collection(collectionName)
-    .insertOne(user);
+    .insertOne(category);
   return insertedId;
 }
 

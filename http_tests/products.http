@@ -2,7 +2,7 @@
 GET http://localhost:5000/api/products HTTP/1.1
 
 ### test single GET
-GET http://localhost:5000/api/products/3 HTTP/1.1
+GET http://localhost:5000/api/products/5 HTTP/1.1
 
 ### Test get a new ID for product creation page
 GET http://localhost:5000/api/products/newid HTTP/1.1
@@ -147,6 +147,6 @@ content-type: application/json
 }
 
 ### Test delete
-DELETE http://localhost:5000/api/products/3 HTTP/1.1
+DELETE http://localhost:5000/api/products/209 HTTP/1.1
 
 
