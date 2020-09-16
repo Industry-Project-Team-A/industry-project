@@ -24,7 +24,6 @@ class Products extends React.Component {
     if (this.state.loading) return <Loader />;
 
     return (
-      <div>
         <Col style={{ padding: "70px" }}>
           <h1 className="text-center">Product</h1>
 
@@ -56,12 +55,10 @@ class Products extends React.Component {
                   <td key={product.sku}> {product.sku} </td>
                   <td key={product.name}> {product.name} </td>
                   <td key={product.price.toString().concat(product._id)}>
-                    {" "}
-                    {product.price}{" "}
+                    {product.price}
                   </td>
                   <td key={product.enabled.toString().concat(product._id)}>
-                    {" "}
-                    {product.enabled}{" "}
+                    {product.enabled}
                   </td>
                   <td key={product._id}> {product.brand} </td>
                 </tr>
@@ -69,7 +66,6 @@ class Products extends React.Component {
             </tbody>
           </Table>
         </Col>
-      </div>
     );
   }
 }
