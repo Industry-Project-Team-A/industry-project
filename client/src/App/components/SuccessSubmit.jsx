@@ -7,12 +7,10 @@ const SuccessSubmit = (props) => {
       <div>
         <Alert variant="success">
           <Alert.Heading>Success!</Alert.Heading>
-          <p>
-            {`${props.type} with ID#: (${props.id}) was ${props.operation}`}
-          </p>
+          <p>{`${props.type} with ID#: ${props.id} was ${props.operation}`}</p>
           <hr />
           <p className="mb-0">
-           {`Redirecting you to the ${props.type} mainpage...`}
+            {`Redirecting you to the ${props.type} mainpage...`}
           </p>
         </Alert>
       </div>
@@ -21,10 +19,3 @@ const SuccessSubmit = (props) => {
 };
 
 export default SuccessSubmit;
-
-
-
-
-
-
-
