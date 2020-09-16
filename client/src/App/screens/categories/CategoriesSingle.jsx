@@ -14,7 +14,19 @@ class CategoriesSingle extends React.Component {
       submitted: false,
     };
   }
+  handleDelete = (e) => {
+    e.preventDefault();
 
+    const data = this.state.response;
+    const id = data.id;
+
+        axios.delete(`/api/categories/${id}`, data).then(
+          this.setState({ submitted: true, operation: "deleted" }),
+          setTimeout(() => {
+            this.props.history.push("/categories");
+          }, 3000)
+        );
+  }
   handleSubmit = (e) => {
     e.preventDefault();
     const data = this.state.response;
@@ -70,6 +82,9 @@ class CategoriesSingle extends React.Component {
     const category = this.state.response;
     return (
       <Col style={{ padding: "70px" }}>
+        <Button variant="danger" type="delete" onClick={this.handleDelete}>
+          Delete Category
+        </Button>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group controlId="formGroupId">
             <Form.Label>Category Id:</Form.Label>
