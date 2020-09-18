@@ -1,17 +1,15 @@
 import React from "react";
-import { Form, Col, Button } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import axios from "axios";
 
 import Loader from "../../components/Loader.jsx";
 import SuccessSubmit from "../../components/SuccessSubmit.jsx";
+import ContainerDefault from "../../components/ContainerDefault.jsx";
 
 class StoresSingle extends React.Component {
   constructor() {
     super();
     this.state = {
-      response: {
-        logos: [],
-      },
       loading: true,
       submitted: false,
     };
@@ -45,7 +43,6 @@ class StoresSingle extends React.Component {
 
   handleChange = (e) => {
     e.preventDefault();
-    let beforeState = this.state.response;
     let name = e.target.name;
     let value = e.target.value;
     let formValues = this.state.response;
@@ -82,7 +79,7 @@ class StoresSingle extends React.Component {
 
     const store = this.state.response;
     return (
-      <Col style={{ padding: "70px" }}>
+      <ContainerDefault>
         <Button variant="danger" type="delete" onClick={this.handleDelete}>
           Delete Store
         </Button>
@@ -171,7 +168,7 @@ class StoresSingle extends React.Component {
             Save
           </Button>
         </Form>
-      </Col>
+      </ContainerDefault>
     );
   }
 }

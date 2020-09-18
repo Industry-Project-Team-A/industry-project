@@ -1,7 +1,8 @@
 import React from "react";
-import { Form, Col, Button } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import axios from "axios";
 
+import ContainerDefault from "../../components/ContainerDefault.jsx";
 import Loader from "../../components/Loader.jsx";
 import SuccessSubmit from "../../components/SuccessSubmit.jsx";
 
@@ -9,7 +10,6 @@ class CategoriesSingle extends React.Component {
   constructor() {
     super();
     this.state = {
-      response: { productIds: [] },
       loading: true,
       submitted: false,
     };
@@ -20,13 +20,13 @@ class CategoriesSingle extends React.Component {
     const data = this.state.response;
     const id = data.id;
 
-        axios.delete(`/api/categories/${id}`, data).then(
-          this.setState({ submitted: true, operation: "deleted" }),
-          setTimeout(() => {
-            this.props.history.push("/categories");
-          }, 3000)
-        );
-  }
+    axios.delete(`/api/categories/${id}`, data).then(
+      this.setState({ submitted: true, operation: "deleted" }),
+      setTimeout(() => {
+        this.props.history.push("/categories");
+      }, 3000)
+    );
+  };
   handleSubmit = (e) => {
     e.preventDefault();
     const data = this.state.response;
@@ -80,8 +80,9 @@ class CategoriesSingle extends React.Component {
       );
 
     const category = this.state.response;
+
     return (
-      <Col style={{ padding: "70px" }}>
+      <ContainerDefault>
         <Button variant="danger" type="delete" onClick={this.handleDelete}>
           Delete Category
         </Button>
@@ -151,7 +152,7 @@ class CategoriesSingle extends React.Component {
             Save
           </Button>
         </Form>
-      </Col>
+      </ContainerDefault>
     );
   }
 }

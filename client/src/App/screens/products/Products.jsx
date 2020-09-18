@@ -1,14 +1,22 @@
 import React from "react";
-import { Table, Col, Button } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
 import axios from "axios";
+
+import { Button, Row, Col } from "react-bootstrap";
+import BootstrapTable from "react-bootstrap-table-next";
+import paginationFactory from "react-bootstrap-table2-paginator";
+import { LinkContainer } from "react-router-bootstrap";
+import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+
+import ContainerDefault from "../../components/ContainerDefault.jsx";
 import Loader from "../../components/Loader.jsx";
+import linkFormatter from "../../helpers/linkFormatter.jsx";
 
 class Products extends React.Component {
   constructor() {
     super();
     this.state = {
-      response: [],
       loading: true,
     };
   }
@@ -23,49 +31,85 @@ class Products extends React.Component {
   render() {
     if (this.state.loading) return <Loader />;
 
+    const { SearchBar } = Search;
+
+    const columns = [
+      {
+        dataField: "id",
+        text: "Product ID",
+        sort: true,
+        formatter: linkFormatter,
+        formatExtraData: { type: "id", section: "products" },
+      },
+      {
+        dataField: "sku",
+        text: "Base SKU",
+        sort: true,
+      },
+      {
+        dataField: "brand",
+        text: "Brand",
+        sort: true,
+      },
+      {
+        dataField: "price",
+        text: "Price",
+        sort: true,
+        formatter: (cell) => {
+          return `$${cell}`;
+        },
+      },
+      {
+        dataField: "enabled",
+        text: "Enabled",
+        sort: true,
+        style: { textTransform: "capitalize" },
+      },
+    ];
+
     return (
-        <Col style={{ padding: "70px" }}>
-          <h1 className="text-center">Product</h1>
+      <ContainerDefault>
+        <ToolkitProvider
+          keyField="id"
+          data={this.state.response}
+          columns={columns}
+          search
+        >
+          {(props) => (
+            <div>
+              <Row>
+                <Col>
+                  <SearchBar {...props.searchProps} />
+                </Col>
 
-          <LinkContainer to={`/products/new`}>
-            <Button variant="primary" type="newProduct">
-              New Product
-            </Button>
-          </LinkContainer>
+                <Col className="text-right">
+                  <LinkContainer to={`/products/new`}>
+                    <Button
+                      className="btn ml-1"
+                      variant="primary"
+                      type="newProduct"
+                    >
+                      <span className="pull-left">New </span>
+                      <FontAwesomeIcon className="ml-2" icon={faPlusCircle} />
+                    </Button>
+                  </LinkContainer>
+                </Col>
+              </Row>
 
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Sku</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Enabled</th>
-                <th>Brand</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.state.response.map((product) => (
-                <tr key={product.id.concat(product._id)}>
-                  <td key={product.id}>
-                    <LinkContainer to={`/products/${product.id}`}>
-                      <a>{product.id}</a>
-                    </LinkContainer>
-                  </td>
-                  <td key={product.sku}> {product.sku} </td>
-                  <td key={product.name}> {product.name} </td>
-                  <td key={product.price.toString().concat(product._id)}>
-                    {product.price}
-                  </td>
-                  <td key={product.enabled.toString().concat(product._id)}>
-                    {product.enabled}
-                  </td>
-                  <td key={product._id}> {product.brand} </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-        </Col>
+              <BootstrapTable
+                striped
+                hover
+                bootstrap4
+                keyField="id"
+                data={this.state.response}
+                columns={columns}
+                pagination={paginationFactory()}
+                {...props.baseProps}
+              />
+            </div>
+          )}
+        </ToolkitProvider>
+      </ContainerDefault>
     );
   }
 }

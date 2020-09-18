@@ -1,10 +1,11 @@
 import React from "react";
 import axios from "axios";
-import { Form, Col, Button } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 
 import Loader from "../../components/Loader.jsx";
 import SuccessSubmit from "../../components/SuccessSubmit.jsx";
+import ContainerDefault from "../../components/ContainerDefault.jsx";
 
 class VariationsSingle extends React.Component {
   constructor() {
@@ -26,13 +27,13 @@ class VariationsSingle extends React.Component {
     const data = this.state.response;
     const id = data.id;
 
-        axios.delete(`/api/variations/${id}`, data).then(
-          this.setState({ submitted: true, operation: "deleted" }),
-          setTimeout(() => {
-            this.props.history.push("/variations");
-          }, 3000)
-        );
-  }
+    axios.delete(`/api/variations/${id}`, data).then(
+      this.setState({ submitted: true, operation: "deleted" }),
+      setTimeout(() => {
+        this.props.history.push("/variations");
+      }, 3000)
+    );
+  };
   handleSubmit = (e) => {
     e.preventDefault();
     const data = this.state.response;
@@ -86,7 +87,7 @@ class VariationsSingle extends React.Component {
 
     const variation = this.state.response;
     return (
-      <Col style={{ padding: "70px" }}>
+      <ContainerDefault>
         <Button variant="danger" type="delete" onClick={this.handleDelete}>
           Delete Category
         </Button>
@@ -177,7 +178,7 @@ class VariationsSingle extends React.Component {
             Save
           </Button>
         </Form>
-      </Col>
+      </ContainerDefault>
     );
   }
 }

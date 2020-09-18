@@ -1,7 +1,8 @@
 import React from "react";
-import { Form, Col, Button } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import axios from "axios";
 
+import ContainerDefault from "../../components/ContainerDefault.jsx";
 import Loader from "../../components/Loader.jsx";
 import SuccessSubmit from "../../components/SuccessSubmit.jsx";
 
@@ -9,9 +10,8 @@ class ProductsNew extends React.Component {
   constructor() {
     super();
     this.state = {
-      response: {},
       loading: true,
-      submitted: false
+      submitted: false,
     };
   }
 
@@ -61,7 +61,7 @@ class ProductsNew extends React.Component {
             { name: "", type: "", choices: [] },
             { name: "", type: "", choices: [] },
             { name: "", type: "", choices: [] },
-          ]
+          ],
         },
         loading: false,
       });
@@ -82,7 +82,7 @@ class ProductsNew extends React.Component {
     const product = this.state.response;
 
     return (
-      <Col style={{ padding: "70px" }}>
+      <ContainerDefault>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group controlId="formGroupId">
             <Form.Label>Product Id:</Form.Label>
@@ -342,7 +342,7 @@ class ProductsNew extends React.Component {
             Save
           </Button>
         </Form>
-      </Col>
+      </ContainerDefault>
     );
   }
 }
