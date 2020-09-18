@@ -1,16 +1,16 @@
 import React from "react";
 import axios from "axios";
-import { Form, Container, Button } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 
 import Loader from "../../components/Loader.jsx";
 import SuccessSubmit from "../../components/SuccessSubmit.jsx";
+import ContainerDefault from "../../components/ContainerDefault.jsx";
 
 class VariationsNew extends React.Component {
   constructor() {
     super();
     this.state = {
-      response: {},
       loading: true,
       submitted: false,
     };
@@ -77,15 +77,7 @@ class VariationsNew extends React.Component {
 
     const variation = this.state.response;
     return (
-      <Container
-        className="bg-light vh-100"
-        fluid
-        style={{
-          paddingTop: "90px",
-          paddingleft: "15px",
-          paddingRight: "15px",
-        }}
-      >
+      <ContainerDefault>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group controlId="formGroupId">
             <Form.Label>Variation Id:</Form.Label>
@@ -173,7 +165,7 @@ class VariationsNew extends React.Component {
             Save
           </Button>
         </Form>
-      </Container>
+      </ContainerDefault>
     );
   }
 }

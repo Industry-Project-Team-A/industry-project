@@ -1,9 +1,10 @@
 import React from "react";
-import { Form, Container, Button } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import axios from "axios";
 
 import Loader from "../../components/Loader.jsx";
 import SuccessSubmit from "../../components/SuccessSubmit.jsx";
+import ContainerDefault from "../../components/ContainerDefault.jsx";
 
 class StoresNew extends React.Component {
   constructor() {
@@ -66,15 +67,7 @@ class StoresNew extends React.Component {
 
     const store = this.state.response;
     return (
-      <Container
-        className="bg-light vh-100"
-        fluid
-        style={{
-          paddingTop: "90px",
-          paddingleft: "15px",
-          paddingRight: "15px",
-        }}
-      >
+      <ContainerDefault>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group controlId="formGroupId">
             <Form.Label>Store Id:</Form.Label>
@@ -160,7 +153,7 @@ class StoresNew extends React.Component {
             Save
           </Button>
         </Form>
-      </Container>
+      </ContainerDefault>
     );
   }
 }

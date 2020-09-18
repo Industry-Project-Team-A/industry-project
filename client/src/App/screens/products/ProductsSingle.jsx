@@ -1,24 +1,17 @@
 import React from "react";
-import { Form, Container, Button } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import axios from "axios";
 
 import Loader from "../../components/Loader.jsx";
 import SuccessSubmit from "../../components/SuccessSubmit.jsx";
+import ContainerDefault from "../../components/ContainerDefault.jsx";
 
 class ProductsSingle extends React.Component {
   constructor() {
     super();
     this.state = {
-      response: {
-        images: [],
-        categoryIds: [],
-        options: [
-          { name: "", type: "", choices: [] },
-          { name: "", type: "", choices: [] },
-          { name: "", type: "", choices: [] },
-          { name: "", type: "", choices: [] },
-        ],
-      },
+      loading: true,
+      submitted: false,
     };
   }
 
@@ -28,13 +21,13 @@ class ProductsSingle extends React.Component {
     const data = this.state.response;
     const id = data.id;
 
-        axios.delete(`/api/products/${id}`, data).then(
-          this.setState({ submitted: true, operation: "deleted" }),
-          setTimeout(() => {
-            this.props.history.push("/products");
-          }, 3000)
-        );
-  }
+    axios.delete(`/api/products/${id}`, data).then(
+      this.setState({ submitted: true, operation: "deleted" }),
+      setTimeout(() => {
+        this.props.history.push("/products");
+      }, 3000)
+    );
+  };
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -97,15 +90,7 @@ class ProductsSingle extends React.Component {
     const product = this.state.response;
 
     return (
-      <Container
-        className="bg-light vh-100"
-        fluid
-        style={{
-          paddingTop: "90px",
-          paddingleft: "15px",
-          paddingRight: "15px",
-        }}
-      >
+      <ContainerDefault>
         <Button variant="danger" type="delete" onClick={this.handleDelete}>
           Delete Product
         </Button>
@@ -369,7 +354,7 @@ class ProductsSingle extends React.Component {
             Save
           </Button>
         </Form>
-      </Container>
+      </ContainerDefault>
     );
   }
 }
