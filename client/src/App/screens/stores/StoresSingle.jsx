@@ -22,13 +22,13 @@ class StoresSingle extends React.Component {
     const data = this.state.response;
     const id = data.id;
 
-        axios.delete(`/api/stores/${id}`, data).then(
-          this.setState({ submitted: true, operation: "deleted" }),
-          setTimeout(() => {
-            this.props.history.push("/stores");
-          }, 3000)
-        );
-  }
+    axios.delete(`/api/stores/${id}`, data).then(
+      this.setState({ submitted: true, operation: "deleted" }),
+      setTimeout(() => {
+        this.props.history.push("/stores");
+      }, 3000)
+    );
+  };
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -45,6 +45,7 @@ class StoresSingle extends React.Component {
 
   handleChange = (e) => {
     e.preventDefault();
+    let beforeState = this.state.response;
     let name = e.target.name;
     let value = e.target.value;
     let formValues = this.state.response;
@@ -54,11 +55,9 @@ class StoresSingle extends React.Component {
       let nestedValue = parseInt(e.target.getAttribute("nest"), 10);
 
       formValues[arrayName][nestedValue][name] = value;
-
       this.setState({ formValues });
       return;
     }
-
     formValues[name] = value;
     this.setState({ formValues });
   };
@@ -84,7 +83,7 @@ class StoresSingle extends React.Component {
     const store = this.state.response;
     return (
       <Col style={{ padding: "70px" }}>
-         <Button variant="danger" type="delete" onClick={this.handleDelete}>
+        <Button variant="danger" type="delete" onClick={this.handleDelete}>
           Delete Store
         </Button>
         <Form onSubmit={this.handleSubmit}>

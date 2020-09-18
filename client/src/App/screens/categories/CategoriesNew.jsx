@@ -1,10 +1,8 @@
 import React from "react";
-import { Form, Col, Row, Button } from "react-bootstrap";
+import { Form, Col, Row, Button, Container,Card } from "react-bootstrap";
 import axios from "axios";
 import Loader from "../../components/Loader.jsx";
 import SuccessSubmit from "../../components/SuccessSubmit.jsx";
-import 'bootstrap/dist/css/bootstrap.min.css';
-
 
 class CategoriesNew extends React.Component {
   constructor() {
@@ -62,87 +60,119 @@ class CategoriesNew extends React.Component {
       );
     const category = this.state.response;
     return (
-      <Col style={{ padding: "70px" }}>
-        <Form onSubmit={this.handleSubmit}>
-          <Form.Group as={Row} controlId="formGroupId">
-            <Form.Label column sm={"2"}>Category Id:</Form.Label>
-            <Col sm={"10"}>
-              <Form.Control
-                name="id"
-                value={category.id}
-                onChange={this.handleChange}
-                disabled
-              />
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row} controlId="formGroupName">
-            <Form.Label column sm={"2"}>Name:</Form.Label>
-            <Col sm={"10"}>
-              <Form.Control
-                name="name"
-                value={category.name}
-                onChange={this.handleChange}
-              />
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row} controlId="formGroupSku">
-            <Form.Label column sm= {"2"}>Parent Id: </Form.Label>
-            <Col sm={"10"}>
-              <Form.Control
-                name="parentId"
-                value={category.parentId}
-                onChange={this.handleChange}
-              />
-            </Col>
-          </Form.Group>
+      <Container fluid style={{ paddingTop: "70px", paddingleft: "15px", paddingRight: "15px" }}>
+        <div className="pt-4 pl-4 pr-4 pb-4 bg-light border">
+          <Form onSubmit={this.handleSubmit}>
+            <Row>
+              <Col md="6" sm="12">
+                <Form.Group as={Row} controlId="formGroupId">
+                  <Form.Label column sm={3}>
+                    Category ID:
+                  </Form.Label>
+                  <Col>
+                    <Form.Control
+                      name="id"
+                      value={category.id}
+                      onChange={this.handleChange}
+                      disabled
+                    />
+                  </Col>
+                </Form.Group>
+              </Col>
+              <Col md="6" sm="12">
+                <Form.Group as={Row} controlId="formGroupName">
+                  <Form.Label column sm={3}>
+                    Name:
+                  </Form.Label>
+                  <Col>
+                    <Form.Control
+                      name="name"
+                      value={category.name}
+                      onChange={this.handleChange}
+                    />
+                  </Col>
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col md="6" sm="12">
+                <Form.Group as={Row} controlId="formGroupSku">
+                  <Form.Label column sm={3}>
+                    Parent ID: 
+                  </Form.Label>
+                  <Col>
+                    <Form.Control
+                      name="parentId"
+                      value={category.parentId}
+                      onChange={this.handleChange}
+                    />
+                  </Col>
+                </Form.Group>
+              </Col>
 
-          <Form.Group as = {Row} controlId="formGroupDescription">
-            <Form.Label column sm = {"2"}>Order By:</Form.Label>
-              <Col sm= {"10"}>
-            <Form.Control
-              name="orderBy"
-              value={category.orderBy}
-              onChange={this.handleChange}
-            />
-            </Col>
+              <Col md="6" sm="12">
+                <Form.Group as={Row} controlId="formGroupDescription">
+                  <Form.Label column sm={3}>
+                    Sort Order:
+                  </Form.Label>
+                  <Col>
+                    <Form.Control
+                      name="orderBy"
+                      value={category.orderBy}
+                      onChange={this.handleChange}
+                    />
+                  </Col>
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col md="6" sm="12">
+                <Form.Group as={Row} controlId="formGroupEnabled">
+                  <Form.Label column sm={3}>
+                    Enabled:
+                  </Form.Label>
+                  <Col>
+                    <Form.Control
+                      as="select"
+                      name="enabled"
+                      value={category.enabled}
+                      onChange={this.handleChange}
+                      single
+                    >
+                      <option>yes</option>
+                      <option>no</option>
+                    </Form.Control>
+                  </Col>
+                </Form.Group>
+              </Col>
 
-          </Form.Group>
-          <Form.Group as = {Row} controlId="formGroupEnabled">
-            <Form.Label column sm = {"2"}>Enabled:</Form.Label>
-              <Col sm= {"10"}>
-            <Form.Control
-              as="select"
-              name="enabled"
-              value={category.enabled}
-              onChange={this.handleChange}
-              single
-            >
-              <option>yes</option>
-              <option>no</option>
-            </Form.Control>
-            </Col>
-
-            <Form.Group controlId="formGroupCatIDs">
-              <Form.Label column sm = {"2"}>Product IDs:</Form.Label>
-                <Col lg = {"20"}>
-              <Form.Control as="select" multiple disabled>
-                {this.state.response.productIds.map((category) => {
-                  return <option>{category}</option>;
-                })}
-              </Form.Control>
-                </Col>
-              
-              <Button variant="secondary" type="add">
-                Edit
-              </Button>
-
-            </Form.Group>
-          </Form.Group>
-          <Button variant="primary" type="submit">
-            Save
-          </Button>
-        </Form>
-      </Col>
+              <Col md="6" sm="12">
+                <Form.Group as={Row} controlId="formGroupCatIDs">
+                  <Form.Label column sm={3}>
+                    Product IDs:
+                  </Form.Label>
+                  <Col>
+                    <Form.Control as="select" multiple disabled>
+                      {this.state.response.productIds.map((category) => {
+                        return <option>{category}</option>;
+                      })}
+                    </Form.Control>
+                    <div className="float-right">
+                      <Button variant="secondary" type="add">
+                        Edit
+                      </Button>
+                             
+                    </div>
+                  </Col>
+                </Form.Group>
+              </Col>
+            </Row>
+            <Button size="lg" variant="primary" type="submit">
+              Save
+            </Button>
+          </Form>
+        </div>
+      </Container>
     );
   }
 }

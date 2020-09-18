@@ -1,9 +1,11 @@
 import React from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./app.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Navbar, Nav, Container, Row, Col } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import "./app.css"
 import ScrollIntoView from "./helpers/ScrollIntoView.jsx";
+
 
 import Products from "./screens/products/Products.jsx";
 import Stores from "./screens/stores/Stores.jsx";
