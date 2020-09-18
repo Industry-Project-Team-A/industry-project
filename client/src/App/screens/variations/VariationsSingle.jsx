@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { Form, Col, Button } from "react-bootstrap";
+import { Form, Container, Button } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 
 import Loader from "../../components/Loader.jsx";
@@ -86,7 +86,15 @@ class VariationsSingle extends React.Component {
 
     const variation = this.state.response;
     return (
-      <Col style={{ padding: "70px" }}>
+      <Container
+        className="bg-light vh-100"
+        fluid
+        style={{
+          paddingTop: "90px",
+          paddingleft: "15px",
+          paddingRight: "15px",
+        }}
+      >
         <Button variant="danger" type="delete" onClick={this.handleDelete}>
           Delete Category
         </Button>
@@ -177,7 +185,7 @@ class VariationsSingle extends React.Component {
             Save
           </Button>
         </Form>
-      </Col>
+      </Container>
     );
   }
 }

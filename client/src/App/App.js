@@ -1,8 +1,8 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./app.css";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Navbar, Nav, Container, Row, Col } from "react-bootstrap";
+import { BrowserRouter as Router, Switch, Route, } from "react-router-dom";
+import { Navbar, Nav, Container, Row, Col , Image} from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import ScrollIntoView from "./helpers/ScrollIntoView.jsx";
 
@@ -30,24 +30,34 @@ class App extends React.Component {
           <Container fluid>
             <Row>
               <Col>
-                <Navbar bg="info" variant="dark" fixed="top">
+                <Navbar bg="info" variant="dark" fixed="top" expand="sm">
                   <LinkContainer to="/">
-                    <Navbar.Brand>Tee Commerce Database</Navbar.Brand>
+                    <Navbar.Brand>
+                      <Image
+                        style={{ height: "50px" }}
+                        fluid
+                        src="https://content.web-repository.com/s/41311096693281692/uploads/Images/Tee_Commerce_Logo_white_background-01-2250148.png"
+                      />
+                      <span> Database Manager</span>
+                    </Navbar.Brand>
                   </LinkContainer>
-                  <Nav className="mr-auto">
-                    <LinkContainer to="/products">
-                      <Nav.Link>Products</Nav.Link>
-                    </LinkContainer>
-                    <LinkContainer to="/stores">
-                      <Nav.Link>Stores</Nav.Link>
-                    </LinkContainer>
-                    <LinkContainer to="/categories">
-                      <Nav.Link>Categories</Nav.Link>
-                    </LinkContainer>
-                    <LinkContainer to="/variations">
-                      <Nav.Link>Variations</Nav.Link>
-                    </LinkContainer>
-                  </Nav>
+                  <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                  <Navbar.Collapse id="response-navbar-nav">
+                    <Nav className="mr-auto">
+                      <LinkContainer to="/products">
+                        <Nav.Link>Products</Nav.Link>
+                      </LinkContainer>
+                      <LinkContainer to="/stores">
+                        <Nav.Link>Stores</Nav.Link>
+                      </LinkContainer>
+                      <LinkContainer to="/categories">
+                        <Nav.Link>Categories</Nav.Link>
+                      </LinkContainer>
+                      <LinkContainer to="/variations">
+                        <Nav.Link>Variations</Nav.Link>
+                      </LinkContainer>
+                    </Nav>
+                  </Navbar.Collapse>
                 </Navbar>
               </Col>
             </Row>

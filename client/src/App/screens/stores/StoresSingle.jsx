@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Col, Button } from "react-bootstrap";
+import { Form, Container, Button } from "react-bootstrap";
 import axios from "axios";
 
 import Loader from "../../components/Loader.jsx";
@@ -45,7 +45,6 @@ class StoresSingle extends React.Component {
 
   handleChange = (e) => {
     e.preventDefault();
-    let beforeState = this.state.response;
     let name = e.target.name;
     let value = e.target.value;
     let formValues = this.state.response;
@@ -82,7 +81,15 @@ class StoresSingle extends React.Component {
 
     const store = this.state.response;
     return (
-      <Col style={{ padding: "70px" }}>
+      <Container
+        className="bg-light vh-100"
+        fluid
+        style={{
+          paddingTop: "90px",
+          paddingleft: "15px",
+          paddingRight: "15px",
+        }}
+      >
         <Button variant="danger" type="delete" onClick={this.handleDelete}>
           Delete Store
         </Button>
@@ -171,7 +178,7 @@ class StoresSingle extends React.Component {
             Save
           </Button>
         </Form>
-      </Col>
+      </Container>
     );
   }
 }

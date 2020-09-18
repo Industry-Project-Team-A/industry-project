@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Col, Button } from "react-bootstrap";
+import { Form, Container, Button } from "react-bootstrap";
 import axios from "axios";
 
 import Loader from "../../components/Loader.jsx";
@@ -81,7 +81,15 @@ class CategoriesSingle extends React.Component {
 
     const category = this.state.response;
     return (
-      <Col style={{ padding: "70px" }}>
+      <Container
+        className="bg-light vh-100"
+        fluid
+        style={{
+          paddingTop: "90px",
+          paddingleft: "15px",
+          paddingRight: "15px",
+        }}
+      >
         <Button variant="danger" type="delete" onClick={this.handleDelete}>
           Delete Category
         </Button>
@@ -151,7 +159,7 @@ class CategoriesSingle extends React.Component {
             Save
           </Button>
         </Form>
-      </Col>
+      </Container>
     );
   }
 }
