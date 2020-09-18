@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Col, Row, Button, Container,Card } from "react-bootstrap";
+import { Form, Col, Row, Button, Container } from "react-bootstrap";
 import axios from "axios";
 import Loader from "../../components/Loader.jsx";
 import SuccessSubmit from "../../components/SuccessSubmit.jsx";
@@ -60,8 +60,16 @@ class CategoriesNew extends React.Component {
       );
     const category = this.state.response;
     return (
-      <Container fluid style={{ paddingTop: "70px", paddingleft: "15px", paddingRight: "15px" }}>
-        <div className="pt-4 pl-4 pr-4 pb-4 bg-light border">
+      <Container
+        className="bg-light vh-100"
+        fluid
+        style={{
+          paddingTop: "90px",
+          paddingleft: "15px",
+          paddingRight: "15px",
+        }}
+      >
+        <div className="pt-4 pl-4 pr-4 pb-4 bg-white shadow border">
           <Form onSubmit={this.handleSubmit}>
             <Row>
               <Col md="6" sm="12">

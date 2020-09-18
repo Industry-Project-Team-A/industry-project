@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Col, Button } from "react-bootstrap";
+import { Form, Container, Button } from "react-bootstrap";
 import axios from "axios";
 
 import Loader from "../../components/Loader.jsx";
@@ -82,7 +82,15 @@ class ProductsNew extends React.Component {
     const product = this.state.response;
 
     return (
-      <Col style={{ padding: "70px" }}>
+      <Container
+        className="bg-light vh-100"
+        fluid
+        style={{
+          paddingTop: "90px",
+          paddingleft: "15px",
+          paddingRight: "15px",
+        }}
+      >
         <Form onSubmit={this.handleSubmit}>
           <Form.Group controlId="formGroupId">
             <Form.Label>Product Id:</Form.Label>
@@ -342,7 +350,7 @@ class ProductsNew extends React.Component {
             Save
           </Button>
         </Form>
-      </Col>
+      </Container>
     );
   }
 }

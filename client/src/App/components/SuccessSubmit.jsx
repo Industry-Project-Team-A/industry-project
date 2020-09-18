@@ -3,7 +3,7 @@ import { Col, Alert } from "react-bootstrap";
 
 const SuccessSubmit = (props) => {
   return (
-    <Col style={{ padding: "70px" }}>
+    <Col style={{ padding: "95px" }}>
       <div>
         <Alert variant="success">
           <Alert.Heading>Success!</Alert.Heading>

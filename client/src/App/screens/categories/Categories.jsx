@@ -1,14 +1,21 @@
 import React from "react";
-import { Table, Col, Button } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
 import axios from "axios";
+
+import { Container, Button, Row, Col } from "react-bootstrap";
+import BootstrapTable from "react-bootstrap-table-next";
+import paginationFactory from "react-bootstrap-table2-paginator";
+import { LinkContainer } from "react-router-bootstrap";
+import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+
 import Loader from "../../components/Loader.jsx";
+import linkFormatter from "../../helpers/linkFormatter.jsx";
 
 class Categories extends React.Component {
   constructor() {
     super();
     this.state = {
-      response: [],
       loading: true,
     };
   }
@@ -23,41 +30,87 @@ class Categories extends React.Component {
   render() {
     if (this.state.loading) return <Loader />;
 
+    const { SearchBar } = Search;
+
+    const columns = [
+      {
+        dataField: "id",
+        text: "Category ID",
+        sort: true,
+        formatter: linkFormatter,
+        formatExtraData: { type: "id", section: "categories" },
+      },
+      {
+        dataField: "name",
+        text: "Name",
+        sort: true,
+      },
+      {
+        dataField: "parentId",
+        text: "Parent Category",
+        sort: true,
+      },
+      {
+        dataField: "enabled",
+        text: "Enabled",
+        sort: true,
+        style: { textTransform: "capitalize" },
+      },
+    ];
+
     return (
-      <Col style={{ padding: "70px" }}>
-        <h1 className="text-center">Categories</h1>
+      <Container
+        className="bg-light vh-100"
+        fluid
+        style={{
+          paddingTop: "90px",
+          paddingleft: "15px",
+          paddingRight: "15px",
+        }}
+      >
+        <div className="shadow p-3 bg-white rounded">
+          <ToolkitProvider
+            keyField="id"
+            data={this.state.response}
+            columns={columns}
+            search
+          >
+            {(props) => (
+              <div>
+                <Row>
+                  <Col>
+                    <SearchBar {...props.searchProps} />
+                  </Col>
 
-        <LinkContainer to={`/categories/new`}>
-          <Button variant="primary" type="newCategory">
-            New Category
-          </Button>
-        </LinkContainer>
+                  <Col className="text-right">
+                    <LinkContainer to={`/categories/new`}>
+                      <Button
+                        className="btn ml-1"
+                        variant="primary"
+                        type="newCategory"
+                      >
+                        <span className="pull-left">New </span>
+                        <FontAwesomeIcon className="ml-2" icon={faPlusCircle} />
+                      </Button>
+                    </LinkContainer>
+                  </Col>
+                </Row>
 
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>Id</th>
-              <th>Name</th>
-              <th>Parent Category</th>
-              <th>Enabled</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.response.map((category) => (
-              <tr>
-                <td key={category.key}>
-                  <LinkContainer to={`/categories/${category.id}`}>
-                    <a>{category.id}</a>
-                  </LinkContainer>{" "}
-                </td>
-                <td key={category.key}> {category.name} </td>
-                <td key={category.key}> {category.parentId} </td>
-                <td key={category.key}> {category.enabled} </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-      </Col>
+                <BootstrapTable
+                  striped
+                  hover
+                  bootstrap4
+                  keyField="id"
+                  data={this.state.response}
+                  columns={columns}
+                  pagination={paginationFactory()}
+                  {...props.baseProps}
+                />
+              </div>
+            )}
+          </ToolkitProvider>
+        </div>
+      </Container>
     );
   }
 }
