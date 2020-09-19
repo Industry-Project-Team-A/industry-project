@@ -1,3 +1,5 @@
 .form-label {
+    white-space: nowrap;
     font-weight: bold;
+    margin-right: 1rem;
   }

@@ -3,6 +3,10 @@ import { Form, Col, Row, Button } from "react-bootstrap";
 import axios from "axios";
 import Loader from "../../components/Loader.jsx";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSave } from "@fortawesome/free-solid-svg-icons";
+import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
+
 import ContainerDefault from "../../components/ContainerDefault.jsx";
 import SuccessSubmit from "../../components/SuccessSubmit.jsx";
 
@@ -76,6 +80,7 @@ class CategoriesNew extends React.Component {
                     value={category.id}
                     onChange={this.handleChange}
                     disabled
+                    className="shadow-sm"
                   />
                 </Col>
               </Form.Group>
@@ -90,6 +95,7 @@ class CategoriesNew extends React.Component {
                     name="name"
                     value={category.name}
                     onChange={this.handleChange}
+                    className="shadow-sm"
                   />
                 </Col>
               </Form.Group>
@@ -106,6 +112,7 @@ class CategoriesNew extends React.Component {
                     name="parentId"
                     value={category.parentId}
                     onChange={this.handleChange}
+                    className="shadow-sm"
                   />
                 </Col>
               </Form.Group>
@@ -121,6 +128,7 @@ class CategoriesNew extends React.Component {
                     name="orderBy"
                     value={category.orderBy}
                     onChange={this.handleChange}
+                    className="shadow-sm"
                   />
                 </Col>
               </Form.Group>
@@ -139,6 +147,7 @@ class CategoriesNew extends React.Component {
                     value={category.enabled}
                     onChange={this.handleChange}
                     single
+                    className="shadow-sm"
                   >
                     <option>yes</option>
                     <option>no</option>
@@ -153,7 +162,12 @@ class CategoriesNew extends React.Component {
                   Product IDs:
                 </Form.Label>
                 <Col>
-                  <Form.Control as="select" multiple disabled>
+                  <Form.Control
+                    as="select"
+                    className="shadow-sm"
+                    multiple
+                    disabled
+                  >
                     {this.state.response.productIds.map((category) => {
                       return <option>{category}</option>;
                     })}
@@ -168,9 +182,27 @@ class CategoriesNew extends React.Component {
               </Form.Group>
             </Col>
           </Row>
-          <Button size="lg" variant="primary" type="submit">
-            Save
-          </Button>
+          <Row>
+            <Button
+              className="shadow-sm rounded ml-2"
+              variant="primary"
+              type="submit"
+            >
+              <span className="pull-left">Save </span>
+              <FontAwesomeIcon className="ml-2" icon={faSave} />
+            </Button>
+            <Button
+              className="shadow-sm rounded ml-2"
+              variant="danger"
+              type="button"
+              onClick={(e) => {
+                this.props.history.goBack();
+              }}
+            >
+              <span className="pull-left">Cancel </span>
+              <FontAwesomeIcon className="ml-2" icon={faWindowClose} />
+            </Button>
+          </Row>
         </Form>
       </ContainerDefault>
     );

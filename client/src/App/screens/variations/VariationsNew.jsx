@@ -1,7 +1,11 @@
 import React from "react";
 import axios from "axios";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Row } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSave } from "@fortawesome/free-solid-svg-icons";
+import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
 
 import Loader from "../../components/Loader.jsx";
 import SuccessSubmit from "../../components/SuccessSubmit.jsx";
@@ -160,10 +164,27 @@ class VariationsNew extends React.Component {
               onChange={this.handleChange}
             />
           </Form.Group>
-
-          <Button variant="primary" type="submit">
-            Save
-          </Button>
+          <Row>
+            <Button
+              className="shadow-sm rounded ml-2"
+              variant="primary"
+              type="submit"
+            >
+              <span className="pull-left">Save </span>
+              <FontAwesomeIcon className="ml-2" icon={faSave} />
+            </Button>
+            <Button
+              className="shadow-sm rounded ml-2"
+              variant="danger"
+              type="button"
+              onClick={(e) => {
+                this.props.history.goBack();
+              }}
+            >
+              <span className="pull-left">Cancel </span>
+              <FontAwesomeIcon className="ml-2" icon={faWindowClose} />
+            </Button>
+          </Row>
         </Form>
       </ContainerDefault>
     );
