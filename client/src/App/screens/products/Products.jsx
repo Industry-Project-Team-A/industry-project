@@ -12,6 +12,7 @@ import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import ContainerDefault from "../../components/ContainerDefault.jsx";
 import Loader from "../../components/Loader.jsx";
 import linkFormatter from "../../helpers/linkFormatter.jsx";
+import defaultPagination from "../../helpers/defaultPagination.jsx";
 
 class Products extends React.Component {
   constructor() {
@@ -103,7 +104,7 @@ class Products extends React.Component {
                 keyField="id"
                 data={this.state.response}
                 columns={columns}
-                pagination={paginationFactory()}
+                pagination={paginationFactory(defaultPagination())}
                 {...props.baseProps}
               />
             </div>

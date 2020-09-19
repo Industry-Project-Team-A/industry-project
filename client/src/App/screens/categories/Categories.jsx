@@ -6,12 +6,14 @@ import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import { LinkContainer } from "react-router-bootstrap";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
 import ContainerDefault from "../../components/ContainerDefault.jsx";
 import Loader from "../../components/Loader.jsx";
 import linkFormatter from "../../helpers/linkFormatter.jsx";
+import defaultPagination from "../../helpers/defaultPagination.jsx";
 
 class Categories extends React.Component {
   constructor() {
@@ -95,11 +97,12 @@ class Categories extends React.Component {
                 keyField="id"
                 data={this.state.response}
                 columns={columns}
-                pagination={paginationFactory()}
+                pagination={paginationFactory(defaultPagination())}
                 {...props.baseProps}
               />
             </div>
           )}
+          
         </ToolkitProvider>
       </ContainerDefault>
     );

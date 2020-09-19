@@ -1,6 +1,10 @@
 import React from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Row, Col } from "react-bootstrap";
 import axios from "axios";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSave } from "@fortawesome/free-solid-svg-icons";
+import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
 
 import ContainerDefault from "../../components/ContainerDefault.jsx";
 import Loader from "../../components/Loader.jsx";
@@ -84,247 +88,173 @@ class ProductsNew extends React.Component {
     return (
       <ContainerDefault>
         <Form onSubmit={this.handleSubmit}>
-          <Form.Group controlId="formGroupId">
-            <Form.Label>Product Id:</Form.Label>
-            <Form.Control
-              name="id"
-              value={product.id}
-              onChange={this.handleChange}
-            />
-          </Form.Group>
-
-          <Form.Group controlId="formGroupName">
-            <Form.Label>Name:</Form.Label>
-            <Form.Control
-              name="name"
-              value={product.name}
-              onChange={this.handleChange}
-            />
-          </Form.Group>
-
-          <Form.Group controlId="formGroupSku">
-            <Form.Label>Base SKU:</Form.Label>
-            <Form.Control
-              name="sku"
-              value={product.sku}
-              onChange={this.handleChange}
-            />
-          </Form.Group>
-
-          <Form.Group controlId="formGroupDescription">
-            <Form.Label>Description:</Form.Label>
-            <Form.Control
-              as="textarea"
-              rows="4"
-              name="description"
-              value={product.description}
-              onChange={this.handleChange}
-            />
-          </Form.Group>
-          <Form.Group controlId="formGroupPrice">
-            <Form.Label>Price:</Form.Label>
-            <Form.Control
-              name="price"
-              value={product.price}
-              onChange={this.handleChange}
-            />
-          </Form.Group>
-          <Form.Group controlId="formGroupEnabled">
-            <Form.Label>Enabled:</Form.Label>
-            <Form.Control
-              as="select"
-              name="enabled"
-              value={product.enabled}
-              onChange={this.handleChange}
-              single
-            >
-              <option>yes</option>
-              <option>no</option>
-            </Form.Control>
-          </Form.Group>
-          <Form.Group controlId="formGroupShippingOnly">
-            <Form.Label>Fixed Shipping Rate Only:</Form.Label>
-            <Form.Control
-              as="select"
-              name="fixedShippingRateOnly"
-              value={product.fixedShippingRateOnly}
-              onChange={this.handleChange}
-              single
-            >
-              <option>yes</option>
-              <option>no</option>
-            </Form.Control>
-          </Form.Group>
-
-          <Form.Group controlId="formGroupShipRate">
-            <Form.Label>Fixed Shipping Rate:</Form.Label>
-            <Form.Control
-              name="fixedShippingRate"
-              value={product.fixedShippingRate}
-              onChange={this.handleChange}
-            />
-          </Form.Group>
-          <Form.Group controlId="formGroupBrand">
-            <Form.Label>Brand:</Form.Label>
-            <Form.Control
-              name="brand"
-              value={product.brand}
-              onChange={this.handleChange}
-            />
-          </Form.Group>
-          <Form.Group controlId="formGroupCatIDs">
-            <Form.Label>Category IDs:</Form.Label>
-            <Form.Control as="select" multiple disabled>
-              {this.state.response.categoryIds.map((id) => (
-                <option>{id}</option>
-              ))}
-            </Form.Control>
-            <Button variant="secondary" type="add">
-              Edit
-            </Button>
-          </Form.Group>
-
-          <Form.Group controlId="formGroupOpt1">
-            <h3>Option 1</h3>
-            <Form.Label>Name:</Form.Label>
-            <Form.Control
-              name="name"
-              arrayName="options"
-              nest="0"
-              value={product.options[0].name}
-              onChange={this.handleChange}
-            />
-            <Form.Label>Type:</Form.Label>
-            <Form.Control
-              as="select"
-              name="type"
-              arrayName="options"
-              nest="0"
-              value={product.options[0].type}
-              onChange={this.handleChange}
-              single
-            >
-              <option></option>
-              <option>SELECT</option>
-              <option>CHECKBOX</option>
-              <option>RADIO</option>
-            </Form.Control>
-            <Form.Label>Choices:</Form.Label>
-            <Form.Control as="select" multiple disabled>
-              {this.state.response.options[0].choices.map((choice) => (
-                <option>{choice}</option>
-              ))}
-            </Form.Control>
-            <Button variant="secondary" type="add">
-              Edit
-            </Button>
-          </Form.Group>
-          <Form.Group controlId="formGroupOpt2">
-            <h3>Option 2</h3>
-            <Form.Label>Name:</Form.Label>
-            <Form.Control
-              name="name"
-              arrayName="options"
-              nest="1"
-              value={product.options[1].name}
-              onChange={this.handleChange}
-            />
-            <Form.Label>Type:</Form.Label>
-            <Form.Control
-              as="select"
-              name="type"
-              arrayName="options"
-              nest="1"
-              value={product.options[1].type}
-              onChange={this.handleChange}
-              single
-            >
-              <option></option>
-              <option>SELECT</option>
-              <option>CHECKBOX</option>
-              <option>RADIO</option>
-            </Form.Control>
-            <Form.Label>Choices:</Form.Label>
-
-            <Form.Control as="select" multiple disabled>
-              {this.state.response.options[1].choices.map((choice) => (
-                <option>{choice}</option>
-              ))}
-            </Form.Control>
-            <Button variant="secondary" type="add">
-              Edit
-            </Button>
-          </Form.Group>
-          <Form.Group controlId="formGroupOpt3">
-            <h3>Option 3</h3>
-            <Form.Label>Name:</Form.Label>
-            <Form.Control
-              name="name"
-              arrayName="options"
-              nest="2"
-              value={product.options[2].name}
-              onChange={this.handleChange}
-            />
-            <Form.Label>Type:</Form.Label>
-            <Form.Control
-              as="select"
-              name="type"
-              arrayName="options"
-              nest="2"
-              value={product.options[2].type}
-              onChange={this.handleChange}
-              single
-            >
-              <option></option>
-              <option>SELECT</option>
-              <option>CHECKBOX</option>
-              <option>RADIO</option>
-            </Form.Control>
-            <Form.Label>Choices:</Form.Label>
-            <Form.Control as="select" multiple disabled>
-              {this.state.response.options[2].choices.map((choice) => (
-                <option>{choice}</option>
-              ))}
-            </Form.Control>
-            <Button variant="secondary" type="add">
-              Edit
-            </Button>
-          </Form.Group>
-          <Form.Group controlId="formGroupOpt4">
-            <h3>Option 4</h3>
-            <Form.Label>Name:</Form.Label>
-            <Form.Control
-              name="name"
-              arrayName="options"
-              nest="3"
-              value={product.options[3].name}
-              onChange={this.handleChange}
-            />
-            <Form.Label>Type:</Form.Label>
-            <Form.Control
-              as="select"
-              name="type"
-              arrayName="options"
-              nest="3"
-              value={product.options[3].type}
-              onChange={this.handleChange}
-              single
-            >
-              <option></option>
-              <option>SELECT</option>
-              <option>CHECKBOX</option>
-              <option>RADIO</option>
-            </Form.Control>
-            <Form.Label>Choices:</Form.Label>
-            <Form.Control as="select" multiple disabled>
-              {this.state.response.options[3].choices.map((choice) => (
-                <option>{choice}</option>
-              ))}
-            </Form.Control>
-            <Button variant="secondary" type="add">
-              Edit
-            </Button>
-          </Form.Group>
+          <Row>
+            <Col md="6" sm="12">
+              <Form.Group as={Row} controlId="formGroupId">
+                <Form.Label column sm={3}>
+                  Product Id:
+                </Form.Label>
+                <Col>
+                  <Form.Control
+                    name="id"
+                    value={product.id}
+                    onChange={this.handleChange}
+                  />
+                </Col>
+              </Form.Group>
+            </Col>
+            <Col md="6" sm="12">
+              <Form.Group as={Row} controlId="formGroupName">
+                <Form.Label column sm={3}>
+                  Name:
+                </Form.Label>
+                <Col>
+                  <Form.Control
+                    name="name"
+                    value={product.name}
+                    onChange={this.handleChange}
+                  />
+                </Col>
+              </Form.Group>
+            </Col>
+          </Row>
+          <Row>
+            <Col md="6" sm="12">
+              <Form.Group as={Row} controlId="formGroupSku">
+                <Form.Label column sm={3}>
+                  Base SKU:
+                </Form.Label>
+                <Col>
+                  <Form.Control
+                    name="sku"
+                    value={product.sku}
+                    onChange={this.handleChange}
+                  />
+                </Col>
+              </Form.Group>
+            </Col>
+            <Col md="6" sm="12">
+              <Form.Group as={Row} controlId="formGroupDescription">
+                <Form.Label column sm={3}>
+                  Description:
+                </Form.Label>
+                <Col>
+                  <Form.Control
+                    as="textarea"
+                    rows="4"
+                    name="description"
+                    value={product.description}
+                    onChange={this.handleChange}
+                  />
+                </Col>
+              </Form.Group>
+            </Col>
+          </Row>
+          <Row>
+            <Col md="6" sm="12">
+              <Form.Group as={Row} controlId="formGroupPrice">
+                <Form.Label column sm={3}>
+                  Price:
+                </Form.Label>
+                <Col>
+                  <Form.Control
+                    name="price"
+                    value={product.price}
+                    onChange={this.handleChange}
+                  />
+                </Col>
+              </Form.Group>
+            </Col>
+            <Col md="6" sm="12">
+              <Form.Group as={Row} controlId="formGroupEnabled">
+                <Form.Label column sm={3}>
+                  Enabled:
+                </Form.Label>
+                <Col>
+                  <Form.Control
+                    as="select"
+                    name="enabled"
+                    value={product.enabled}
+                    onChange={this.handleChange}
+                    single
+                  >
+                    <option>yes</option>
+                    <option>no</option>
+                  </Form.Control>
+                </Col>
+              </Form.Group>
+            </Col>
+          </Row>
+          <Row>
+            <Col md="6" sm="12">
+              <Form.Group as={Row} controlId="formGroupShippingOnly">
+                <Form.Label column sm={3}>
+                  Fixed Shipping Rate Only:
+                </Form.Label>
+                <Col>
+                  <Form.Control
+                    as="select"
+                    name="fixedShippingRateOnly"
+                    value={product.fixedShippingRateOnly}
+                    onChange={this.handleChange}
+                    single
+                  >
+                    <option>yes</option>
+                    <option>no</option>
+                  </Form.Control>
+                </Col>
+              </Form.Group>
+            </Col>
+            <Col md="6" sm="12">
+              <Form.Group as={Row} controlId="formGroupShipRate">
+                <Form.Label column sm={3}>
+                  Fixed Shipping Rate:
+                </Form.Label>
+                <Col>
+                  <Form.Control
+                    name="fixedShippingRate"
+                    value={product.fixedShippingRate}
+                    onChange={this.handleChange}
+                  />
+                </Col>
+              </Form.Group>
+            </Col>
+          </Row>
+          <Row>
+            <Col md="6" sm="12">
+              <Form.Group as={Row} controlId="formGroupBrand">
+                <Form.Label column sm={3}>
+                  Brand:
+                </Form.Label>
+                <Col>
+                  <Form.Control
+                    name="brand"
+                    value={product.brand}
+                    onChange={this.handleChange}
+                  />
+                </Col>
+              </Form.Group>
+            </Col>
+            <Col md="6" sm="12">
+              <Form.Group as={Row} controlId="formGroupCatIDs">
+                <Form.Label column sm={3}>
+                  Category IDs:
+                </Form.Label>
+                <Col>
+                  <Form.Control as="select" multiple disabled>
+                    {this.state.response.categoryIds.map((id) => (
+                      <option>{id}</option>
+                    ))}
+                  </Form.Control>
+                  <div className="float-right">
+                    <Button variant="secondary" type="add">
+                      Edit
+                    </Button>
+                  </div>
+                </Col>
+              </Form.Group>
+            </Col>
+          </Row>
 
           <Form.Group controlId="formGroupImages">
             <Form.Label>Images:</Form.Label>
@@ -337,10 +267,27 @@ class ProductsNew extends React.Component {
               Edit
             </Button>
           </Form.Group>
-
-          <Button variant="primary" type="submit">
-            Save
-          </Button>
+          <Row>
+            <Button
+              className="shadow-sm rounded ml-2"
+              variant="primary"
+              type="submit"
+            >
+              <span className="pull-left">Save </span>
+              <FontAwesomeIcon className="ml-2" icon={faSave} />
+            </Button>
+            <Button
+              className="shadow-sm rounded ml-2"
+              variant="danger"
+              type="button"
+              onClick={(e) => {
+                this.props.history.goBack();
+              }}
+            >
+              <span className="pull-left">Cancel </span>
+              <FontAwesomeIcon className="ml-2" icon={faWindowClose} />
+            </Button>
+          </Row>
         </Form>
       </ContainerDefault>
     );

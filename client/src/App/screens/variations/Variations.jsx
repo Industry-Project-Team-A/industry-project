@@ -12,6 +12,7 @@ import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import Loader from "../../components/Loader.jsx";
 import linkFormatter from "../../helpers/linkFormatter.jsx";
 import ContainerDefault from "../../components/ContainerDefault.jsx";
+import defaultPagination from "../../helpers/defaultPagination.jsx";
 
 class Variations extends React.Component {
   constructor() {
@@ -89,7 +90,7 @@ class Variations extends React.Component {
                 keyField="id"
                 data={this.state.response}
                 columns={columns}
-                pagination={paginationFactory()}
+                pagination={paginationFactory(defaultPagination())}
                 {...props.baseProps}
               />
             </div>

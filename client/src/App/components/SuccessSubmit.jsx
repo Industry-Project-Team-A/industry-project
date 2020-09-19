@@ -4,7 +4,7 @@ import { Col, Alert } from "react-bootstrap";
 const SuccessSubmit = (props) => {
   return (
     <Col style={{ padding: "95px" }}>
-      <div>
+      <div className="shadow-lg rounded-lg">
         <Alert variant="success">
           <Alert.Heading>Success!</Alert.Heading>
           <p>{`${props.type} with ID#: ${props.id} was ${props.operation}`}</p>
