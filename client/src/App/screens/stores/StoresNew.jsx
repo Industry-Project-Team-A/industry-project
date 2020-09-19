@@ -9,12 +9,19 @@ import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
 import Loader from "../../components/Loader.jsx";
 import SuccessSubmit from "../../components/SuccessSubmit.jsx";
 import ContainerDefault from "../../components/ContainerDefault.jsx";
+import MultiSelectEdit from "../../components/MultiSelectEdit.jsx";
 
 class StoresNew extends React.Component {
   constructor() {
     super();
-    this.state = { loading: true, submitted: false };
+    this.state = {
+      loading: true,
+      submitted: false,
+      newLogo: "",
+      selectedLogos: [],
+    };
   }
+
   handleSubmit = (e) => {
     e.preventDefault();
     const data = this.state.response;
@@ -25,22 +32,115 @@ class StoresNew extends React.Component {
       }, 3000)
     );
   };
+
   handleChange = (e) => {
     e.preventDefault();
     let name = e.target.name;
     let value = e.target.value;
     let formValues = this.state.response;
     //special situation for nested arrays
-    if (e.target.attributes["arrayName"]) {
-      let arrayName = e.target.getAttribute("arrayName");
+    if (e.target.attributes["arrayname"]) {
+      let arrayname = e.target.getAttribute("arrayname");
       let nestedValue = parseInt(e.target.getAttribute("nest"), 10);
-      formValues[arrayName][nestedValue][name] = value;
+      formValues[arrayname][nestedValue][name] = value;
       this.setState({ formValues });
       return;
     }
     formValues[name] = value;
     this.setState({ formValues });
   };
+
+  handleListInputChange = (e) => {
+    e.preventDefault();
+    let name = e.target.name;
+    let value = e.target.value;
+    this.setState({ [name]: value });
+  };
+
+  handleListChange = (e) => {
+    let allValues = e.currentTarget.options;
+    let valuesLocation = e.currentTarget.getAttribute("valuename");
+    let newValues = [];
+
+    for (let i = 0; i < allValues.length; i++) {
+      if (allValues[i].selected) {
+        newValues.push(allValues[i].id);
+      }
+    }
+
+    this.setState({ [valuesLocation]: newValues });
+  };
+
+  handleListAdd = (e) => {
+    let formValues = this.state.response;
+    let arrayname = e.currentTarget.getAttribute("arrayname");
+    let valuename = e.currentTarget.getAttribute("valuename");
+
+    let value = this.state[valuename];
+    let array = formValues[arrayname];
+    let label = e.currentTarget.getAttribute("label");
+
+    if (value === "") {
+      return;
+    }
+
+    for (let i = 0; i < array.length; i++) {
+      if (value === array[i]) {
+        alert(`No duplicate ${label} can be accepted.`);
+        this.setState({ [valuename]: "" });
+        return;
+      }
+    }
+
+    formValues[arrayname].push(value);
+
+    this.setState({ formValues, [valuename]: "" });
+  };
+
+  handleListKeyPress = (e) => {
+    let key = e.key;
+    if (key === "Enter") {
+      let formValues = this.state.response;
+      let arrayname = e.target.getAttribute("arrayname");
+      let valuename = e.target.getAttribute("valuename");
+
+      let value = this.state[valuename];
+      let array = formValues[arrayname];
+      let label = e.target.getAttribute("label");
+
+      if (value === "") {
+        return;
+      }
+
+      for (let i = 0; i < array.length; i++) {
+        if (value === array[i]) {
+          alert(`No duplicate ${label} can be accepted.`);
+          this.setState({ [valuename]: "" });
+          return;
+        }
+      }
+
+      formValues[arrayname].push(value);
+
+      this.setState({ formValues, [valuename]: "" });
+    }
+  };
+
+  handleListDelete = (e) => {
+    let selectedLocation = e.currentTarget.getAttribute("valuename");
+    let arrayname = e.currentTarget.getAttribute("arrayname");
+
+    let selectedItems = this.state[selectedLocation];
+    let currentItems = this.state.response[arrayname];
+
+    for (let i = 0; i < selectedItems.length; i++) {
+      let index = parseInt(selectedItems[i], 10);
+      currentItems.splice(index - i, 1);
+    }
+
+    this.setState({ currentItems });
+  };
+
   componentDidMount() {
     axios.get("/api/stores/newid").then((res) => {
       const newId = res.data[0];
@@ -57,21 +157,22 @@ class StoresNew extends React.Component {
         <SuccessSubmit
           type="Store"
           id={this.state.response.id}
-          operation="updated"
+          operation="created"
         />
       );
     const store = this.state.response;
     return (
       <ContainerDefault>
-        <Form onSubmit={this.handleSubmit}>
+        <Form onSubmit={(e) => e.preventDefault()}>
           <Row>
             <Col md="6" sm="12">
               <Form.Group as={Row} controlId="formGroupId">
                 <Form.Label column sm={3}>
-                  Store Id:
+                  Store ID:
                 </Form.Label>
                 <Col>
                   <Form.Control
+                    disabled
                     name="id"
                     value={store.id}
                     onChange={this.handleChange}
@@ -143,7 +244,7 @@ class StoresNew extends React.Component {
             <Col md="6" sm="12">
               <Form.Group as={Row} controlId="formGroupBaseUrl">
                 <Form.Label column sm={3}>
-                  Base Url:
+                  Base URL:
                 </Form.Label>
                 <Col>
                   <Form.Control
@@ -176,30 +277,28 @@ class StoresNew extends React.Component {
               </Form.Group>
             </Col>
             <Col md="6" sm="12">
-              <Form.Group as={Row} controlId="formGroupLogos">
-                <Form.Label column sm={3}>
-                  Logos:
-                </Form.Label>
-                <Col>
-                  <Form.Control as="select" multiple disabled>
-                    {this.state.response.logos.map((logo) => {
-                      return <option>{logo}</option>;
-                    })}
-                  </Form.Control>
-                  <div className="float-right">
-                    <Button variant="secondary" type="add">
-                      Edit
-                    </Button>
-                  </div>
-                </Col>
-              </Form.Group>
+              <MultiSelectEdit
+                newDataLocation="newLogo"
+                placeholder="New Logo ID.."
+                newDataValue={this.state.newLogo}
+                listData={this.state.response.logos}
+                listDataLocation="logos"
+                label="Logo IDs:"
+                selectedValuesLocation="selectedLogos"
+                handleListChange={this.handleListChange}
+                handleListAdd={this.handleListAdd}
+                handleListDelete={this.handleListDelete}
+                handleListInputChange={this.handleListInputChange}
+                handleListKeyPress={this.handleListKeyPress}
+              />
             </Col>
           </Row>
           <Row>
             <Button
               className="shadow-sm rounded ml-2"
               variant="primary"
-              type="submit"
+              type="button"
+              onClick={this.handleSubmit}
             >
               <span className="pull-left">Save </span>
               <FontAwesomeIcon className="ml-2" icon={faSave} />
