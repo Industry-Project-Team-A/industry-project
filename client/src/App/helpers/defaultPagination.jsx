@@ -19,7 +19,6 @@ const defaultPagination = () => {
       }
     ],
   };
-  console.log(specs);
   return specs;
 };
 

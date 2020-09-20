@@ -1,14 +1,15 @@
 import React from "react";
 import { Form, Col, Row, Button } from "react-bootstrap";
 import axios from "axios";
-import Loader from "../../components/Loader.jsx";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSave } from "@fortawesome/free-solid-svg-icons";
 import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
 
+import Loader from "../../components/Loader.jsx";
 import ContainerDefault from "../../components/ContainerDefault.jsx";
 import SuccessSubmit from "../../components/SuccessSubmit.jsx";
+import MultiSelectEdit from "../../components/MultiSelectEdit.jsx";
 
 class CategoriesNew extends React.Component {
   constructor() {
@@ -18,6 +19,7 @@ class CategoriesNew extends React.Component {
       submitted: false,
     };
   }
+
   handleSubmit = (e) => {
     e.preventDefault();
     const data = this.state.response;
@@ -28,22 +30,115 @@ class CategoriesNew extends React.Component {
       }, 3000)
     );
   };
+
   handleChange = (e) => {
     e.preventDefault();
     let name = e.target.name;
     let value = e.target.value;
     let formValues = this.state.response;
     //special situation for nested arrays
-    if (e.target.attributes["arrayName"]) {
-      let arrayName = e.target.getAttribute("arrayName");
+    if (e.target.attributes["arrayname"]) {
+      let arrayname = e.target.getAttribute("arrayname");
       let nestedValue = parseInt(e.target.getAttribute("nest"), 10);
-      formValues[arrayName][nestedValue][name] = value;
+      formValues[arrayname][nestedValue][name] = value;
       this.setState({ formValues });
       return;
     }
     formValues[name] = value;
     this.setState({ formValues });
   };
+
+  handleListInputChange = (e) => {
+    e.preventDefault();
+    let name = e.target.name;
+    let value = e.target.value;
+    this.setState({ [name]: value });
+  };
+
+  handleListChange = (e) => {
+    let allValues = e.currentTarget.options;
+    let valuesLocation = e.currentTarget.getAttribute("valuename");
+    let newValues = [];
+
+    for (let i = 0; i < allValues.length; i++) {
+      if (allValues[i].selected) {
+        newValues.push(allValues[i].id);
+      }
+    }
+
+    this.setState({ [valuesLocation]: newValues });
+  };
+
+  handleListAdd = (e) => {
+    let formValues = this.state.response;
+    let arrayname = e.currentTarget.getAttribute("arrayname");
+    let valuename = e.currentTarget.getAttribute("valuename");
+
+    let value = this.state[valuename];
+    let array = formValues[arrayname];
+    let label = e.currentTarget.getAttribute("label");
+
+    if (value === "") {
+      return;
+    }
+
+    for (let i = 0; i < array.length; i++) {
+      if (value === array[i]) {
+        alert(`No duplicate ${label} can be accepted.`);
+        this.setState({ [valuename]: "" });
+        return;
+      }
+    }
+
+    formValues[arrayname].push(value);
+
+    this.setState({ formValues, [valuename]: "" });
+  };
+
+  handleListKeyPress = (e) => {
+    let key = e.key;
+    if (key === "Enter") {
+      let formValues = this.state.response;
+      let arrayname = e.target.getAttribute("arrayname");
+      let valuename = e.target.getAttribute("valuename");
+
+      let value = this.state[valuename];
+      let array = formValues[arrayname];
+      let label = e.target.getAttribute("label");
+
+      if (value === "") {
+        return;
+      }
+
+      for (let i = 0; i < array.length; i++) {
+        if (value === array[i]) {
+          alert(`No duplicate ${label} can be accepted.`);
+          this.setState({ [valuename]: "" });
+          return;
+        }
+      }
+
+      formValues[arrayname].push(value);
+
+      this.setState({ formValues, [valuename]: "" });
+    }
+  };
+
+  handleListDelete = (e) => {
+    let selectedLocation = e.currentTarget.getAttribute("valuename");
+    let arrayname = e.currentTarget.getAttribute("arrayname");
+
+    let selectedItems = this.state[selectedLocation];
+    let currentItems = this.state.response[arrayname];
+
+    for (let i = 0; i < selectedItems.length; i++) {
+      let index = parseInt(selectedItems[i], 10);
+      currentItems.splice(index - i, 1);
+    }
+
+    this.setState({ currentItems });
+  };
+
   componentDidMount() {
     axios.get(`/api/categories/newid`).then((res) => {
       const newId = res.data[0];
@@ -67,7 +162,7 @@ class CategoriesNew extends React.Component {
 
     return (
       <ContainerDefault>
-        <Form onSubmit={this.handleSubmit}>
+        <Form onSubmit={(e) => e.preventDefault()}>
           <Row>
             <Col md="6" sm="12">
               <Form.Group as={Row} controlId="formGroupId">
@@ -146,7 +241,7 @@ class CategoriesNew extends React.Component {
                     name="enabled"
                     value={category.enabled}
                     onChange={this.handleChange}
-                    single
+                    select="single"
                     className="shadow-sm"
                   >
                     <option>yes</option>
@@ -157,36 +252,29 @@ class CategoriesNew extends React.Component {
             </Col>
 
             <Col md="6" sm="12">
-              <Form.Group as={Row} controlId="formGroupCatIDs">
-                <Form.Label column sm={3}>
-                  Product IDs:
-                </Form.Label>
-                <Col>
-                  <Form.Control
-                    as="select"
-                    className="shadow-sm"
-                    multiple
-                    disabled
-                  >
-                    {this.state.response.productIds.map((category) => {
-                      return <option>{category}</option>;
-                    })}
-                  </Form.Control>
-                  <div className="float-right">
-                    <Button variant="secondary" type="add">
-                      Edit
-                    </Button>
-                           
-                  </div>
-                </Col>
-              </Form.Group>
+              <MultiSelectEdit
+                newDataLocation="newProdId"
+                placeholder="New Product ID.."
+                newDataValue={this.state.newProdId}
+                listData={this.state.response.productIds}
+                listDataLocation="productIds"
+                label="Product IDs"
+                selectedValuesLocation="selectedProdIds"
+                handleListChange={this.handleListChange}
+                handleListAdd={this.handleListAdd}
+                handleListDelete={this.handleListDelete}
+                handleListInputChange={this.handleListInputChange}
+                handleListKeyPress={this.handleListKeyPress}
+              />
             </Col>
           </Row>
+
           <Row>
             <Button
               className="shadow-sm rounded ml-2"
               variant="primary"
-              type="submit"
+              type="button"
+              onClick={this.handleSubmit}
             >
               <span className="pull-left">Save </span>
               <FontAwesomeIcon className="ml-2" icon={faSave} />
