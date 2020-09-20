@@ -17,8 +17,6 @@ class CategoriesNew extends React.Component {
     this.state = {
       loading: true,
       submitted: false,
-      newProdId: "",
-      selectedProdIds: [],
     };
   }
 
@@ -243,7 +241,7 @@ class CategoriesNew extends React.Component {
                     name="enabled"
                     value={category.enabled}
                     onChange={this.handleChange}
-                    single
+                    select="single"
                     className="shadow-sm"
                   >
                     <option>yes</option>

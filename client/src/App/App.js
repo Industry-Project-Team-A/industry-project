@@ -20,7 +20,6 @@ import VariationsSingle from "./screens/variations/VariationsSingle.jsx";
 import ProductsNew from "./screens/products/ProductsNew.jsx";
 import StoresNew from "./screens/stores/StoresNew.jsx";
 import CategoriesNew from "./screens/categories/CategoriesNew.jsx";
-import VariationsNew from "./screens/variations/VariationsNew.jsx";
 
 class App extends React.Component {
   render() {
@@ -70,7 +69,6 @@ class App extends React.Component {
                 <Route path="/stores/new" component={StoresNew} />
                 <Route path="/stores/:id" component={StoresSingle} />
                 <Route path="/stores" component={Stores} />
-                <Route path="/variations/new" component={VariationsNew} />
                 <Route path="/variations/:id" component={VariationsSingle} />
                 <Route path="/variations" component={Variations} />
                 <Route path="/categories/new" component={CategoriesNew} />

@@ -17,18 +17,6 @@ class ProductsNew extends React.Component {
     this.state = {
       loading: true,
       submitted: false,
-      newCatId: "",
-      newCatIds: [],
-      newOption1: "",
-      selectedOption1: [],
-      newOption2: "",
-      selectedOption2: [],
-      newOption3: "",
-      selectedOption3: [],
-      newOption4: "",
-      selectedOption4: [],
-      newImages: "",
-      selectedImages: [],
     };
   }
 
@@ -252,6 +240,7 @@ class ProductsNew extends React.Component {
                 </Form.Label>
                 <Col>
                   <Form.Control
+                    className="shadow-sm"
                     name="id"
                     disabled
                     value={product.id}
@@ -267,6 +256,7 @@ class ProductsNew extends React.Component {
                 </Form.Label>
                 <Col>
                   <Form.Control
+                    className="shadow-sm"
                     name="name"
                     value={product.name}
                     onChange={this.handleChange}
@@ -283,6 +273,7 @@ class ProductsNew extends React.Component {
                 </Form.Label>
                 <Col>
                   <Form.Control
+                    className="shadow-sm"
                     name="sku"
                     value={product.sku}
                     onChange={this.handleChange}
@@ -297,6 +288,7 @@ class ProductsNew extends React.Component {
                 </Form.Label>
                 <Col>
                   <Form.Control
+                    className="shadow-sm"
                     name="price"
                     value={product.price}
                     onChange={this.handleChange}
@@ -309,15 +301,16 @@ class ProductsNew extends React.Component {
             <Col md="6" sm="12">
               <Form.Group as={Row} controlId="formGroupShippingOnly">
                 <Form.Label column sm={3}>
-                  Fixed Shipping Rate Only:
+                  Fixed Ship Only:
                 </Form.Label>
                 <Col>
                   <Form.Control
+                    className="shadow-sm"
                     as="select"
                     name="fixedShippingRateOnly"
                     value={product.fixedShippingRateOnly}
                     onChange={this.handleChange}
-                    single
+                    single="true"
                   >
                     <option>yes</option>
                     <option>no</option>
@@ -332,11 +325,12 @@ class ProductsNew extends React.Component {
                 </Form.Label>
                 <Col>
                   <Form.Control
+                    className="shadow-sm"
                     as="select"
                     name="enabled"
                     value={product.enabled}
                     onChange={this.handleChange}
-                    single
+                    single="true"
                   >
                     <option>yes</option>
                     <option>no</option>
@@ -353,6 +347,7 @@ class ProductsNew extends React.Component {
                 </Form.Label>
                 <Col>
                   <Form.Control
+                    className="shadow-sm"
                     name="brand"
                     value={product.brand}
                     onChange={this.handleChange}
@@ -367,6 +362,7 @@ class ProductsNew extends React.Component {
                 </Form.Label>
                 <Col>
                   <Form.Control
+                    className="shadow-sm"
                     name="fixedShippingRate"
                     value={product.fixedShippingRate}
                     onChange={this.handleChange}
@@ -383,6 +379,7 @@ class ProductsNew extends React.Component {
                 </Form.Label>
                 <Col>
                   <Form.Control
+                    className="shadow-sm"
                     as="textarea"
                     rows="4"
                     name="description"
@@ -440,6 +437,7 @@ class ProductsNew extends React.Component {
                         </Form.Label>
                         <Col>
                           <Form.Control
+                            className="shadow-sm"
                             name="name"
                             arrayname="options"
                             nest="0"
@@ -454,13 +452,14 @@ class ProductsNew extends React.Component {
                         </Form.Label>
                         <Col>
                           <Form.Control
+                            className="shadow-sm"
                             as="select"
                             name="type"
-                            arrayName="options"
+                            arrayname="options"
                             nest="0"
                             value={product.options[0].type}
                             onChange={this.handleChange}
-                            single
+                            single="true"
                           >
                             <option></option>
                             <option>SELECT</option>
@@ -508,6 +507,7 @@ class ProductsNew extends React.Component {
                         </Form.Label>
                         <Col>
                           <Form.Control
+                            className="shadow-sm"
                             name="name"
                             arrayname="options"
                             nest="1"
@@ -522,13 +522,14 @@ class ProductsNew extends React.Component {
                         </Form.Label>
                         <Col>
                           <Form.Control
+                            className="shadow-sm"
                             as="select"
                             name="type"
-                            arrayName="options"
+                            arrayname="options"
                             nest="1"
                             value={product.options[1].type}
                             onChange={this.handleChange}
-                            single
+                            single="true"
                           >
                             <option></option>
                             <option>SELECT</option>
@@ -578,6 +579,7 @@ class ProductsNew extends React.Component {
                         </Form.Label>
                         <Col>
                           <Form.Control
+                            className="shadow-sm"
                             name="name"
                             arrayname="options"
                             nest="2"
@@ -592,13 +594,14 @@ class ProductsNew extends React.Component {
                         </Form.Label>
                         <Col>
                           <Form.Control
+                            className="shadow-sm"
                             as="select"
                             name="type"
-                            arrayName="options"
+                            arrayname="options"
                             nest="2"
                             value={product.options[2].type}
                             onChange={this.handleChange}
-                            single
+                            single="true"
                           >
                             <option></option>
                             <option>SELECT</option>
@@ -646,6 +649,7 @@ class ProductsNew extends React.Component {
                         </Form.Label>
                         <Col>
                           <Form.Control
+                            className="shadow-sm"
                             name="name"
                             arrayname="options"
                             nest="3"
@@ -660,13 +664,14 @@ class ProductsNew extends React.Component {
                         </Form.Label>
                         <Col>
                           <Form.Control
+                            className="shadow-sm"
                             as="select"
                             name="type"
-                            arrayName="options"
+                            arrayname="options"
                             nest="3"
                             value={product.options[3].type}
                             onChange={this.handleChange}
-                            single
+                            single="true"
                           >
                             <option></option>
                             <option>SELECT</option>

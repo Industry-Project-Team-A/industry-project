@@ -172,6 +172,7 @@ class StoresNew extends React.Component {
                 </Form.Label>
                 <Col>
                   <Form.Control
+                    className="shadow-sm"
                     disabled
                     name="id"
                     value={store.id}
@@ -187,6 +188,7 @@ class StoresNew extends React.Component {
                 </Form.Label>
                 <Col>
                   <Form.Control
+                    className="shadow-sm"
                     name="name"
                     value={store.name}
                     onChange={this.handleChange}
@@ -204,6 +206,7 @@ class StoresNew extends React.Component {
                 </Form.Label>
                 <Col>
                   <Form.Control
+                    className="shadow-sm"
                     name="tag"
                     value={store.tag}
                     onChange={this.handleChange}
@@ -218,6 +221,7 @@ class StoresNew extends React.Component {
                 </Form.Label>
                 <Col>
                   <Form.Control
+                    className="shadow-sm"
                     name="apiId"
                     value={store.apiId}
                     onChange={this.handleChange}
@@ -234,6 +238,7 @@ class StoresNew extends React.Component {
                 </Form.Label>
                 <Col>
                   <Form.Control
+                    className="shadow-sm"
                     name="token"
                     value={store.token}
                     onChange={this.handleChange}
@@ -248,6 +253,7 @@ class StoresNew extends React.Component {
                 </Form.Label>
                 <Col>
                   <Form.Control
+                    className="shadow-sm"
                     name="baseUrl"
                     value={store.baseUrl}
                     onChange={this.handleChange}
@@ -264,11 +270,12 @@ class StoresNew extends React.Component {
                 </Form.Label>
                 <Col>
                   <Form.Control
+                    className="shadow-sm"
                     as="select"
                     name="shippingIncluded"
                     value={store.shippingIncluded}
                     onChange={this.handleChange}
-                    single
+                    single="true"
                   >
                     <option>yes</option>
                     <option>no</option>

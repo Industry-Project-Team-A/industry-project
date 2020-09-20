@@ -1,13 +1,10 @@
 import React from "react";
 import axios from "axios";
 
-import { Button, Row, Col } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
-import { LinkContainer } from "react-router-bootstrap";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
 import Loader from "../../components/Loader.jsx";
 import linkFormatter from "../../helpers/linkFormatter.jsx";
@@ -67,19 +64,6 @@ class Variations extends React.Component {
               <Row>
                 <Col>
                   <SearchBar {...props.searchProps} />
-                </Col>
-
-                <Col className="text-right">
-                  <LinkContainer to={`/variations/new`}>
-                    <Button
-                      className="btn ml-1"
-                      variant="primary"
-                      type="newVariation"
-                    >
-                      <span className="pull-left">New </span>
-                      <FontAwesomeIcon className="ml-2" icon={faPlusCircle} />
-                    </Button>
-                  </LinkContainer>
                 </Col>
               </Row>
 
