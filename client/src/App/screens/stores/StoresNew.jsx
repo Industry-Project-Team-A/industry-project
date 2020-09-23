@@ -33,10 +33,10 @@ class StoresNew extends React.Component {
       })
       .then((res) => {
         if (this.state.error !== true) {
-          this.setState({ submitted: true }),
-            setTimeout(() => {
-              this.props.history.push("/stores");
-            }, 3000);
+          this.setState({ submitted: true });
+          setTimeout(() => {
+            this.props.history.push("/stores");
+          }, 3000);
         }
       });
   };
@@ -157,12 +157,12 @@ class StoresNew extends React.Component {
         this.props.history.push("/404");
       })
       .then((res) => {
-        if(this.state.error !== true){
-        const newId = res.data[0];
-        this.setState({
-          response: { id: newId, logos: [] },
-          loading: false,
-        });
+        if (this.state.error !== true) {
+          const newId = res.data[0];
+          this.setState({
+            response: { id: newId, logos: [] },
+            loading: false,
+          });
         }
       });
   }

@@ -34,10 +34,10 @@ class VariationsSingle extends React.Component {
       })
       .then((res) => {
         if (this.state.error !== true) {
-          this.setState({ submitted: true }),
-            setTimeout(() => {
-              this.props.history.push("/variations");
-            }, 3000);
+          this.setState({ submitted: true });
+          setTimeout(() => {
+            this.props.history.push("/variations");
+          }, 3000);
         }
       });
   };

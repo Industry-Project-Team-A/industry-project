@@ -3,7 +3,11 @@ import { Form, Button, Row, Col, Card } from "react-bootstrap";
 import axios from "axios";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSave, faWindowClose, faBan } from "@fortawesome/free-solid-svg-icons";
+import {
+  faSave,
+  faWindowClose,
+  faBan,
+} from "@fortawesome/free-solid-svg-icons";
 
 import ContainerDefault from "../../components/ContainerDefault.jsx";
 import Loader from "../../components/Loader.jsx";
@@ -25,19 +29,20 @@ class ProductsSingle extends React.Component {
     const data = this.state.response;
     const id = data.id;
 
-    axios.delete(`/api/products/${id}`, data)
-        .catch((error) => {
-          this.setState({ error: true });
-          this.props.history.push("/404");
-        })
-        .then((res) => {
-          if (this.state.error !== true) {
-                  this.setState({ submitted: true, operation: "deleted" });
-            setTimeout(() => {
-              this.props.history.push("/products");
-            }, 3000);
-          }
-        })
+    axios
+      .delete(`/api/products/${id}`, data)
+      .catch((error) => {
+        this.setState({ error: true });
+        this.props.history.push("/404");
+      })
+      .then((res) => {
+        if (this.state.error !== true) {
+          this.setState({ submitted: true, operation: "deleted" });
+          setTimeout(() => {
+            this.props.history.push("/products");
+          }, 3000);
+        }
+      });
   };
 
   handleSubmit = (e) => {
@@ -53,10 +58,10 @@ class ProductsSingle extends React.Component {
       })
       .then((res) => {
         if (this.state.error !== true) {
-          this.setState({ submitted: true }),
-            setTimeout(() => {
-              this.props.history.push("/products");
-            }, 3000);
+          this.setState({ submitted: true });
+          setTimeout(() => {
+            this.props.history.push("/products");
+          }, 3000);
         }
       });
   };

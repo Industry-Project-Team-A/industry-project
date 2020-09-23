@@ -32,10 +32,10 @@ class ProductsNew extends React.Component {
       })
       .then((res) => {
         if (this.state.error !== true) {
-          this.setState({ submitted: true }),
-            setTimeout(() => {
-              this.props.history.push("/products");
-            }, 3000);
+          this.setState({ submitted: true });
+          setTimeout(() => {
+            this.props.history.push("/products");
+          }, 3000);
         }
       });
   };

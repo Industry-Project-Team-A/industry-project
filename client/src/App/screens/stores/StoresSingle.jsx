@@ -3,7 +3,11 @@ import { Form, Col, Button, Row } from "react-bootstrap";
 import axios from "axios";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSave, faWindowClose, faBan } from "@fortawesome/free-solid-svg-icons";
+import {
+  faSave,
+  faWindowClose,
+  faBan,
+} from "@fortawesome/free-solid-svg-icons";
 
 import Loader from "../../components/Loader.jsx";
 import SuccessSubmit from "../../components/SuccessSubmit.jsx";
@@ -53,10 +57,10 @@ class StoresSingle extends React.Component {
       })
       .then((res) => {
         if (this.state.error !== true) {
-          this.setState({ submitted: true }),
-            setTimeout(() => {
-              this.props.history.push("/stores");
-            }, 3000);
+          this.setState({ submitted: true });
+          setTimeout(() => {
+            this.props.history.push("/stores");
+          }, 3000);
         }
       });
   };
