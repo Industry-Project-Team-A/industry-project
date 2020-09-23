@@ -26,12 +26,20 @@ class VariationsSingle extends React.Component {
     const data = this.state.response;
     const id = this.state.response.id;
 
-    axios.put(`/api/stores/${id}`, data).then(
-      this.setState({ submitted: true }),
-      setTimeout(() => {
-        this.props.history.push("/stores");
-      }, 3000)
-    );
+    axios
+      .put(`/api/variations/${id}`, data)
+      .catch((error) => {
+        this.setState({ error: true });
+        this.props.history.push("/404");
+      })
+      .then((res) => {
+        if (this.state.error !== true) {
+          this.setState({ submitted: true }),
+            setTimeout(() => {
+              this.props.history.push("/variations");
+            }, 3000);
+        }
+      });
   };
 
   handleChange = (e) => {
@@ -55,10 +63,21 @@ class VariationsSingle extends React.Component {
   };
 
   componentDidMount() {
-    axios.get(`/api/variations/${this.props.match.params.id}`).then((res) => {
-      const response = res.data;
-      this.setState({ response, loading: false });
-    });
+    axios
+      .get(`/api/variations/${this.props.match.params.id}`)
+      .catch((error) => {
+        this.setState({ error: true });
+        this.props.history.push("/404");
+      })
+      .then((res) => {
+        if (this.state.error !== true) {
+          const response = res.data;
+          if (!response["options"][1]) {
+            response["options"][1] = { name: "", value: "" };
+          }
+          this.setState({ response, loading: false });
+        }
+      });
   }
 
   render() {

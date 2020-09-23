@@ -21,6 +21,8 @@ import ProductsNew from "./screens/products/ProductsNew.jsx";
 import StoresNew from "./screens/stores/StoresNew.jsx";
 import CategoriesNew from "./screens/categories/CategoriesNew.jsx";
 
+import ErrorPage from "./components/ErrorPage.jsx"
+
 class App extends React.Component {
   render() {
     return (
@@ -63,6 +65,7 @@ class App extends React.Component {
             <Row>
               <Switch>
                 <Route exact path="/" component={Home} />
+                <Route exact path="/404" component={ErrorPage} />
                 <Route path="/products/new" component={ProductsNew} />
                 <Route path="/products/:id" component={ProductsSingle} />
                 <Route path="/products" component={Products} />

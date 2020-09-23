@@ -25,12 +25,20 @@ class StoresNew extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const data = this.state.response;
-    axios.post(`/api/stores`, data).then(
-      this.setState({ submitted: true }),
-      setTimeout(() => {
-        this.props.history.push("/stores");
-      }, 3000)
-    );
+    axios
+      .post(`/api/stores`, data)
+      .catch((error) => {
+        this.setState({ error: true });
+        this.props.history.push("/404");
+      })
+      .then((res) => {
+        if (this.state.error !== true) {
+          this.setState({ submitted: true }),
+            setTimeout(() => {
+              this.props.history.push("/stores");
+            }, 3000);
+        }
+      });
   };
 
   handleChange = (e) => {
@@ -142,13 +150,21 @@ class StoresNew extends React.Component {
   };
 
   componentDidMount() {
-    axios.get("/api/stores/newid").then((res) => {
-      const newId = res.data[0];
-      this.setState({
-        response: { id: newId, logos: [] },
-        loading: false,
+    axios
+      .get("/api/stores/newid")
+      .catch((error) => {
+        this.setState({ error: true });
+        this.props.history.push("/404");
+      })
+      .then((res) => {
+        if(this.state.error !== true){
+        const newId = res.data[0];
+        this.setState({
+          response: { id: newId, logos: [] },
+          loading: false,
+        });
+        }
       });
-    });
   }
   render() {
     if (this.state.loading) return <Loader />;
