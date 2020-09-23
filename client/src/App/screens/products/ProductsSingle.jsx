@@ -3,8 +3,11 @@ import { Form, Button, Row, Col, Card } from "react-bootstrap";
 import axios from "axios";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSave } from "@fortawesome/free-solid-svg-icons";
-import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
+import {
+  faSave,
+  faWindowClose,
+  faBan,
+} from "@fortawesome/free-solid-svg-icons";
 
 import ContainerDefault from "../../components/ContainerDefault.jsx";
 import Loader from "../../components/Loader.jsx";
@@ -26,12 +29,20 @@ class ProductsSingle extends React.Component {
     const data = this.state.response;
     const id = data.id;
 
-    axios.delete(`/api/products/${id}`, data).then(
-      this.setState({ submitted: true, operation: "deleted" }),
-      setTimeout(() => {
-        this.props.history.push("/products");
-      }, 3000)
-    );
+    axios
+      .delete(`/api/products/${id}`, data)
+      .catch((error) => {
+        this.setState({ error: true });
+        this.props.history.push("/404");
+      })
+      .then((res) => {
+        if (this.state.error !== true) {
+          this.setState({ submitted: true, operation: "deleted" });
+          setTimeout(() => {
+            this.props.history.push("/products");
+          }, 3000);
+        }
+      });
   };
 
   handleSubmit = (e) => {
@@ -39,12 +50,20 @@ class ProductsSingle extends React.Component {
     const data = this.state.response;
     const id = this.state.response.id;
 
-    axios.put(`/api/products/${id}`, data).then(
-      this.setState({ submitted: true, operation: "updated" }),
-      setTimeout(() => {
-        this.props.history.push("/products");
-      }, 3000)
-    );
+    axios
+      .put(`/api/products/${id}`, data)
+      .catch((error) => {
+        this.setState({ error: true });
+        this.props.history.push("/404");
+      })
+      .then((res) => {
+        if (this.state.error !== true) {
+          this.setState({ submitted: true });
+          setTimeout(() => {
+            this.props.history.push("/products");
+          }, 3000);
+        }
+      });
   };
 
   handleChange = (e) => {
@@ -212,16 +231,24 @@ class ProductsSingle extends React.Component {
   };
 
   componentDidMount() {
-    axios.get(`/api/products/${this.props.match.params.id}`).then((res) => {
-      const response = res.data;
-      for (let index = 0; index < 4; index++) {
-        const element = response.options[index];
-        if (typeof element === "undefined") {
-          response.options.push({ name: "", type: "", choices: [] });
+    axios
+      .get(`/api/products/${this.props.match.params.id}`)
+      .catch((error) => {
+        this.setState({ error: true });
+        this.props.history.push("/404");
+      })
+      .then((res) => {
+        if (this.state.error !== true) {
+          const response = res.data;
+          for (let index = 0; index < 4; index++) {
+            const element = response.options[index];
+            if (typeof element === "undefined") {
+              response.options.push({ name: "", type: "", choices: [] });
+            }
+          }
+          this.setState({ response, loading: false });
         }
-      }
-      this.setState({ response, loading: false });
-    });
+      });
   }
 
   render() {
@@ -728,7 +755,7 @@ class ProductsSingle extends React.Component {
             </Button>
             <Button
               className="shadow-sm rounded ml-2"
-              variant="danger"
+              variant="secondary"
               type="button"
               onClick={(e) => {
                 this.props.history.goBack();
@@ -736,6 +763,15 @@ class ProductsSingle extends React.Component {
             >
               <span className="pull-left">Cancel </span>
               <FontAwesomeIcon className="ml-2" icon={faWindowClose} />
+            </Button>
+            <Button
+              className="shadow-sm rounded ml-2"
+              variant="danger"
+              type="button"
+              onClick={this.handleDelete}
+            >
+              <span className="pull-left">Delete </span>
+              <FontAwesomeIcon className="ml-2" icon={faBan} />
             </Button>
           </Row>
         </Form>

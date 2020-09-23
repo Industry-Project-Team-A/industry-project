@@ -24,10 +24,18 @@ class Categories extends React.Component {
   }
 
   componentDidMount() {
-    axios.get("api/categories").then((res) => {
-      const response = res.data;
-      this.setState({ response, loading: false });
-    });
+    axios
+      .get("api/categories")
+      .catch((error) => {
+        this.setState({ error: true });
+        this.props.history.push("/404");
+      })
+      .then((res) => {
+        if (this.state.error !== true) {
+          const response = res.data;
+          this.setState({ response, loading: false });
+        }
+      });
   }
 
   render() {
@@ -68,6 +76,7 @@ class Categories extends React.Component {
           data={this.state.response}
           columns={columns}
           search
+          className="shadow-sm"
         >
           {(props) => (
             <div>
@@ -79,7 +88,7 @@ class Categories extends React.Component {
                 <Col className="text-right">
                   <LinkContainer to={`/categories/new`}>
                     <Button
-                      className="btn ml-1"
+                      className="btn ml-1 shadow-sm"
                       variant="primary"
                       type="newCategory"
                     >
@@ -95,6 +104,7 @@ class Categories extends React.Component {
                 hover
                 bootstrap4
                 keyField="id"
+                className="shadow-sm"
                 data={this.state.response}
                 columns={columns}
                 pagination={paginationFactory(defaultPagination())}
@@ -102,7 +112,6 @@ class Categories extends React.Component {
               />
             </div>
           )}
-          
         </ToolkitProvider>
       </ContainerDefault>
     );

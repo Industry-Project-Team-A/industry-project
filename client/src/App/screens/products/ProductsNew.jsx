@@ -24,12 +24,20 @@ class ProductsNew extends React.Component {
     e.preventDefault();
     const data = this.state.response;
 
-    axios.post(`/api/products/`, data).then(
-      this.setState({ submitted: true }),
-      setTimeout(() => {
-        this.props.history.push("/products");
-      }, 3000)
-    );
+    axios
+      .post(`/api/products/`, data)
+      .catch((error) => {
+        this.setState({ error: true });
+        this.props.history.push("/404");
+      })
+      .then((res) => {
+        if (this.state.error !== true) {
+          this.setState({ submitted: true });
+          setTimeout(() => {
+            this.props.history.push("/products");
+          }, 3000);
+        }
+      });
   };
 
   handleChange = (e) => {
@@ -197,23 +205,31 @@ class ProductsNew extends React.Component {
   };
 
   componentDidMount() {
-    axios.get(`/api/products/newid`).then((res) => {
-      const newId = res.data[0];
-      this.setState({
-        response: {
-          id: newId,
-          images: [],
-          categoryIds: [],
-          options: [
-            { name: "", type: "", choices: [] },
-            { name: "", type: "", choices: [] },
-            { name: "", type: "", choices: [] },
-            { name: "", type: "", choices: [] },
-          ],
-        },
-        loading: false,
+    axios
+      .get(`/api/products/newid`)
+      .catch((error) => {
+        this.setState({ error: true });
+        this.props.history.push("/404");
+      })
+      .then((res) => {
+        if (this.state.error !== true) {
+          const newId = res.data[0];
+          this.setState({
+            response: {
+              id: newId,
+              images: [],
+              categoryIds: [],
+              options: [
+                { name: "", type: "", choices: [] },
+                { name: "", type: "", choices: [] },
+                { name: "", type: "", choices: [] },
+                { name: "", type: "", choices: [] },
+              ],
+            },
+            loading: false,
+          });
+        }
       });
-    });
   }
 
   render() {

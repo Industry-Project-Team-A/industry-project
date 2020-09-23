@@ -3,8 +3,11 @@ import { Form, Col, Button, Row } from "react-bootstrap";
 import axios from "axios";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSave } from "@fortawesome/free-solid-svg-icons";
-import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
+import {
+  faSave,
+  faWindowClose,
+  faBan,
+} from "@fortawesome/free-solid-svg-icons";
 
 import Loader from "../../components/Loader.jsx";
 import SuccessSubmit from "../../components/SuccessSubmit.jsx";
@@ -25,12 +28,20 @@ class StoresSingle extends React.Component {
     const data = this.state.response;
     const id = data.id;
 
-    axios.delete(`/api/stores/${id}`, data).then(
-      this.setState({ submitted: true, operation: "deleted" }),
-      setTimeout(() => {
-        this.props.history.push("/stores");
-      }, 3000)
-    );
+    axios
+      .delete(`/api/stores/${id}`, data)
+      .catch((error) => {
+        this.setState({ error: true });
+        this.props.history.push("/404");
+      })
+      .then((res) => {
+        if (this.state.error !== true) {
+          this.setState({ submitted: true, operation: "deleted" });
+          setTimeout(() => {
+            this.props.history.push("/stores");
+          }, 3000);
+        }
+      });
   };
 
   handleSubmit = (e) => {
@@ -38,12 +49,20 @@ class StoresSingle extends React.Component {
     const data = this.state.response;
     const id = this.state.response.id;
 
-    axios.put(`/api/stores/${id}`, data).then(
-      this.setState({ submitted: true }),
-      setTimeout(() => {
-        this.props.history.push("/stores");
-      }, 3000)
-    );
+    axios
+      .put(`/api/stores/${id}`, data)
+      .catch((error) => {
+        this.setState({ error: true });
+        this.props.history.push("/404");
+      })
+      .then((res) => {
+        if (this.state.error !== true) {
+          this.setState({ submitted: true });
+          setTimeout(() => {
+            this.props.history.push("/stores");
+          }, 3000);
+        }
+      });
   };
 
   handleChange = (e) => {
@@ -156,10 +175,18 @@ class StoresSingle extends React.Component {
   };
 
   componentDidMount() {
-    axios.get(`/api/stores/${this.props.match.params.id}`).then((res) => {
-      const response = res.data;
-      this.setState({ response, loading: false });
-    });
+    axios
+      .get(`/api/stores/${this.props.match.params.id}`)
+      .catch((error) => {
+        this.setState({ error: true });
+        this.props.history.push("/404");
+      })
+      .then((res) => {
+        if (this.state.error !== true) {
+          const response = res.data;
+          this.setState({ response, loading: false });
+        }
+      });
   }
 
   render() {
@@ -325,7 +352,7 @@ class StoresSingle extends React.Component {
             </Button>
             <Button
               className="shadow-sm rounded ml-2"
-              variant="danger"
+              variant="secondary"
               type="button"
               onClick={(e) => {
                 this.props.history.goBack();
@@ -333,6 +360,15 @@ class StoresSingle extends React.Component {
             >
               <span className="pull-left">Cancel </span>
               <FontAwesomeIcon className="ml-2" icon={faWindowClose} />
+            </Button>
+            <Button
+              className="shadow-sm rounded ml-2"
+              variant="danger"
+              type="button"
+              onClick={this.handleDelete}
+            >
+              <span className="pull-left">Delete </span>
+              <FontAwesomeIcon className="ml-2" icon={faBan} />
             </Button>
           </Row>
         </Form>

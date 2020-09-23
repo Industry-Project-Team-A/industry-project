@@ -20,10 +20,18 @@ class Variations extends React.Component {
   }
 
   componentDidMount() {
-    axios.get("api/variations").then((res) => {
-      const response = res.data;
-      this.setState({ response, loading: false });
-    });
+    axios
+      .get("api/variations")
+      .catch((error) => {
+        this.setState({ error: true });
+        this.props.history.push("/404");
+      })
+      .then((res) => {
+        if (this.state.error !== true) {
+          const response = res.data;
+          this.setState({ response, loading: false });
+        }
+      });
   }
 
   render() {

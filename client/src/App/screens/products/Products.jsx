@@ -23,10 +23,18 @@ class Products extends React.Component {
   }
 
   componentDidMount() {
-    axios.get("api/products").then((res) => {
-      const response = res.data;
-      this.setState({ response, loading: false });
-    });
+    axios
+      .get("api/products")
+      .catch((error) => {
+        this.setState({ error: true });
+        this.props.history.push("/404");
+      })
+      .then((res) => {
+        if (this.state.error !== true) {
+          const response = res.data;
+          this.setState({ response, loading: false });
+        }
+      });
   }
 
   render() {

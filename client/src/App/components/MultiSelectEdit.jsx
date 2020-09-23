@@ -56,6 +56,7 @@ class MultiSelectEdit extends React.Component {
                 <Button
                   variant="success"
                   type="button"
+                  className="shadow-sm"
                   arrayname={this.props.listDataLocation}
                   valuename={this.props.newDataLocation}
                   nest={this.props.nest}
@@ -72,7 +73,7 @@ class MultiSelectEdit extends React.Component {
                 label={this.props.label}
                 onClick={this.props.handleListDelete}
                 nest={this.props.nest}
-                className="ml-5"
+                className="ml-5 shadow-sm"
                 type="button"
               >
                 <FontAwesomeIcon icon={faTrashAlt} />

@@ -3,8 +3,7 @@ import { Form, Col, Row, Button } from "react-bootstrap";
 import axios from "axios";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSave } from "@fortawesome/free-solid-svg-icons";
-import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
+import { faSave, faWindowClose } from "@fortawesome/free-solid-svg-icons";
 
 import Loader from "../../components/Loader.jsx";
 import ContainerDefault from "../../components/ContainerDefault.jsx";
@@ -26,24 +25,41 @@ class CategoriesSingle extends React.Component {
     const data = this.state.response;
     const id = data.id;
 
-    axios.delete(`/api/categories/${id}`, data).then(
-      this.setState({ submitted: true, operation: "deleted" }),
-      setTimeout(() => {
-        this.props.history.push("/categories");
-      }, 3000)
-    );
+    axios
+      .delete(`/api/categories/${id}`, data)
+      .catch((error) => {
+        this.setState({ error: true });
+        this.props.history.push("/404");
+      })
+      .then((res) => {
+        if (this.state.error !== true) {
+          this.setState({ submitted: true, operation: "deleted" });
+          setTimeout(() => {
+            this.props.history.push("/categories");
+          }, 3000);
+        }
+      });
   };
+
   handleSubmit = (e) => {
     e.preventDefault();
     const data = this.state.response;
     const id = this.state.response.id;
 
-    axios.put(`/api/variations/${id}`, data).then(
-      this.setState({ submitted: true }),
-      setTimeout(() => {
-        this.props.history.push("/variations");
-      }, 3000)
-    );
+    axios
+      .put(`/api/categories/${id}`, data)
+      .catch((error) => {
+        this.setState({ error: true });
+        this.props.history.push("/404");
+      })
+      .then((res) => {
+        if (this.state.error !== true) {
+          this.setState({ submitted: true });
+          setTimeout(() => {
+            this.props.history.push("/categories");
+          }, 3000);
+        }
+      });
   };
 
   handleChange = (e) => {
@@ -159,10 +175,18 @@ class CategoriesSingle extends React.Component {
   };
 
   componentDidMount() {
-    axios.get(`/api/categories/${this.props.match.params.id}`).then((res) => {
-      const response = res.data;
-      this.setState({ response, loading: false });
-    });
+    axios
+      .get(`/api/categories/${this.props.match.params.id}`)
+      .catch((error) => {
+        this.setState({ error: true });
+        this.props.history.push("/404");
+      })
+      .then((res) => {
+        if (this.state.error !== true) {
+          const response = res.data;
+          this.setState({ response, loading: false });
+        }
+      });
   }
 
   render() {
