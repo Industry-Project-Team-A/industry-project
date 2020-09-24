@@ -37,7 +37,7 @@ class App extends React.Component {
                       <Image
                         style={{ height: "50px" }}
                         fluid
-                        src="https://content.web-repository.com/s/41311096693281692/uploads/Images/Tee_Commerce_Logo_white_background-01-2250148.png"
+                        src="./logo.png"
                       />
                       <span> Database Manager</span>
                     </Navbar.Brand>
